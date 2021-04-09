@@ -1,0 +1,162 @@
+*{
+   color: white;
+}
+.form fieldset legend {
+    font-size: 40px;
+    margin-top : 100px;
+    margin-left: 80px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+.form div label {
+    font-size: 25px;
+    margin-left: 80px;
+    margin-right: px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+.form div small {
+    margin-top: -30px;
+    margin-left: 80px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+.form div input {
+    border: 2px solid black;
+    margin-left: 80px;
+    width: 300px;
+    padding: 12px 20px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+.form div .invalid-feedback {
+
+    margin-left: 80px;
+    width: 300px;
+    padding: 12px 20px;
+    margin-top: -30px;
+    text-align: left;
+}
+.form div select {
+    border: 2px solid black;
+    margin-left: 80px;
+    width: 300px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+.form div textarea {
+    border: 2px solid black;
+    margin-left: 80px;
+    width: 800px;
+    height: 300px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+#check{
+ margin-left: 30px;
+ text-align: left;
+ font-size: 25px;
+ 
+}
+#checkbox{
+    margin-left: -165px;
+    margin-top: 15px;
+}
+*{
+    box-sizing: border-box;
+    margin :0;
+    padding :0;
+
+}
+body button{
+    margin-left: 70px;
+    
+}
+
+body{
+    background-image: url(b.jpg);
+    background-attachment:fixed ;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    position : fixed ;
+   
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 30px 70px;
+    background: linear-gradient(rgb(10, 10, 10),#0000);
+    transition: 0.5s;
+   
+}
+
+
+#topScreen{
+    height: 300px;
+ 
+    
+
+}
+.gen{
+    position: relative;
+
+    overflow: hidden;
+}
+.logo{
+    cursor: pointer;
+}
+
+.nav-area{
+    list-style: none;
+   
+}
+.nav-area li {
+    display: inline-block;
+    padding: 0 15px;
+    text-transform: uppercase;
+}
+.nav-area li a {
+    transition: .3s;
+    color: #fff;
+}
+
+.btn-area{
+    cursor: pointer;
+    color: #fff;
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background: #d22938;
+}
+a{
+    text-decoration: none;
+}
+.cool-link::after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width .3s;
+
+}
+.cool-link:hover::after{
+    width:100%;
+    transition: width .3s ;
+}
