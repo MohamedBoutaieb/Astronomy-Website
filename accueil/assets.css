@@ -14,6 +14,7 @@
     background-repeat: no-repeat;
     background-color: var(--gray);
     transition: opacity 0.1s;
+    position: relative;
     height: 100vh;
     font-family: 'Archivo', sans-serif;
     font-weight: 600;
@@ -43,7 +44,10 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 30px 70px;
-    background: linear-gradient(rgb(10, 10, 10),#0000)
+    background: linear-gradient(rgb(10, 10, 10),#0000);
+    position: fixed;
+    width: 100%;
+    transition: 0.5s;
 }
 #topScreen{
     height: 300px;
