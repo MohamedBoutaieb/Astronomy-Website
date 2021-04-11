@@ -1,5 +1,9 @@
+
 *{
    color: white;
+     box-sizing: border-box;
+    margin :0;
+    padding :0;
 }
 .form fieldset legend {
     font-size: 40px;
@@ -27,7 +31,9 @@
     width: 300px;
     padding: 12px 20px;
     margin-bottom: 30px;
+    margin-right: 60%;
     text-align: left;
+    float:right;  
 }
 .form div .invalid-feedback {
 
@@ -42,7 +48,9 @@
     margin-left: 80px;
     width: 300px;
     margin-bottom: 30px;
+    margin-right: 60%;
     text-align: left;
+    float:right;
 }
 .form div textarea {
     border: 2px solid black;
@@ -52,22 +60,7 @@
     margin-bottom: 30px;
     text-align: left;
 }
-#check{
- margin-left: 30px;
- text-align: left;
- font-size: 25px;
- 
-}
-#checkbox{
-    margin-left: -165px;
-    margin-top: 15px;
-}
-*{
-    box-sizing: border-box;
-    margin :0;
-    padding :0;
 
-}
 body button{
     margin-left: 70px;
     
@@ -80,11 +73,16 @@ body{
     background-size: cover;
     background-position: center center;
     height: 100vh;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Archivo', sans-serif;
     font-weight: 600;
     font-size: 30px;
     margin: 0;
     padding: 0;
+}
+
+#one{
+    float: left;
+   
 }
 
 header{
@@ -105,12 +103,7 @@ header{
 }
 
 
-#topScreen{
-    height: 300px;
- 
-    
 
-}
 .gen{
     position: relative;
 
@@ -144,9 +137,7 @@ header{
     border-radius: 5px;
     background: #d22938;
 }
-a{
-    text-decoration: none;
-}
+
 .cool-link::after{
     content: '';
     display: block;
@@ -160,3 +151,6 @@ a{
     width:100%;
     transition: width .3s ;
 }
+a:link{
+    text-decoration: none!important;
+  }

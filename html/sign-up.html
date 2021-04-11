@@ -2,24 +2,26 @@
 <html lang="en">
 
 <head>
-  <title>Sign Up • Astronomy Magazine </title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="../assets/formAssets.css" rel="stylesheet" />
-  <meta name="description" content="">
   <meta charset="UTF-8">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@100&display=swap"
-    rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Sign Up •Astronomy Magazine</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link rel="stylesheet" href="../assets/formAssets.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet">
+   
+    
 </head>
 
 <body>
@@ -98,23 +100,21 @@
 
         <div class="form-group">
           <label for="exampleTextarea">Additional information</label>
-          <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+          <textarea class="form-control" value="" id="exampleTextarea" rows="3"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleInputFile">Upload your Picture</label>
           <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
 
         </div>
-        <fieldset class="form-group">
-
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="" checked="" id="checkbox">
-              <div id="check"> Subscribe to our weekly newsletter</div>
-            </label>
-
-        </fieldset>
-
+        <div>
+          <div class="box">
+            <input id="checkbox" type="checkbox">
+            <span class="check"></span>
+              <label for="one">I agree to subscribe to magazine's newsletter</label>
+          </div>
+          
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
