@@ -1,5 +1,5 @@
-// textureLoader = new THREE.TextureLoader();
-// normalTexture = textureLoader.load('../images/NormalMap.png');
+textureLoader = new THREE.TextureLoader();
+normalTexture = textureLoader.load('../images/sun_texture.jpg');
 class Globe {
     constructor(position, mass, scene, id) {
         this.position = position;

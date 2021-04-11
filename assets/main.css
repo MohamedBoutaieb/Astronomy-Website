@@ -7,6 +7,7 @@
 
 .top-section {
     background: linear-gradient(rgba(0, 0, 0, 0.29), rgba(0, 0, 0, 0.19)), url("../images/index_bg.jpg");
+    z-index: 0;
     background-attachment:fixed ;
     -webkit-background-size: cover;
     background-size: cover;
@@ -15,7 +16,7 @@
     background-color: var(--gray);
     transition: opacity 0.1s;
     position: relative;
-    height: 100vh;
+    height: 300vh;
     font-family: 'Archivo', sans-serif;
     font-weight: 600;
     font-size: 30px;

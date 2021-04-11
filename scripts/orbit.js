@@ -4,7 +4,7 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
 camera.position.z = 10;
 
-var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+var renderer = new THREE.WebGLRenderer({ antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.append(renderer.domElement);
 
@@ -21,6 +21,15 @@ var globes;
 //Raycaster
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+
+var textureLoader = new THREE.TextureLoader();
+textureLoader.load('../images/space2.jpg', function (texture){
+         texture.mapping = THREE.EquirectangularReflectionMapping;
+         texture.encoding = THREE.sRGBEncoding;
+         scene.background = texture;
+});
+
+
 //init Scene
 var init = () => {
 
@@ -39,11 +48,12 @@ var init = () => {
 
     //init globes
     var sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
-    sun.sphere.material.emissive = new THREE.Color(0xFF4411);;
+    //sun.sphere.material.emissive = new THREE.Color(0xFF4411);;
     globes = [sun];
     globes.forEach(globe => {
         globe.update();
     });
+    sun.sphere.material.normalMap = normalTexture;
     //init point lights
     async function sunPoints(){
         for (let teta = 0; teta < 2 * Math.PI; teta += 3.14/ 6) {
@@ -116,7 +126,7 @@ function onMouseMove(event) {
     // camera.position.x = mouse.x * 10;
     // camera.position.y = mouse.y * 10;
 }
-window.addEventListener('mousemove', onMouseMove, false);
+renderer.domElement.addEventListener('mousemove', onMouseMove, false);
 
 //On click event listener
 var camTarget = globes[0].position;
@@ -149,6 +159,13 @@ function onDocumentKeyDown(event) {
         camera.position.add(direction.clone().negate().multiplyScalar(0.1));
     }
 };
+//On mouse down event listener 
+function onMouseDown(event){
+    console.log("mouedown");
+    if(event.type =="mousedown")
+        console.log("MouseDown");
+}
+renderer.domElement.addEventListener('mousedown', onMouseDown)
 
 //Main loop
 var animate = function () {
