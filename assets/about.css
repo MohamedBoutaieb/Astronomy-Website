@@ -1,0 +1,51 @@
+p{
+    color: rgb(192, 46, 95);
+    margin: 15px 0 0;
+    font-family: 'Antic', sans-serif;
+    font-size: 20px;
+    letter-spacing: 5px;
+    padding: 5px;
+
+}
+
+
+body{
+    background-image: url(../images/about_bg.jpg);
+    height: 100vh;
+    background-attachment:fixed ;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+} 
+h1{
+    font-family: 'Poiret One', cursive;
+    font-size: 60px;
+    letter-spacing: 10px;
+    text-align: justify;
+}
+.hist h1 , h2{
+    width: 80%;
+    margin: auto;
+    text-align: justify;
+    padding-top: 100px;
+    font-family: 'Raleway', sans-serif;
+}
+h2{
+    font-size: 40px;
+    font-family: 'Poiret One', cursive;
+    letter-spacing: 5px;
+    color:palevioletred;
+}
+.creators h1{
+    width: 80%;
+    margin: auto;
+    text-align: justify;
+    padding-top: 100px;
+    font-family: 'Raleway', sans-serif;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Sign Up • Astronomy Magazine </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="../assets/formAssets.css" rel="stylesheet" />
+  <meta name="description" content="">
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@100&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="topScreen">
+    <header>
+      <img src="../images/galaxy1.jpg" class="logo" alt="" width="120px" height="120 px">
+      <div class="gen">
+        <nav id="navbar">
+          <label for="check"> </label>
+          <ul class="nav-area">
+            <a class="fas fa-bars"> </a>
+            <li><a href="../index.html" class="cool-link">Home</a></li>
+            <li><a href="about.html" class="cool-link">About</a></li>
+            <li><a href="celestial-objects.html" class="cool-link">Celestial Objects</a></li>
+            <li><a href="gallery.html" class="cool-link">Gallery</a></li>
+            <li><a href="sign-up.html" class="cool-link">Sign Up</a></li>
+            <li><a href="contact.html" class="cool-link">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <a href="" class="btn-area" style="text-decoration:none">login</a>
+    </header>
+  </div>
+  <form class=" form">
+    <fieldset>
+      <legend> <b>Create account</b></legend>
+      <div class="form-group">
+        <label for="exampleInputEmail1" required>First Name</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter First Name">
+
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1" required>Last Name </label>
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Last Name">
+
+      </div>
+      <div class="form-group">
+        <label form="text" required>Identifier</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Id">
+
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1" required>Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Enter email">
+      </div>
+      <div class="form-group" id="mdp">
+        <label required> Password</label>
+        <input type="password" id="password" value="" minlength="8" class="form-control" placeholder="Password">
+        <div class="invalid-feedback" id="warning" style=" font-size: 15px;"></div>
+      </div>
+      <div class="form-group">
+        <label> Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPass" placeholder="Password">
+        <div class="invalid-feedback" id="conf" style=" font-size: 15px;"></div>
+      </div>
+      <div class="form-group">
+        <label for="text">Phone number</label>
+        <input type="tel" class="form-control" placeholder="Phone">
+
+      </div>
+      <div class="form-group">
+        <label>Zip Code</label>
+        <input type="tel" class="form-control" placeholder="ZIP">
+
+      </div>
+
+      <div class="form-group">
+        <label for="exampleSelect1">Educational Level</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>College</option>
+          <option>High School</option>
+          <option>Other</option>
+
+        </select>
+
+        <div class="form-group">
+          <label for="exampleTextarea">Additional information</label>
+          <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputFile">Upload your Picture</label>
+          <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+
+        </div>
+        <fieldset class="form-group">
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="" checked="" id="checkbox">
+              <div id="check"> Subscribe to our weekly newsletter</div>
+            </label>
+
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
+
+
+
+
+</body>
+<script src="../scripts/form-script.js"></script>
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+
+</html>
