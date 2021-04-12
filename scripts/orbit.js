@@ -1,10 +1,11 @@
 import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from '../node_modules/three/examples/jsm/libs/dat.gui.module.js';
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
 camera.position.z = 10;
 
-var renderer = new THREE.WebGLRenderer({ antialias: true});
+var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.append(renderer.domElement);
 
@@ -15,6 +16,7 @@ function onResize(event) {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 }
+
 //Global variables
 var moons = [];
 var globes;
@@ -22,24 +24,30 @@ var globes;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
+//space background
 var textureLoader = new THREE.TextureLoader();
-textureLoader.load('../images/space2.jpg', function (texture){
-         texture.mapping = THREE.EquirectangularReflectionMapping;
-         texture.encoding = THREE.sRGBEncoding;
-         scene.background = texture;
+textureLoader.load('../images/space2.jpg', function (texture) {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    texture.encoding = THREE.sRGBEncoding;
+    scene.background = texture;
 });
 
+//params
+var params = {
+    sandboxMode: false
+}
 
 //init Scene
+var controls, gui;
 var init = () => {
+    //Gui
+    gui = new GUI();
+    gui.add(params, 'sandboxMode').name("Sandbox mode");
 
     //Orbit controls
-    var controls = new OrbitControls(camera, renderer.domElement);
+    controls = new OrbitControls(camera, renderer.domElement);
     controls.minDistance = 2;
     controls.maxDistance = 20;
-    controls.enablePan = false;
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
 
     //init light
     // const directionalLight = new THREE.DirectionalLight(0xfffff1, 1);
@@ -48,16 +56,16 @@ var init = () => {
 
     //init globes
     var sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
-    //sun.sphere.material.emissive = new THREE.Color(0xFF4411);;
+    sun.sphere.material.emissive = new THREE.Color(0xFF4411);;
     globes = [sun];
     globes.forEach(globe => {
         globe.update();
     });
     sun.sphere.material.normalMap = normalTexture;
     //init point lights
-    async function sunPoints(){
-        for (let teta = 0; teta < 2 * Math.PI; teta += 3.14/ 6) {
-            for (let gamma = 0; gamma <  Math.PI; gamma += 3.14 / 6) {
+    async function sunPoints() {
+        for (let teta = 0; teta < 2 * Math.PI; teta += 3.14 / 6) {
+            for (let gamma = 0; gamma < Math.PI; gamma += 3.14 / 6) {
                 let position = new THREE.Vector3(1, 0, 0);
                 position.multiplyScalar(1.001);
                 position.applyAxisAngle(new THREE.Vector3(0, 1, 0), teta);
@@ -69,7 +77,6 @@ var init = () => {
         }
     }
     sunPoints();
-
 
     //init solar system
 
@@ -119,29 +126,75 @@ const meshs = scene.children.filter(object => {
 });
 
 
+
 //onMouseMove event listener 
+
+async function future(clone, x, y){
+    let position = clone.position.clone();
+    let velocity = clone.velocity.clone();
+    for (let i = 0; i < 1001; i++) {
+        if(mouse.x != x || mouse.y!= y)
+            break;
+        clone.update();
+    } 
+    clone.position = position;
+    clone.velocity = velocity;
+}
+
 function onMouseMove(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    // camera.position.x = mouse.x * 10;
-    // camera.position.y = mouse.y * 10;
+    if(created){
+        let mousePos = new THREE.Vector3(mouse.x*12.46, 0, -mouse.y*7.77);
+        let moonPos = moons[moons.length-1].position.clone();
+        let dist = mousePos.distanceTo(moonPos);
+        let velocity = moonPos.add(mousePos.negate());
+        velocity.multiplyScalar(dist * 0.001);
+        moons[moons.length-1].velocity = velocity; 
+        future(moons[moons.length-1], mouse.x, mouse.y);
+    }
 }
 renderer.domElement.addEventListener('mousemove', onMouseMove, false);
 
 //On click event listener
 var camTarget = globes[0].position;
 window.addEventListener('click', onClick, false);
+
+var created = false;
 function onClick(event) {
-    raycaster.setFromCamera(mouse, camera);
-    var intersects = raycaster.intersectObjects(meshs);
-    if (intersects.length == 0) {
-        camTarget = globes[0].position;
-        scroll = false;
+    if (!params.sandboxMode) {
+        raycaster.setFromCamera(mouse, camera);
+        var intersects = raycaster.intersectObjects(meshs);
+        if (intersects.length == 0) {
+            camTarget = globes[0].position;
+            scroll = false;
+        }
+        else {
+            camTarget = intersects[0].object.position;
+            camera.lookAt(camTarget);
+            scroll = true;
+        }
     }
-    else {
-        camTarget = intersects[0].object.position;
-        camera.lookAt(camTarget);
-        scroll = true;
+    else{
+        if(!created){
+            var moon = new Moon(new THREE.Vector3(mouse.x*12.46, 0, -mouse.y*7.77), new THREE.Vector3(0, 0, 0), 2, globes, scene);
+            moons.push(moon);
+            moon.update();
+            created = true;
+        }
+        else{
+            created = false;
+        }
+        // raycaster.setFromCamera(mouse, camera);
+        // var intersects = raycaster.intersectObjects(meshs);
+        // try {
+        //     //intersects[0].object.position;
+        //     // console.log(globes[0].position.distanceTo(intersects[0].object.position), mouse.length(), 
+        //     // globes[0].position.distanceTo(intersects[0].object.position)/mouse.length()); 
+        // } catch (error) {
+            
+        // }
+        
     }
 
 }
@@ -160,22 +213,34 @@ function onDocumentKeyDown(event) {
     }
 };
 //On mouse down event listener 
-function onMouseDown(event){
-    console.log("mouedown");
-    if(event.type =="mousedown")
-        console.log("MouseDown");
+// function onMouseDown(event){
+//     console.log("mouedown");
+//     if(event.type =="mousedown")
+//         console.log("MouseDown");
+// }
+// document.addEventListener('mousedown', onMouseDown)
+
+//sandbox Mode
+function sandboxMode() {
+    camera.lookAt(globes[0].position);
+    camera.position.set(0, 10, 0);
+
 }
-renderer.domElement.addEventListener('mousedown', onMouseDown)
 
 //Main loop
 var animate = function () {
-    globes.forEach(globe => {
-        globe.sphere.rotation.y += 0.005;
-    });
-    moons.forEach(moon => {
-        moon.update();
-    });
-    camera.lookAt(camTarget);
+    if (params.sandboxMode) {
+        sandboxMode();
+    }
+    else {
+        camera.lookAt(camTarget);
+        globes.forEach(globe => {
+            globe.sphere.rotation.y += 0.005;
+        });
+        moons.forEach(moon => {
+            moon.update();
+        }); 
+    }
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 };
