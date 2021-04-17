@@ -1,15 +1,15 @@
 textureLoader = new THREE.TextureLoader();
 normalTexture = textureLoader.load('../images/sun_texture.jpg');
 class Globe {
-    constructor(position, mass, scene, id) {
+    constructor(position, mass, scene) {
         this.position = position;
         this.mass = mass;
-        this.id = id;
         var geometry = new THREE.SphereGeometry(mass / 10, 50, 50);
         var material = new THREE.MeshStandardMaterial({ color: 0xFF4411 });
         material.roughness = 1;
         //material.normalMap = normalTexture;
         this.sphere = new THREE.Mesh(geometry, material);
+        //this.sphere.position = this.position;
         scene.add(this.sphere);
     }
     update() {
@@ -19,12 +19,13 @@ class Globe {
     }
 }
 class Moon extends Globe {
-    constructor(position, velocity, mass, globes, scene, id) {
-        super(position, mass, scene, id);
+    constructor(position, velocity, mass, globes, moons, scene) {
+        super(position, mass, scene);
         this.acceleration = new THREE.Vector3(0,0,0);
         this.velocity = velocity;
         this.globes = globes;
         this.points = [];
+        this.moons = moons;
         this.sphere.material = new THREE.MeshStandardMaterial({ color: 0xFFFFAA });
         //LineBasicMaterial
         var material = new THREE.LineBasicMaterial({ color: 0xAAAAAA });
@@ -35,7 +36,7 @@ class Moon extends Globe {
     update() {
         super.update();
         this.globes.forEach(globe => {
-            if (this.id != globe.id) {
+            if (this != globe) {
                 this.acceleration.addVectors(globe.position, this.position.clone().negate());
                 this.acceleration.multiplyScalar(1 / Math.pow(this.acceleration.length(), 3) * this.mass * globe.mass * 0.00001);
                 this.velocity.add(this.acceleration);
@@ -47,5 +48,11 @@ class Moon extends Globe {
             this.points.splice(0, 1);
         this.points.push(this.position.clone());
         this.line.geometry.setFromPoints(this.points);
+        
+        //out of bounds
+        if(this.position.length() <= (1+this.mass/10))
+            return false;
+        else 
+            return true;
     }
 }

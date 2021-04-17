@@ -38,7 +38,7 @@ var params = {
 }
 
 //init Scene
-var controls, gui;
+var controls, gui, particles;
 var init = () => {
     //Gui
     gui = new GUI();
@@ -49,10 +49,17 @@ var init = () => {
     controls.minDistance = 2;
     controls.maxDistance = 20;
 
-    //init light
-    // const directionalLight = new THREE.DirectionalLight(0xfffff1, 1);
-    // directionalLight.position.set(2, 4, 4);
-    // scene.add(directionalLight);
+    //particle system
+    let particlesGeometry = new THREE.BufferGeometry;
+    let particleCount = 5_000;
+    let posArray = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+        posArray[i] = Math.random() * 30 - 15;
+    }
+    let material = new THREE.PointsMaterial({ size: 0.005 });
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particles = new THREE.Points(particlesGeometry, material);
+    scene.add(particles);
 
     //init globes
     var sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
@@ -81,38 +88,38 @@ var init = () => {
     //init solar system
 
     //Mercury 2.5
-    var mercury = new Moon(new THREE.Vector3(0, 0, 2), new THREE.Vector3(0.002, 0, 0), 0.1, globes, scene);
+    var mercury = new Moon(new THREE.Vector3(0, 0, 2), new THREE.Vector3(0.002, 0, 0), 0.1, globes, moons, scene);
     moons.push(mercury);
     //normalTexture = textureLoader.load('assets/Mercury.png');
     //mercury.sphere.material.normalMap = normalTexture;
 
     //Venus 3 * 2.5
-    var venus = new Moon(new THREE.Vector3(0, 0, 2.5), new THREE.Vector3(0.003, 0, 0), 0.3, globes, scene);
+    var venus = new Moon(new THREE.Vector3(0, 0, 2.5), new THREE.Vector3(0.003, 0, 0), 0.3, globes, moons, scene);
     moons.push(venus);
     //normalTexture = textureLoader.load('assets/venus.png');
     //mercury.sphere.material.normalMap = normalTexture;
 
     //Earth 6.5
-    var earth = new Moon(new THREE.Vector3(0, 0, 3), new THREE.Vector3(0.003, 0, 0), 0.32, globes, scene);
+    var earth = new Moon(new THREE.Vector3(0, 0, 3), new THREE.Vector3(0.003, 0, 0), 0.32, globes, moons, scene);
     moons.push(earth);
     //earth.sphere.material.map = THREE.ImageUtils.loadTexture('assets/Earth.jpg');
     //normalTexture = textureLoader.load('assets/Earth.jpg');
     //mercury.sphere.material.normalMap = normalTexture;
 
     //Mars 3.2
-    moons.push(new Moon(new THREE.Vector3(0, 0, 3.3), new THREE.Vector3(0.002, 0, 0), 0.15, globes, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 3.3), new THREE.Vector3(0.002, 0, 0), 0.15, globes, moons, scene));
 
     //Jupiter 70
-    moons.push(new Moon(new THREE.Vector3(0, 0, 5), new THREE.Vector3(0.005, 0, 0), 1.5, globes, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 5), new THREE.Vector3(0.005, 0, 0), 1.5, globes, moons, scene));
 
     //Saturn 58
-    moons.push(new Moon(new THREE.Vector3(0, 0, 5.7), new THREE.Vector3(0.004, 0, 0), 1, globes, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 5.7), new THREE.Vector3(0.004, 0, 0), 1, globes, moons, scene));
 
     //Uranus 25
-    moons.push(new Moon(new THREE.Vector3(0, 0, 6.5), new THREE.Vector3(0.003, 0, 0), 0.7, globes, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 6.5), new THREE.Vector3(0.003, 0, 0), 0.7, globes, moons, scene));
 
     //Nepture 24
-    moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.003, 0, 0), 0.65, globes, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.003, 0, 0), 0.65, globes, moons, scene));
 }
 init();
 
@@ -129,14 +136,15 @@ const meshs = scene.children.filter(object => {
 
 //onMouseMove event listener 
 
-async function future(clone, x, y){
+async function future(clone, x, y) {
     let position = clone.position.clone();
     let velocity = clone.velocity.clone();
     for (let i = 0; i < 1001; i++) {
-        if(mouse.x != x || mouse.y!= y)
+        if (mouse.x != x || mouse.y != y)
             break;
         clone.update();
-    } 
+    }
+    clone.points = [];
     clone.position = position;
     clone.velocity = velocity;
 }
@@ -144,14 +152,17 @@ async function future(clone, x, y){
 function onMouseMove(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    if(created){
-        let mousePos = new THREE.Vector3(mouse.x*12.46, 0, -mouse.y*7.77);
-        let moonPos = moons[moons.length-1].position.clone();
+    if (created && params.sandboxMode) {
+        let mousePos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
+        let moonPos = moons[moons.length - 1].position.clone();
         let dist = mousePos.distanceTo(moonPos);
         let velocity = moonPos.add(mousePos.negate());
         velocity.multiplyScalar(dist * 0.001);
-        moons[moons.length-1].velocity = velocity; 
-        future(moons[moons.length-1], mouse.x, mouse.y);
+        moons[moons.length - 1].velocity = velocity;
+        future(moons[moons.length - 1], mouse.x, mouse.y);
+    }
+    else {
+        created = false;
     }
 }
 renderer.domElement.addEventListener('mousemove', onMouseMove, false);
@@ -175,14 +186,14 @@ function onClick(event) {
             scroll = true;
         }
     }
-    else{
-        if(!created){
-            var moon = new Moon(new THREE.Vector3(mouse.x*12.46, 0, -mouse.y*7.77), new THREE.Vector3(0, 0, 0), 2, globes, scene);
+    else {
+        if (!created) {
+            var moon = new Moon(new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77), new THREE.Vector3(0, 0, 0), 2, globes, moons, scene);
             moons.push(moon);
             moon.update();
             created = true;
         }
-        else{
+        else {
             created = false;
         }
         // raycaster.setFromCamera(mouse, camera);
@@ -192,9 +203,7 @@ function onClick(event) {
         //     // console.log(globes[0].position.distanceTo(intersects[0].object.position), mouse.length(), 
         //     // globes[0].position.distanceTo(intersects[0].object.position)/mouse.length()); 
         // } catch (error) {
-            
         // }
-        
     }
 
 }
@@ -238,8 +247,14 @@ var animate = function () {
             globe.sphere.rotation.y += 0.005;
         });
         moons.forEach(moon => {
-            moon.update();
-        }); 
+            if(!moon.update()){
+                moons.splice(moons.indexOf(moon));
+                scene.remove(moon.sphere);
+                scene.remove(moon.line);
+            }
+            
+        });
+        particles.rotation.y += 0.0005;
     }
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
