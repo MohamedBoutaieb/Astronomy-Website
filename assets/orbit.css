@@ -11,29 +11,12 @@ html, body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    /*height:100%;*/
     overflow: hidden;
 }
-
 #topScreen {
     z-index: 2;
 }
-
 .top-section {
     background-image: none;
-    z-index: 0;
-    background-attachment:fixed ;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-color: var(--gray);
-    transition: opacity 0.1s;
-    position: relative;
     height: 100px;
-    font-family: 'Archivo', sans-serif;
-    font-weight: 600;
-    font-size: 30px;
-    text-align: center;
-    color: #fff;
 }

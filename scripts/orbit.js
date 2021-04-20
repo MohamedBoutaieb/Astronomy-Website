@@ -19,7 +19,7 @@ function onResize(event) {
 
 //Global variables
 var moons = [];
-var globes;
+var globes = [];
 //Raycaster
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -33,60 +33,24 @@ textureLoader.load('../images/space2.jpg', function (texture) {
 });
 
 //params
+var sandboxMode = false;
 var params = {
-    sandboxMode: false
+    sandboxMode: startSandboxMode,
+    globe: false,
+    reset: initSolarSystem
 }
 
-//init Scene
-var controls, gui, particles;
-var init = () => {
-    //Gui
-    gui = new GUI();
-    gui.add(params, 'sandboxMode').name("Sandbox mode");
-
-    //Orbit controls
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.minDistance = 2;
-    controls.maxDistance = 20;
-
-    //particle system
-    let particlesGeometry = new THREE.BufferGeometry;
-    let particleCount = 5_000;
-    let posArray = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount; i++) {
-        posArray[i] = Math.random() * 30 - 15;
-    }
-    let material = new THREE.PointsMaterial({ size: 0.005 });
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    particles = new THREE.Points(particlesGeometry, material);
-    scene.add(particles);
-
-    //init globes
-    var sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
-    sun.sphere.material.emissive = new THREE.Color(0xFF4411);;
-    globes = [sun];
+function initSolarSystem() {
+    moons.forEach(moon => {
+        scene.remove(moon.sphere);
+        scene.remove(moon.line);
+    })
     globes.forEach(globe => {
-        globe.update();
-    });
-    sun.sphere.material.normalMap = normalTexture;
-    //init point lights
-    async function sunPoints() {
-        for (let teta = 0; teta < 2 * Math.PI; teta += 3.14 / 6) {
-            for (let gamma = 0; gamma < Math.PI; gamma += 3.14 / 6) {
-                let position = new THREE.Vector3(1, 0, 0);
-                position.multiplyScalar(1.001);
-                position.applyAxisAngle(new THREE.Vector3(0, 1, 0), teta);
-                position.applyAxisAngle(new THREE.Vector3(0, 0, 1), gamma);
-                let pointlight = new THREE.PointLight(0xFFFFCC, 0.01);
-                pointlight.position.set(position.x, position.y, position.z);
-                scene.add(pointlight);
-            }
-        }
-    }
-    sunPoints();
-
-    //init solar system
-
+        if (globes.indexOf(globe))
+            scene.remove(globe.sphere);
+    })
+    globes.splice(1, globes.length - 1);
+    moons = [];
     //Mercury 2.5
     var mercury = new Moon(new THREE.Vector3(0, 0, 2), new THREE.Vector3(0.002, 0, 0), 0.1, globes, moons, scene);
     moons.push(mercury);
@@ -121,6 +85,65 @@ var init = () => {
     //Nepture 24
     moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.003, 0, 0), 0.65, globes, moons, scene));
 }
+
+//init Scene
+var controls, gui, particles;
+function init() {
+    globes = [];
+
+    //Gui
+    gui = new GUI();
+    gui.add(params, 'sandboxMode').name("Sandbox mode");
+    gui.add(params, 'globe').name("Globe Spawner");
+    gui.add(params, 'reset').name("Reset");
+    gui.domElement.style.position = 'absolute';
+    gui.domElement.style.top = '100px';
+    gui.domElement.style.right = '-2%';
+
+    //Orbit controls
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.minDistance = 2;
+    controls.maxDistance = 20;
+
+    //particle system
+    let particlesGeometry = new THREE.BufferGeometry;
+    let particleCount = 5_000;
+    let posArray = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+        posArray[i] = Math.random() * 30 - 15;
+    }
+    let material = new THREE.PointsMaterial({ size: 0.005 });
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particles = new THREE.Points(particlesGeometry, material);
+    scene.add(particles);
+
+    //init globes
+    var sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
+    sun.sphere.material.emissive = new THREE.Color(0xFF4411);;
+    globes = [sun];
+    globes.forEach(globe => {
+        globe.update();
+    });
+    sun.sphere.material.normalMap = normalTexture;
+    //init point lights
+    async function sunPoints() {
+        for (let teta = 0; teta < 2 * Math.PI; teta += 3.14 / 5) {
+            for (let gamma = 0; gamma < Math.PI; gamma += 3.14 / 5) {
+                let position = new THREE.Vector3(1, 0, 0);
+                position.multiplyScalar(1.001);
+                position.applyAxisAngle(new THREE.Vector3(0, 1, 0), teta);
+                position.applyAxisAngle(new THREE.Vector3(0, 0, 1), gamma);
+                let pointlight = new THREE.PointLight(0xFFFFCC, 0.01);
+                pointlight.position.set(position.x, position.y, position.z);
+                scene.add(pointlight);
+            }
+        }
+    }
+    sunPoints();
+
+    //init solar system
+    initSolarSystem();
+}
 init();
 
 //Array for raycasting the mouse position
@@ -132,10 +155,7 @@ const meshs = scene.children.filter(object => {
     }
 });
 
-
-
 //onMouseMove event listener 
-
 async function future(clone, x, y) {
     let position = clone.position.clone();
     let velocity = clone.velocity.clone();
@@ -144,6 +164,9 @@ async function future(clone, x, y) {
             break;
         clone.update();
     }
+    clone.sphere.position.x = position.x;
+    clone.sphere.position.y = position.y;
+    clone.sphere.position.z = position.z;
     clone.points = [];
     clone.position = position;
     clone.velocity = velocity;
@@ -152,14 +175,14 @@ async function future(clone, x, y) {
 function onMouseMove(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    if (created && params.sandboxMode) {
+    if (created && sandboxMode) {
         let mousePos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
-        let moonPos = moons[moons.length - 1].position.clone();
+        let moonPos = moon.position.clone();
         let dist = mousePos.distanceTo(moonPos);
         let velocity = moonPos.add(mousePos.negate());
         velocity.multiplyScalar(dist * 0.001);
-        moons[moons.length - 1].velocity = velocity;
-        future(moons[moons.length - 1], mouse.x, mouse.y);
+        moon.velocity = velocity;
+        future(moon, mouse.x, mouse.y);
     }
     else {
         created = false;
@@ -172,8 +195,9 @@ var camTarget = globes[0].position;
 window.addEventListener('click', onClick, false);
 
 var created = false;
+var moon = null;
 function onClick(event) {
-    if (!params.sandboxMode) {
+    if (!sandboxMode) {
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects(meshs);
         if (intersects.length == 0) {
@@ -188,13 +212,23 @@ function onClick(event) {
     }
     else {
         if (!created) {
-            var moon = new Moon(new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77), new THREE.Vector3(0, 0, 0), 2, globes, moons, scene);
-            moons.push(moon);
-            moon.update();
-            created = true;
+            let pos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
+            if (params.globe) {
+                let globe = new Globe(pos, 6, scene);
+                globes.push(globe);
+                globe.update();
+            }
+            else {
+                moon = new Moon(pos, new THREE.Vector3(0, 0, 0), 2, globes, moons, scene);
+                moon.update();
+                created = true;
+            }
         }
         else {
             created = false;
+            if (moon)
+                moons.push(moon);
+            moon = null;
         }
         // raycaster.setFromCamera(mouse, camera);
         // var intersects = raycaster.intersectObjects(meshs);
@@ -221,41 +255,38 @@ function onDocumentKeyDown(event) {
         camera.position.add(direction.clone().negate().multiplyScalar(0.1));
     }
 };
-//On mouse down event listener 
-// function onMouseDown(event){
-//     console.log("mouedown");
-//     if(event.type =="mousedown")
-//         console.log("MouseDown");
-// }
-// document.addEventListener('mousedown', onMouseDown)
 
 //sandbox Mode
-function sandboxMode() {
-    camera.lookAt(globes[0].position);
-    camera.position.set(0, 10, 0);
-
+function startSandboxMode() {
+    if (sandboxMode) {
+        camera.position.set(0,0,10)
+        sandboxMode = false;
+        controls.enableRotate = true;
+        controls.enableZoom = true;
+    }
+    else{
+        sandboxMode = true;
+        camera.lookAt(globes[0].position);
+        camera.position.set(0, 10, 0);
+        controls.enableRotate = false;
+        controls.enableZoom = false;
+    }
+    controls.update();
 }
-
 //Main loop
 var animate = function () {
-    if (params.sandboxMode) {
-        sandboxMode();
-    }
-    else {
-        camera.lookAt(camTarget);
-        globes.forEach(globe => {
-            globe.sphere.rotation.y += 0.005;
-        });
-        moons.forEach(moon => {
-            if(!moon.update()){
-                moons.splice(moons.indexOf(moon));
-                scene.remove(moon.sphere);
-                scene.remove(moon.line);
-            }
-            
-        });
-        particles.rotation.y += 0.0005;
-    }
+    camera.lookAt(camTarget);
+    globes.forEach(globe => {
+        globe.sphere.rotation.y += 0.005;
+    });
+    moons.forEach(moon => {
+        if (!moon.update()) {
+            moons.splice(moons.indexOf(moon), 1);
+            scene.remove(moon.sphere);
+            scene.remove(moon.line);
+        }
+    });
+    particles.rotation.y += 0.0005;
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 };

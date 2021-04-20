@@ -1,89 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-     <title>Login • Astronomy Magazine</title>
-     <meta charset="utf-8">
-     <link href="../assets/main.css" rel="stylesheet"/>
-     <link href="../assets/style.css" rel="stylesheet"/>
 
-     <link rel="preconnect" href="https://fonts.gstatic.com">
-     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-     <link rel="preconnect" href="https://fonts.gstatic.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com">
-     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@100&display=swap" rel="stylesheet">
-     <link rel="preconnect" href="https://fonts.gstatic.com">
-     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
-     <link rel="preconnect" href="https://fonts.gstatic.com">
-     <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet"
-    </head>
-    <body>
-        <section class="top-section">
-            <div id="topScreen">
-            <header> 
+<head>
+    <title>Login • Astronomy Magazine</title>
+    <meta charset="utf-8">
+    <link href="/assets/style.css" rel="stylesheet" />
+    <link href="/assets/main.css" rel="stylesheet" />   
+</head>
+<body>
+    <section class="top-section">
+        <div id="topScreen">
+            <header>
                 <img src="" alt="">
-                <!--  --> 
-                <div class="gen"> 
-                    <nav class="navbar">
-                        <a href="#" class="toggle-button">
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                            <span class="bar"></span> 
-                          </a> <div class="brand-title">Add Something</div>
-                          <div class="navbar-links">
-                        <ul class="nav-area">
-                            <li><a href="../index.html" class="cool-link">Home</a></li>
-                            <li><a href="about.html"class="cool-link">About</a></li>
-                            <li><a href="celestial-objects.html"class="cool-link">Celestial Objects</a></li>
-                            <li><a href="gallery.html"class="cool-link">Gallery</a></li>
-                            <li><a href="sign-up.html"class="cool-link">Sign Up</a></li>
-                            <li><a href="contact.html"class="cool-link">Contact</a></li>
-                            <li><a href="login.html"class="cool-link">Login</a></li>
-                        </ul></div>
-                    </nav>
+                <div class="gen" w3-include-html="navbar.html">
                 </div>
-                
             </header>
-            </div >
-       
-        </section>
-     <div Class="Login-page">
-         <div class="form">
-           <form class="Register-form">
-               <input type="text" placeholder=" First name "/>
-               <input type="text" placeholder=" Last name"/>
-               <input type="text" placeholder=" Phone number"/>
-               <input type="text" placeholder=" Email "/>
-               <input type="text" placeholder="Educational level"/>
-               <input type="text" placeholder="Zip Code"/>
-               <input type="text" placeholder="Username"/>
-               <div class="form-group" id="mdp">
-                <input type="password" id="pswrd" value="" minlength="8" class="form-control"  placeholder="Password">
-                <div class="invalid-feedback" id="warning"style=" font-size: 15px;"></div>
-              </div>
-              <div class="form-group">
-                  <input type="password" class="form-control" id="confirmPass" placeholder="Confirm Password">
-                  <div class="invalid-feedback" id="conf" style=" font-size: 15px;"></div>
+        </div>
+    </section>
+    <div Class="Login-page">
+        <div class="form">
+            <form class="Register-form">
+                <input type="text" placeholder=" First name " />
+                <input type="text" placeholder=" Last name" />
+                <input type="text" placeholder=" Phone number" />
+                <input type="text" placeholder=" Email " />
+                <input type="text" placeholder="Educational level" />
+                <input type="text" placeholder="Zip Code" />
+                <input type="text" placeholder="Username" />
+                <div class="form-group" id="mdp">
+                    <input type="password" id="pswrd" value="" minlength="8" class="form-control"
+                        placeholder="Password">
+                    <div class="invalid-feedback" id="warning" style=" font-size: 15px;"></div>
                 </div>
-                
-               <button>create</button>
-               <P class="message">Already Registered ?<a href="#">Login</a> </P>
-           </form>
-           <form class="Login-form">
-            <input type="text" placeholder=" Email or Username"/>
-            <input  type="password" placeholder="password"/>
-            <button>login</button>
-            <P class="message">Not Registered ?<a href="#">Register</a> </P>
-            <P class="Message">Forgot password ?<a href="#">Reset</a> </P>
-        </form>
-         </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="confirmPass" placeholder="Confirm Password">
+                    <div class="invalid-feedback" id="conf" style=" font-size: 15px;"></div>
+                </div>
 
-        </div> 
-        <script src='https://code.jquery.com/jquery-3.6.0.min.js'> </script>
-    <script src="../scripts/main.js"></script>
-    
-     <script src="../scripts/astro.js"></script>
-     
-    </body>
+                <button>create</button>
+                <P class="message">Already Registered ?<a href="#">Login</a> </P>
+            </form>
+            <form class="Login-form">
+                <input type="text" placeholder=" Email or Username" />
+                <input type="password" placeholder="password" />
+                <button>login</button>
+                <P class="message">Not Registered ?<a href="#">Register</a> </P>
+                <P class="Message">Forgot password ?<a href="#">Reset</a> </P>
+            </form>
+        </div>
+
+    </div>
+</body>
+<div class="gen" w3-include-html="fonts.html"></div>
+<script src="../scripts/includeHTML.js"></script>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'> </script>
+<script src="../scripts/main.js"></script>
+<script src="../scripts/astro.js"></script>
+
 </html>

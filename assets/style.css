@@ -1,43 +1,47 @@
-body{
-    background-image: url(../images/astro.jpg);
+body {
+    background-image: url(/images/astro.jpg);
     height: 100vh;
-    background-attachment:fixed ;
+    background-attachment: fixed;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center center;
     height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 22px;
     margin: 0;
     padding: 0;
-} 
-.Login-page{
+}
+
+.Login-page {
     width: 360px;
-    padding:10% 0 0 ;
+    padding: 10% 0 0;
     margin: auto;
 }
-.form{
-    position:relative;
-    z-index:1;
-    background:rgba(7, 110, 195, 0.644);
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: rgba(7, 110, 195, 0.644);
     max-width: 360px;
     margin: 0 auto 100px;
     padding: 45px;
     text-align: center;
 }
-.form input{
+
+.form input {
     font-family: "Roboto", sans-serif;
     outline: 1;
     background-color: #f2f2f2;
     width: 100%;
     border: 0;
-    margin:0 0 15px;
+    margin: 0 0 15px;
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
 }
-.form button{
+
+.form button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -47,83 +51,54 @@ body{
     padding: 15px;
     color: #ffffff;
     font-size: 14px;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .form button:hover, .form button :active {
     background: #a04379;
 }
-.form .message{
+
+.form .message {
     margin: 15px 0 0;
-    color:pink;
+    color: pink;
     font-size: 12px;
 }
-.form .message a{
-    color:lightcoral;
+
+.form .message a {
+    color: lightcoral;
     text-decoration: none;
 }
-.form .Register-form{
-    display:none;
+
+.form .Register-form {
+    display: none;
 }
 
-.form .Message{
+.form .Message {
     margin: 15px 0 0;
-    color:pink;
+    color: pink;
     font-size: 12px;
 }
-.form .Message a{
-    color:lightcoral;
+
+.form .Message a {
+    color: lightcoral;
     text-decoration: none;
 }
-*{
-    color: white;
- }
- *{
-    color: white;
- }
- 
- 
- 
 
- header{
-     position : fixed ;
-    
-     display: -webkit-flex;
-     display: -moz-flex;
-     display: -ms-flex;
-     display: -o-flex;
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     width: 100%;
-     padding: 30px 70px;
-     background: linear-gradient(rgb(10, 10, 10),#0000);
-     transition: 0.5s;
-    
- }
- 
- 
- #topScreen{
-     height: 300px;
- }
- .gen{
-     position: relative;
- 
-     overflow: hidden;
- }
- .logo{
-     cursor: pointer;
- }
- 
- .nav-area{
-     list-style: none;
-    
- }
- .nav-area li {
-     display: inline-block;
-     padding: 0 15px;
-     text-transform: uppercase;
- }
- .nav-area li a {
-     transition: .3s;
-     color: #fff;
- }
+/* header {
+    position: fixed;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 30px 70px;
+    background: linear-gradient(rgb(10, 10, 10), #0000);
+    transition: 0.5s;
+} */
+
+#topScreen {
+    height: 300px;
+}

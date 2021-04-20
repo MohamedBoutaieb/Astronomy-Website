@@ -1,3 +1,6 @@
+*{
+    text-align: center
+}
 p{
     color: rgb(192, 46, 95);
     margin: 15px 0 0;
@@ -7,8 +10,6 @@ p{
     padding: 5px;
 
 }
-
-
 body{
     background-image: url(../images/about_bg.jpg);
     height: 100vh;
@@ -19,7 +20,7 @@ body{
     height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 22px;
     margin: 0;
     padding: 0;
 } 
@@ -48,4 +49,10 @@ h2{
     text-align: justify;
     padding-top: 100px;
     font-family: 'Raleway', sans-serif;
+}
+iframe{
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
 }
