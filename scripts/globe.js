@@ -35,6 +35,7 @@ class Moon extends Globe {
     }
     update() {
         super.update();
+        var outOfBounds = true;
         this.globes.forEach(globe => {
             if (this != globe) {
                 this.acceleration.addVectors(globe.position, this.position.clone().negate());
@@ -42,7 +43,11 @@ class Moon extends Globe {
                 this.velocity.add(this.acceleration);
                 this.position.add(this.velocity);
             }
+            //out of bounds
+            if(this.position.clone().add(globe.position.clone().negate()).length() <= (globe.mass + this.mass)/10)
+                outOfBounds = false;
         });
+
         //Orbit
         if (this.points.length > 1000)
             this.points.splice(0, 1);
@@ -50,9 +55,8 @@ class Moon extends Globe {
         this.line.geometry.setFromPoints(this.points);
         
         //out of bounds
-        if(this.position.length() <= (1+this.mass/10))
+        if(!outOfBounds)
             return false;
-        else 
-            return true;
+        return true;
     }
 }

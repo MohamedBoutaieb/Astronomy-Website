@@ -93,8 +93,8 @@ function init() {
 
     //Gui
     gui = new GUI();
-    gui.add(params, 'sandboxMode').name("Sandbox mode");
     gui.add(params, 'globe').name("Globe Spawner");
+    gui.add(params, 'sandboxMode').name("Sandbox mode");
     gui.add(params, 'reset').name("Reset");
     gui.domElement.style.position = 'absolute';
     gui.domElement.style.top = '100px';
@@ -125,8 +125,10 @@ function init() {
         globe.update();
     });
     sun.sphere.material.normalMap = normalTexture;
+
     //init point lights
-    async function sunPoints() {
+    setTimeout(sunPoints, 5);
+    function sunPoints() {
         for (let teta = 0; teta < 2 * Math.PI; teta += 3.14 / 5) {
             for (let gamma = 0; gamma < Math.PI; gamma += 3.14 / 5) {
                 let position = new THREE.Vector3(1, 0, 0);
@@ -139,7 +141,6 @@ function init() {
             }
         }
     }
-    sunPoints();
 
     //init solar system
     initSolarSystem();
@@ -156,13 +157,14 @@ const meshs = scene.children.filter(object => {
 });
 
 //onMouseMove event listener 
-async function future(clone, x, y) {
+function future(clone, x, y) {
     let position = clone.position.clone();
     let velocity = clone.velocity.clone();
     for (let i = 0; i < 1001; i++) {
         if (mouse.x != x || mouse.y != y)
             break;
-        clone.update();
+        if(!clone.update())
+            break;
     }
     clone.sphere.position.x = position.x;
     clone.sphere.position.y = position.y;
@@ -175,18 +177,6 @@ async function future(clone, x, y) {
 function onMouseMove(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    if (created && sandboxMode) {
-        let mousePos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
-        let moonPos = moon.position.clone();
-        let dist = mousePos.distanceTo(moonPos);
-        let velocity = moonPos.add(mousePos.negate());
-        velocity.multiplyScalar(dist * 0.001);
-        moon.velocity = velocity;
-        future(moon, mouse.x, mouse.y);
-    }
-    else {
-        created = false;
-    }
 }
 renderer.domElement.addEventListener('mousemove', onMouseMove, false);
 
@@ -211,25 +201,6 @@ function onClick(event) {
         }
     }
     else {
-        if (!created) {
-            let pos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
-            if (params.globe) {
-                let globe = new Globe(pos, 6, scene);
-                globes.push(globe);
-                globe.update();
-            }
-            else {
-                moon = new Moon(pos, new THREE.Vector3(0, 0, 0), 2, globes, moons, scene);
-                moon.update();
-                created = true;
-            }
-        }
-        else {
-            created = false;
-            if (moon)
-                moons.push(moon);
-            moon = null;
-        }
         // raycaster.setFromCamera(mouse, camera);
         // var intersects = raycaster.intersectObjects(meshs);
         // try {
@@ -256,20 +227,68 @@ function onDocumentKeyDown(event) {
     }
 };
 
+//mouse down
+var mousedownID = -1;  //Global ID of mouse down interval
+function mousedown(event) {
+    if (mousedownID == -1)  //Prevent multimple loops!
+        mousedownID = setInterval(whilemousedown, 20);
+}
+
+function mouseup(event) {
+    if (mousedownID != -1) {  //Only stop if exists
+        clearInterval(mousedownID);
+        mousedownID = -1;
+    }
+    created = false;
+    if (moon)
+        moons.push(moon);
+    moon = null;
+}
+function whilemousedown() {
+    if (!created) {
+        let pos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
+        if (params.globe) {
+            let globe = new Globe(pos, 6, scene);
+            globes.push(globe);
+            globe.update();
+        }
+        else {
+            moon = new Moon(pos, new THREE.Vector3(0, 0, 0), 2, globes, moons, scene);
+            moon.update();
+        }
+        created = true;
+    }
+    else if (moon) {
+        let mousePos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
+        let moonPos = moon.position.clone();
+        let dist = mousePos.distanceTo(moonPos);
+        let velocity = moonPos.add(mousePos.negate());
+        velocity.multiplyScalar(dist * 0.001);
+        moon.velocity = velocity;
+        future(moon, mouse.x, mouse.y);
+    }
+}
+//Assign events
+renderer.domElement.addEventListener("mousedown", mousedown);
+renderer.domElement.addEventListener("mouseup", mouseup);
+
+
 //sandbox Mode
 function startSandboxMode() {
     if (sandboxMode) {
-        camera.position.set(0,0,10)
+        camera.position.set(0, 3, 10)
         sandboxMode = false;
-        controls.enableRotate = true;
-        controls.enableZoom = true;
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.minDistance = 2;
+        controls.maxDistance = 20;
     }
-    else{
+    else {
         sandboxMode = true;
         camera.lookAt(globes[0].position);
         camera.position.set(0, 10, 0);
         controls.enableRotate = false;
         controls.enableZoom = false;
+        controls.dispose();
     }
     controls.update();
 }
