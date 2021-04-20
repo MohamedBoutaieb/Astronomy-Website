@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery • Astronomy Magazine</title>
     <link rel="stylesheet" href="../assets/main.css">
-    <link rel="stylesheet" href="assets.css">
+    <link rel="stylesheet" href="../assets/gallery.css">
+    <link rel="stylesheet" href="../assets/lightbox.min.css">
+    
 </head>
 
 <body>
@@ -22,19 +24,41 @@
     </section>
     <section class="overview">
         <h2> Astronomy picture of the day </h2>
-        <ul>
+        <ul class="api" >
             <li id="date"></li>
-            <iframe width="1000" height="600" src="">
+            <iframe width="1000" height="600"
+            src="">
             </iframe>
-            <div>
-                <img class="media" src="" width="1000" height="600">
-            </div>
+            
+            <img class="media"
+                 src="" width="1000" height="600"
+                >
             <p id="explanation"></p>
+
+ 
         </ul>
     </section>
+    <div class="gallery">
+        <div class="title"> Hubble Observations </div> <br>
+        <div class="imageSet">
+           
+           
+        <a href="../images/hubble/nebula.jpg" data-lightbox="mygallery" data-title="nebula"> <img src="../images/hubble/nebula(small).jpg" width="300px" height="200px" ></a>
+        <a href="../images/hubble/black eye galaxy.jpg" data-lightbox="mygallery" data-title="black eye galaxy" > <img src="../images/hubble/black eye galaxy.jpg" width="300px" height="200px"></a>
+        <a href="../images/hubble/nebula1.jpg" data-lightbox="mygallery" data-title="nebula" > <img src="../images/hubble/nebula1.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/star birth 1.jpg" data-lightbox="mygallery" data-title="star birth" > <img src="../images/hubble/star birth 1.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/star birth.jpg" data-lightbox="mygallery" data-title="star birth" > <img src="../images/hubble/star birth.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/the veil nebula.jpg" data-lightbox="mygallery" data-title="the veil nebula" > <img src="../images/hubble/the veil nebula.jpg" alt=""width="300px" height="200px" ></a>
+        <a href="../images/hubble/dusk.jpg" data-lightbox="mygallery"  > <img src="../images/hubble/dusk.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/galaxies.jpg" data-lightbox="mygallery"  > <img src="../images/hubble/galaxies.jpg" alt=""width="300px" height="200px" ></a>
+        <a href="../images/hubble/galaxie1.jpg" data-lightbox="mygallery"  > <img src="../images/hubble/galaxie1.jpg" alt="" width="300px" height="200px"></a>
+        </div>
+    </div>
 </body>
 <div class="gen" w3-include-html="fonts.html"></div>
 <script src="/scripts/includeHTML.js"></script>
 <script src="/scripts/main.js"></script>
-<script src="/scripts/gallery.js"></script>
+<script src="../scripts/gallery.js"></script>
+<script src="../scripts/lightbox-plus-jquery.min.js"></script>
+
 </html>
