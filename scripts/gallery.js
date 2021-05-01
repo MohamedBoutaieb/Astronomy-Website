@@ -12,8 +12,8 @@ arr =['png','jpg','bmp','gif','svg']
 
 if (arr.includes(str.substring(str.length-3))){
    var picture= document.createElement("img");
-   picture.width= "1024px";
-   picture.height= "768px";
+   picture.width= "420";
+   picture.height= "350";
    picture.src=str;
    document.querySelector('.api').appendChild(picture);
 }

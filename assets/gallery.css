@@ -1,23 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 .gallery img {
     width: 230px;
     padding:15px;
     filter: grayscale(45%);
     transition: 0.5s;
-    
     }
-    .gallery img:hover {
-        filter: grayscale(0);
-        transform: scale(1.1);
-    }
+.gallery img:hover {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
 .title{
-    font-family: 'Archivo', sans-serif;
+    font-family: 'montserrat', sans-serif;
+    text-align: center;
     font-size: 30px;
     font-weight: bold;
-    color: blueviolet;
+    
+    font-weight: 900;
+    font-size: 3.25em;
+    margin-bottom: 30px;
+    text-shadow: 4px 3px 0px #898999;
+    line-height: 1.2;
+    color: white;
+    font-family: Monda, Sans-serif;
+    font-weight: 500;
     margin-left: 5rem;
+    text-transform: uppercase;
 }
 .imageSet{
- 
-  justify-content: center;
-  margin-left: 8% ;
+
+    justify-content: center;
+    margin-left: 8% ;
+    
+}
+.gallery{
+    background: rgb(20, 20, 20);
+    position: relative;
+}
+
+.top-screen{
+    position: relative;
+}
+.wave{
+    position: absolute;
+    bottom:0;
+    left: 0;
 }
