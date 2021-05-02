@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div Class="Login-page">
+        <div class="form">
+            <form class="Register-form">
+                <input type="text" placeholder=" First name " />
+                <input type="text" placeholder=" Last name" />
+                <input type="text" placeholder=" Phone number" />
+                <input type="text" placeholder=" Email " />
+                <input type="text" placeholder="Educational level" />
+                <input type="text" placeholder="Zip Code" />
+                <input type="text" placeholder="Username" />
+                <div class="form-group" id="mdp">
+                    <input type="password" id="pswrd" value="" minlength="8" class="form-control"
+                           placeholder="Password">
+                    <div class="invalid-feedback" id="warning" style=" font-size: 15px;"></div>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="confirmPass" placeholder="Confirm Password">
+                    <div class="invalid-feedback" id="conf" style=" font-size: 15px;"></div>
+                </div>
+
+                <button>create</button>
+                <P class="message">Already Registered ?<a href="#">Login</a> </P>
+            </form>
+            <form class="Login-form">
+                <input type="text" placeholder=" Email or Username" />
+                <input type="password" placeholder="password" />
+                <button>login</button>
+                <P class="message">Not Registered ?<a href="#">Register</a> </P>
+                <P class="Message">Forgot password ?<a href="#">Reset</a> </P>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+ {% block scripts %} <script src={{ asset('js/astro.js') }} ></script>
+     <script src={{ asset('js/login.js') }}> </script>
+  {% endblock %}
+ {% block assets %}     <link href={{ asset('css/style.css')}} rel="stylesheet" />  {% endblock %}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery • Astronomy Magazine</title>
+    <link rel="stylesheet" href={{ asset('css/main.css') }}>
+    <link rel="stylesheet" href={{ asset('css/gallery.css') }}>
+    <link rel="stylesheet" href={{ asset('css/lightbox.min.css') }}>
+
+</head>
+
+<body>
+<section class="top-screen" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url(/images/blue-two-planets.jpg);
+    background-size: cover;">
+    <section class="top-section">
+        <div id="topScreen">
+            <header>
+                <img src="" alt="">
+                <div class="gen" >
+                    <nav class="navbar">
+                        <a href="#" class="toggle-button">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </a>
+                        <div class="brand-title">Astronomy</div>
+                        <div class="navbar-links">
+                            <ul class="nav-area">
+                                <li><a href={{ path('homepage') }} class="cool-link">Home</a></li>
+                                <li><a href={{ path('about') }} class="cool-link">About</a></li>
+                                <li><a href={{ path('celestial') }} class="cool-link">Celestial Objects</a></li>
+                                <li><a href={{ path('gallery') }} class="cool-link">Gallery</a></li>
+                                <li><a href={{ path('signup') }} class="cool-link">Sign Up</a></li>
+                                <li><a href={{ path('contact') }} class="cool-link">Contact</a></li>
+                                <li><a href={{ path('login') }} class="cool-link">Login</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+        </div>
+    </section>
+    <section class="picture">
+        <h2> PICTURE OF THE DAY </h2> <br>
+
+        <ul class="api" >
+            <li id="date" style="letter-spacing: 2px; color : white ;"></li> <br>
+            <img class="media"
+                 src="" width="1000" height="600"
+                 alt="picture of the day">
+            <p id="explanation" style="color : white;"></p>
+            <br>
+            <iframe width="1000" height="600"
+                    src="">
+            </iframe>
+
+        </ul>
+        <br><br><br><br><br><br><br><br>
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#141414" fill-opacity="1" d="M0,320L40,314.7C80,309,160,299,240,272C320,245,400,203,480,186.7C560,171,640,181,720,208C800,235,880,277,960,282.7C1040,288,1120,256,1200,250.7C1280,245,1360,267,1400,277.3L1440,288L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+
+    </section>
+</section>
+
+
+<div class="gallery">
+    <div class="title" data-text="Floating"> Hubble Observations </div> <br>
+    <div class="imageSet">
+
+        <a href="../images/hubble/nebula.jpg" data-lightbox="mygallery" data-title="Nebula"> <img src="../images/hubble/nebula(small).jpg" width="300px" height="200px" ></a>
+        <a href="../images/hubble/black eye galaxy.jpg" data-lightbox="mygallery" data-title="Black eye galaxy" > <img src="../images/hubble/black eye galaxy.jpg" width="300px" height="200px"></a>
+        <a href="../images/hubble/nebula1.jpg" data-lightbox="mygallery" data-title="Nebula" > <img src="../images/hubble/nebula1.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/star birth 1.jpg" data-lightbox="mygallery" data-title="Star birth" > <img src="../images/hubble/star birth 1.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/star birth.jpg" data-lightbox="mygallery" data-title="Star birth" > <img src="../images/hubble/star birth.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/the veil nebula.jpg" data-lightbox="mygallery" data-title="The veil nebula" > <img src="../images/hubble/the veil nebula.jpg" alt=""width="300px" height="200px" ></a>
+        <a href="../images/hubble/dusk.jpg" data-lightbox="mygallery" data-title="The veil nebula" > <img src="../images/hubble/dusk.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/galaxies.jpg" data-lightbox="mygallery" data-title="the veil nebula" > <img src="../images/hubble/galaxies.jpg" alt=""width="300px" height="200px" ></a>
+        <a href="../images/hubble/galaxie1.jpg" data-lightbox="mygallery" data-title="the veil nebula" > <img src="../images/hubble/galaxie1.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Blazing starbirth.png" data-lightbox="mygallery" data-title="Blazing starbirth" > <img src="../images/hubble/Blazing starbirth.png" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Clound Tornado.jpg" data-lightbox="mygallery" data-title="Cloud Tornado" > <img src="../images/hubble/Clound Tornado.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubbleDwarf planet Ceres.png" data-lightbox="mygallery" data-title="Dwarf planet Ceres" > <img src="../images/hubble/Dwarf planet Ceres.png" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Mercury.jpg" data-lightbox="mygallery" data-title="Mercury" > <img src="../images/hubble/Mercury.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Facing the sun.jpg" data-lightbox="mygallery" data-title="Facing the sun" > <img src="../images/hubble/Facing the sun.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Chaotic clouds of Jupiter.jpg" data-lightbox="mygallery" data-title="Chaotic clouds of Jupiter" > <img src="../images/hubble/Chaotic clouds of Jupiter.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Galaxy-earth.jpg" data-lightbox="mygallery" data-title="Galaxy-earth" > <img src="../images/hubble/Galaxy-earth.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Earthly night.jpg" data-lightbox="mygallery" data-title="Earthly night" > <img src="../images/hubble/Earthly night.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Islands in the sky.jpg" data-lightbox="mygallery" data-title="Islands in the sky" > <img src="../images/hubble/Islands in the sky.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Lightning From Space.jpg" data-lightbox="mygallery" data-title="Lightning From Space" > <img src="../images/hubble/Lightning From Space.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Night sky.jpg" data-lightbox="mygallery" data-title="Night sky" > <img src="../images/hubble/Night sky.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Pinky way.jpg" data-lightbox="mygallery" data-title="Pinky way" > <img src="../images/hubble/Pinky way.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/power of reborn star.jpg" data-lightbox="mygallery" data-title="Power of Reborn Star" > <img src="../images/hubble/power of reborn star.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/shadow-planet-sun.jpg" data-lightbox="mygallery" data-title="shadow-planet-sun" > <img src="../images/hubble/shadow-planet-sun.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Solar Wind.jpg" data-lightbox="mygallery" data-title="Solar Wind" > <img src="../images/hubble/Solar Wind.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Sun neighboring.jpg" data-lightbox="mygallery" data-title="Sun neighboring" > <img src="../images/hubble/Sun neighboring.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/The water planet.jpg" data-lightbox="mygallery" data-title="The water planet" > <img src="../images/hubble/The water planet.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Twilight.jpg" data-lightbox="mygallery" data-title="Twilight" > <img src="../images/hubble/Twilight.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/View of Aurora Australis from Space.jpg" data-lightbox="mygallery" data-title="View of Aurora Australis from Space" > <img src="../images/hubble/View of Aurora Australis from Space.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Blue Planet K.jpg" data-lightbox="mygallery" data-title="Blue Planet K" > <img src="../images/hubble/Blue Planet K.jpg" alt="" width="300px" height="200px"></a>
+        <a href="../images/hubble/Starry night.jpg" data-lightbox="mygallery" data-title="Starry night" > <img src="../images/hubble/Starry night.jpg" alt="" width="300px" height="200px"></a>
+
+
+
+    </div>
+</div>
+
+</body>
+<div class="gen">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@100&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet">
+</div>
+
+<script src={{ asset("js/main.js") }}></script>
+<script src={{ asset("js/gallery.js") }}></script>
+<script src={{ asset("js/lightbox-plus-jquery.min.js") }}></script>
+
+</html>
