@@ -70,7 +70,8 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('login');}
         if($request->isMethod('POST')){
             $user->setResetToken(null);
-            $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('password')));
+//            $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('password')));
+            $user->setPassword($request->request->get('password'));
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success','Password has successfully been changed.');
