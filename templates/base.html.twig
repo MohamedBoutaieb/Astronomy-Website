@@ -20,9 +20,11 @@
                     <li><a href={{ path('about') }} class="cool-link">About</a></li>
                     <li><a href={{ path('celestial') }} class="cool-link">Celestial Objects</a></li>
                     <li><a href={{ path('gallery') }} class="cool-link">Gallery</a></li>
-                    <li><a href={{ path('signup') }} class="cool-link">Sign Up</a></li>
-                    <li><a href={{ path('contact') }} class="cool-link">Contact</a></li>
+                    <li><a href="#" class="cool-link">Shop</a></li>
+{#                    <li><a href={{ path('signup') }} class="cool-link">Sign Up</a></li>#}
+{#                    <li><a href={{ path('contact') }} class="cool-link">Contact</a></li>#}
                     {% if app.session.has('username') %}
+                        <li><a href="#" class="cool-link">Account Details</a></li>
                         <li><a href={{ path('logout') }} class="cool-link">logout</a></li>
                     {% else %}
                         <li><a href={{ path('login') }} class="cool-link">login</a></li>
