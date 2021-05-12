@@ -2,7 +2,7 @@ $('.message a').click(function(){
     $('form').animate({height:"toggle", opacity: "toggle"},"slow");
 });
 if(document.querySelector("#create-account-warning")){
-    $('form').animate({height:"toggle", opacity: "toggle"},"slow");
+    $('form').animate({height:"toggle", opacity: "toggle"},"fast");
 }
 var pass = document.querySelector("#pswrd");
 var confirme = document.querySelector("#confirmPass");

@@ -31,7 +31,7 @@ class LoginController extends AbstractController
             $this->addFlash("warning", $message);
         }
         elseif ($repository->findOneByUsername($_POST['username'])){
-            $message = "Username already existing!";
+            $message = "Username already exists!";
             $this->addFlash("warning", $message);
         }
         elseif ($repository->findOneByEmail($_POST['email'])){
@@ -59,7 +59,7 @@ class LoginController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository('App:User');
         if($session->has("username")){
-            return $this->redirectToRoute('homepage',[]);
+            return $this->redirectToRoute('homepage');
         }
         if(isset($_POST["username"])){
             $user = $repository->findOneByUsername($_POST["username"]);
@@ -78,8 +78,7 @@ class LoginController extends AbstractController
                 return $this->redirectToRoute('homepage',[]);
             }
         }
-        return $this->render('login/index.html.twig', [
-        ]);
+        return $this->render('login/index.html.twig');
     }
 
     /**

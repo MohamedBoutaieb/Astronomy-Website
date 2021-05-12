@@ -1,11 +1,11 @@
 import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
 import { GUI } from '../node_modules/three/examples/jsm/libs/dat.gui.module.js';
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
 camera.position.z = 10;
 
-var renderer = new THREE.WebGLRenderer({ antialias: true });
+let renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.append(renderer.domElement);
 
@@ -18,14 +18,15 @@ function onResize(event) {
 }
 
 //Global variables
-var moons = [];
-var globes = [];
+let moons = [];
+let globes = [];
+
 //Raycaster
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 //space background
-var textureLoader = new THREE.TextureLoader();
+let textureLoader = new THREE.TextureLoader();
 textureLoader.load('../images/space2.jpg', function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     texture.encoding = THREE.sRGBEncoding;
@@ -33,8 +34,8 @@ textureLoader.load('../images/space2.jpg', function (texture) {
 });
 
 //params
-var sandboxMode = false;
-var params = {
+let sandboxMode = false;
+let params = {
     sandboxMode: startSandboxMode,
     globe: false,
     reset: initSolarSystem
@@ -52,24 +53,23 @@ function initSolarSystem() {
     globes.splice(1, globes.length - 1);
     moons = [];
     //Mercury 2.5
-    var mercury = new Moon(new THREE.Vector3(0, 0, 2), new THREE.Vector3(0.002, 0, 0), 0.1, globes, moons, scene);
+    let mercury = new Moon(new THREE.Vector3(0, 0, 2), new THREE.Vector3(0.002, 0, 0), 0.1, globes, moons, scene);
     moons.push(mercury);
     //normalTexture = textureLoader.load('assets/Mercury.png');
     //mercury.sphere.material.normalMap = normalTexture;
 
     //Venus 3 * 2.5
-    var venus = new Moon(new THREE.Vector3(0, 0, 2.5), new THREE.Vector3(0.003, 0, 0), 0.3, globes, moons, scene);
+    let venus = new Moon(new THREE.Vector3(0, 0, 2.5), new THREE.Vector3(0.003, 0, 0), 0.3, globes, moons, scene);
     moons.push(venus);
     //normalTexture = textureLoader.load('assets/venus.png');
     //mercury.sphere.material.normalMap = normalTexture;
 
     //Earth 6.5
-    var earth = new Moon(new THREE.Vector3(0, 0, 3), new THREE.Vector3(0.003, 0, 0), 0.32, globes, moons, scene);
+    let earth = new Moon(new THREE.Vector3(0, 0, 3), new THREE.Vector3(0.003, 0, 0), 0.32, globes, moons, scene);
     moons.push(earth);
     //earth.sphere.material.map = THREE.ImageUtils.loadTexture('assets/Earth.jpg');
     //normalTexture = textureLoader.load('assets/Earth.jpg');
     //mercury.sphere.material.normalMap = normalTexture;
-
     //Mars 3.2
     moons.push(new Moon(new THREE.Vector3(0, 0, 3.3), new THREE.Vector3(0.002, 0, 0), 0.15, globes, moons, scene));
 
@@ -84,10 +84,25 @@ function initSolarSystem() {
 
     //Nepture 24
     moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.003, 0, 0), 0.65, globes, moons, scene));
+
+    setTimeout(()=>{
+        for (let index = 0; index < 3000; index++) {
+            moons.forEach(moon => {
+                if (!moon.update()) {
+                    moons.splice(moons.indexOf(moon), 1);
+                    scene.remove(moon.sphere);
+                    scene.remove(moon.line);
+                }
+            });
+        }
+        moons.forEach(moon => {
+            console.log(moon.position, moon.velocity);
+        });
+    },5)
 }
 
 //init Scene
-var controls, gui, particles;
+let controls, gui, particles;
 function init() {
     globes = [];
 
@@ -107,7 +122,7 @@ function init() {
 
     //particle system
     let particlesGeometry = new THREE.BufferGeometry;
-    let particleCount = 5_000;
+    let particleCount = 1_000;
     let posArray = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
         posArray[i] = Math.random() * 30 - 15;
@@ -118,7 +133,7 @@ function init() {
     scene.add(particles);
 
     //init globes
-    var sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
+    let sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
     sun.sphere.material.emissive = new THREE.Color(0xFF4411);;
     globes = [sun];
     globes.forEach(globe => {
@@ -181,15 +196,15 @@ function onMouseMove(event) {
 renderer.domElement.addEventListener('mousemove', onMouseMove, false);
 
 //On click event listener
-var camTarget = globes[0].position;
+let camTarget = globes[0].position;
 window.addEventListener('click', onClick, false);
 
-var created = false;
-var moon = null;
+let created = false;
+let moon = null;
 function onClick(event) {
     if (!sandboxMode) {
         raycaster.setFromCamera(mouse, camera);
-        var intersects = raycaster.intersectObjects(meshs);
+        let intersects = raycaster.intersectObjects(meshs);
         if (intersects.length == 0) {
             camTarget = globes[0].position;
             scroll = false;
@@ -202,7 +217,7 @@ function onClick(event) {
     }
     else {
         // raycaster.setFromCamera(mouse, camera);
-        // var intersects = raycaster.intersectObjects(meshs);
+        // let intersects = raycaster.intersectObjects(meshs);
         // try {
         //     //intersects[0].object.position;
         //     // console.log(globes[0].position.distanceTo(intersects[0].object.position), mouse.length(), 
@@ -216,8 +231,8 @@ function onClick(event) {
 //On keydown event listener
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event) {
-    var keyCode = event.which;
-    var direction = new THREE.Vector3();
+    let keyCode = event.which;
+    let direction = new THREE.Vector3();
     camera.getWorldDirection(direction).normalize();
     if (keyCode == 37) {
     } if ([38, 90].includes(keyCode)) {
@@ -228,7 +243,7 @@ function onDocumentKeyDown(event) {
 };
 
 //mouse down
-var mousedownID = -1;  //Global ID of mouse down interval
+let mousedownID = -1;  //Global ID of mouse down interval
 function mousedown(event) {
     if (mousedownID == -1)  //Prevent multimple loops!
         mousedownID = setInterval(whilemousedown, 20);
@@ -293,7 +308,7 @@ function startSandboxMode() {
     controls.update();
 }
 //Main loop
-var animate = function () {
+let animate = function () {
     camera.lookAt(camTarget);
     globes.forEach(globe => {
         globe.sphere.rotation.y += 0.005;
