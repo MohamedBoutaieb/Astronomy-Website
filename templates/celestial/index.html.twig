@@ -1,16 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CelestialController!{% endblock %}
-
-{% block body %}
-
-{% endblock %}
-{% block assets %} <link rel="stylesheet" href={{ asset("css/orbit.css") }}>
-
+{% block title %}Space Sandbox{% endblock %}
+{% block assets %}
+    <link rel="stylesheet" href={{ asset("css/orbit.css") }}>
 {% endblock %}
 {% block scripts %}
-
     <script src={{ asset("node_modules/three/build/three.js") }}></script>
-    <script src={{asset('js/globe.js')  }}></script>
+    <script src={{ asset('js/globe.js') }}></script>
     <script src={{ asset('js/orbit.js') }} type="module"></script>
 {% endblock %}

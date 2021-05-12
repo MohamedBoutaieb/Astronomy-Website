@@ -1,11 +1,10 @@
-body, .top-screen{
+body{
     background-image: url(/images/astro.jpg);
     height: 100vh;
     background-attachment: fixed;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center center;
-    height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 600;
     font-size: 22px;
@@ -99,7 +98,3 @@ body, .top-screen{
     background: linear-gradient(rgb(10, 10, 10), #0000);
     transition: 0.5s;
 } */
-
-#topScreen {
-    height: 300px;
-}

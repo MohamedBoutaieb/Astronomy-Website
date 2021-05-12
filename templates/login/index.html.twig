@@ -2,39 +2,51 @@
 {% block body %}
     <div Class="Login-page">
         <div class="form">
-            <form class="Register-form">
-                <input type="text" placeholder=" First name " />
-                <input type="text" placeholder=" Last name" />
-                <input type="text" placeholder=" Phone number" />
-                <input type="text" placeholder=" Email " />
-                <input type="text" placeholder="Educational level" />
-                <input type="text" placeholder="Zip Code" />
-                <input type="text" placeholder="Username" />
+            <form class="Register-form" action="{{ path('create account') }}" method="post">
+                <input type="email" placeholder=" Email " name="email"/>
+                <input type="text" placeholder="Username" name="username"/>
                 <div class="form-group" id="mdp">
                     <input type="password" id="pswrd" value="" minlength="8" class="form-control"
-                           placeholder="Password">
+                           placeholder="Password" name="password">
                     <div class="invalid-feedback" id="warning" style=" font-size: 15px;"></div>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="confirmPass" placeholder="Confirm Password">
+                    <input type="password" class="form-control" id="confirmPass" placeholder="Confirm Password" name="confirm">
                     <div class="invalid-feedback" id="conf" style=" font-size: 15px;"></div>
                 </div>
-
                 <button>create</button>
-                <P class="message">Already Registered ?<a href="#">Login</a> </P>
+                {% for cle, value in  app.session.flashBag.get('warning') %}
+                    <div id="create-account-warning" style="color: hotpink">
+                        {{ value }}
+                    </div>
+                {% endfor %}
+                <P class="message">Already Registered ?<a href="#">Login</a></P>
             </form>
-            <form class="Login-form">
-                <input type="text" placeholder=" Email or Username" />
-                <input type="password" placeholder="password" />
+            <form class="Login-form" action="{{ path('login') }}" method="post">
+                <input type="text" placeholder=" Email or Username" name="username"/>
+                <input type="password" placeholder="password" name="password"/>
                 <button>login</button>
-                <P class="message">Not Registered ?<a href="#">Register</a> </P>
-                <P class="Message">Forgot password ?<a href="#">Reset</a> </P>
+                {% for cle, value in  app.session.flashBag.get('success') %}
+                    <div id="success" style="color: green">
+                        {{ value }}
+                    </div>
+                {% endfor %}
+                {% for cle, value in  app.session.flashBag.get('error') %}
+                    <div id="success" style="color: hotpink">
+                        {{ value }}
+                    </div>
+                {% endfor %}
+                <P class="message">Not Registered ?<a href="#">Register</a></P>
+                <P class="Message">Forgot password ?<a href="#">Reset</a></P>
             </form>
         </div>
-
     </div>
 {% endblock %}
- {% block scripts %} <script src={{ asset('js/astro.js') }} ></script>
-     <script src={{ asset('js/login.js') }}> </script>
-  {% endblock %}
- {% block assets %}     <link href={{ asset('css/style.css')}} rel="stylesheet" />  {% endblock %}
+ {% block scripts %}
+     <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+     <script src={{ asset('js/astro.js') }}></script>
+     <script src={{ asset('js/login.js') }}></script>
+ {% endblock %}
+ {% block assets %}
+     <link rel="stylesheet" href={{ asset("css/style.css") }}>
+ {% endblock %}

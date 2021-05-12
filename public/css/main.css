@@ -21,14 +21,11 @@ body {
 }
 
 .top-section {
-    /* background: linear-gradient(rgba(0, 0, 0, 0.29), rgba(0, 0, 0, 0.19)), url("../images/index_bg.jpg"); */
     z-index: 1;
-    background-attachment: fixed;
     -webkit-background-size: cover;
     background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-color: var(--gray);
+    background: linear-gradient(rgba(0, 0, 0, 0.29), rgba(0, 0, 0, 0.19)) url(App/public/images/index_bg.jpg);
+    /*background-color: #1C2331;*/
     transition: opacity 0.1s;
     position: relative;
     /* height: 100px; */

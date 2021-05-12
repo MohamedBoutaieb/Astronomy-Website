@@ -1,7 +1,7 @@
 var lastScrollTop = 0;
-var nav = document.querySelector("header");
+let nav = document.querySelector("header");
 window.addEventListener("scroll", function () {
-  var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   if (scrollTop > lastScrollTop) {
     nav.style.top = "-300px";
   }
