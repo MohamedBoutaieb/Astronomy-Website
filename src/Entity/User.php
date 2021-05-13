@@ -159,6 +159,7 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+    
     public function getSalt()
     {
         // you *may* need a real salt depending on your encoder
