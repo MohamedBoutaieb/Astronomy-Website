@@ -20,7 +20,7 @@
                     <li><a href={{ path('about') }} class="cool-link">About</a></li>
                     <li><a href={{ path('celestial') }} class="cool-link">Celestial Objects</a></li>
                     <li><a href={{ path('gallery') }} class="cool-link">Gallery</a></li>
-                    <li><a href="#" class="cool-link">Shop</a></li>
+                    <li><a href={{ path('shop') }} class="cool-link">Shop</a></li>
 {#                    <li><a href={{ path('signup') }} class="cool-link">Sign Up</a></li>#}
 {#                    <li><a href={{ path('contact') }} class="cool-link">Contact</a></li>#}
                     {% if app.session.has('username') %}
@@ -50,6 +50,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet">
+
 </div>
 <script src={{ asset("js/main.js") }}></script>
 {% block scripts %} {% endblock %}
