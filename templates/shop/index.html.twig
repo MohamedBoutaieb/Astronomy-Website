@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ShopController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1> Posters</h1>
+    {% for poster in posters %}
+    <div class="card text-white bg-success mb-3">
+    <div class="col-md-4 product-grid">
+        <div class="image">
+            <a href="#">
+                <img src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 width="100">
+                <div class="overlay">
+                    <div class="detail">View Details</div>
+                </div>
+            </a>
+        </div>
+        <a href={{ path('addtocart',{ item :poster.label, cost:poster.price,stock:poster.instock }) }} class="btn buy">add to cart</a>
+        <h5 class="text-center">{{ poster.label }}</h5>
+        <h5 class="text-center">{{ poster.price }}</h5>
+        <div class="qty mt-5">
+            <span class="minus bg-dark">-</span>
+            <input type="number" class="count" id={{poster.label}} name="qty" value="1" style=" width: 50px; ">
+            <span class="plus bg-dark">+</span>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+    <a  class="btn buy" href={{ path('nextp') }} >next</a>
+    <a  class="btn buy" href={{ path('previousp') }} >previous</a>
+    <h1> magazines</h1>
+    {% for magazine in magazines %}
+        <div class="card text-white bg-success mb-3">
+        <div class="col-md-4 product-grid">
+            <div class="image">
+                <a href="#">
+                    <img src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 width="100">
+                    <div class="overlay">
+                        <div class="detail">View Details</div>
+                    </div>
+                </a>
+            </div>
+            <a href={{ path('addtocart',{ item :magazine.label , cost:magazine.price ,stock:magazine.instock }) }} class="btn buy">add to cart</a>
+            <h5 class="text-center">{{ magazine.label }}</h5>
+            <h5 class="text-center">{{ magazine.price }}</h5>
+            <div class="qty mt-5">
+                <span class="minus bg-dark">-</span>
+                <input type="number" class="count" name="qty" value="1" style=" width: 50px; ">
+                <span class="plus bg-dark">+</span>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    <a  class="btn buy" href={{ path('nextm') }} >next</a>
+    <a  class="btn buy" href={{ path('previousm') }} >previous</a>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Cart</h5>
+            <p class="card-text">These are your selected items </p>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% if app.session.get('cart') is defined  %}
+                {% for item,red in cart %}
+                    <li class="list-group-item">{{item}} : {{ red }}</li>
+                {% endfor %}
+                <li class="list-group-item">total cost : {{app.session.get('cost') }}</li>
+            {% endif %}
+        </ul>
+        <div class="card-body">
+            <a href={{ path('rallfromcart') }} class="card-link">remove all</a>
+            <a href={{ path('purchase') }} class="card-link">purchase</a>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+{% block assets  %}<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <script src ={{ asset('js/shop.js') }}></script>
+    <link rel="stylesheet" href="{{ asset('css/shop.css') }}">
+{% endblock %}

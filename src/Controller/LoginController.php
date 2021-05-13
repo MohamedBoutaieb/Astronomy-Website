@@ -75,7 +75,8 @@ class LoginController extends AbstractController
             }
             else {
                 $session->set('username', $user->getUsername());
-                return $this->redirectToRoute('homepage',[]);
+                if ($session->has('buyer')) {return $this->redirectToRoute('shop',[]); }
+              else return $this->redirectToRoute('homepage',[]);
             }
         }
         return $this->render('login/index.html.twig', [
