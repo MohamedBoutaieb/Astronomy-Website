@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
@@ -55,7 +56,7 @@ class LoginController extends AbstractController
     /**
      * @Route("/login" ,name="login")
      */
-    public function index(Request $request, SessionInterface $session): Response
+    public function index(Request $request, SessionInterface $session, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $repository = $this->getDoctrine()->getRepository('App:User');
         if($session->has("username")){
@@ -65,11 +66,13 @@ class LoginController extends AbstractController
             $user = $repository->findOneByUsername($_POST["username"]);
             if(!$user)
                 $user = $repository->findOneByEmail($_POST["username"]);
-            if(!$user){
+            if(!$user) {
                 $message = "Username or password incorrect!";
                 $this->addFlash("error", $message);
             }
-            elseif($user->getPassword() != $_POST["password"]){
+            elseif($user->getPassword() != $request->request->get('password')){
+                $pass = $passwordEncoder->encodePassword($user,$request->request->get('password'));
+                dd($passwordEncoder->isPasswordValid($user, $request->request->get('password')));
                 $message = "Username or password incorrect!";
                 $this->addFlash("error", $message);
             }

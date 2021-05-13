@@ -18,7 +18,7 @@ class ResetPasswordController extends AbstractController
 {
     #[Route('/forgot/password', name: 'forgot_password')]
     public function index(Request $request ,EntityManagerInterface $manager ,UserRepository $userRepository
-        , TokenGeneratorInterface $tokenGenerator): Response
+        , \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         //create form
         $form = $this->createForm(ResetPassType::class);
@@ -45,14 +45,16 @@ class ResetPasswordController extends AbstractController
             //je vais générer l'url de réinitialisation
         $url=$this->generateUrl('reset_password' ,['token'=>$token],UrlGeneratorInterface::ABSOLUTE_URL);
             //je vais envoyer le msg
-//        $message= new \Swift_Message('forgotten password')
-//                ->setForm('votre@adresse.fr')
-//                ->setTo($user->getEmail())
-//                ->setBody(
-//                    "<p>Hello,</p><p>a request for password renitialisation has been made for the
-//                    site Astronomy Magazine please click on the following link:".$url .'</p>',text/html);
-//        //j'envoie l'email
-//                    $mailer->send($message);
+        $message= (new \Swift_Message('Reset Password'))
+                ->setFrom('azizazouz8b1@gmail.com')
+                ->setTo($user->getEmail())
+                ->setTo('ferielbouhamed@insat.u-carthage.tn')
+                ->setTo('mohamedazizkhayati@insat.u-carthage.tn')
+                ->setBody(
+                    "<p>Hello,</p><p>a request for password renitialisation has been made for the
+                    site Astronomy Magazine please click on the following link:".$url .'</p>','text/html');
+        //j'envoie l'email
+        $mailer->send($message);
               $this->addFlash('message','A password reset email was sent to you');
               return $this->redirectToRoute('login');
 
@@ -70,8 +72,8 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('login');}
         if($request->isMethod('POST')){
             $user->setResetToken(null);
-//            $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('password')));
-            $user->setPassword($request->request->get('password'));
+            $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('password')));
+            //$user->setPassword($request->request->get('password'));
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success','Password has successfully been changed.');
