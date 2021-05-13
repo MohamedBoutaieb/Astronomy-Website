@@ -36,16 +36,16 @@ class Order
     private $totalQuantity;
 
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
-     */
-    private $Buyer;
-
     /**
      * @ORM\ManyToMany(targetEntity=Merchandise::class)
      */
     private $items;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * @ORM\JoinColumn(name="username", referencedColumnName="username", nullable=false)
+     */
+    private $buyer;
     /**
      * @var string
      */
@@ -118,6 +118,18 @@ class Order
     public function removeItem(Merchandise $item): self
     {
         $this->items->removeElement($item);
+
+        return $this;
+    }
+
+    public function getBuyer(): ?User
+    {
+        return $this->buyer;
+    }
+
+    public function setBuyer(?User $buyer): self
+    {
+        $this->buyer = $buyer;
 
         return $this;
     }
