@@ -1,7 +1,27 @@
-{% extends 'user.html.twig' %}
-
-{% block title %}Hello AccountDetailsController!{% endblock %}
+{% extends 'base.html.twig' %}
+{% extends 'account_details/user.html.twig' %}
+{% block title %}{% endblock %}
 
 {% block body %}
+    <div class="grix xs4 container ">
+        <div class="col-xs4"><h1>My Profile</h1></div>
+        <div class="col-xs1">Name : </div>
+        <div class="col-xs3">{{ app.user.firstname() }}</div>
+        <div class="col-xs1">Surname : </div>
+        <div class="col-xs3">{{ app.user.lastname() }}</div>
+        <div class="col-xs1">Email : </div>
+        <div class="col-xs3">{{ app.user.email() }}</div>
+        <div class="col-xs1">PhoneNumber : </div>
+        <div class="col-xs3">{{ app.user.phonenumber() }}</div>
+        <div class="col-xs4"><a href={{ path('editprofile') }} class="btn shadow-1 rounded-1 blue">Edit Profile</a></div>
+        <div class="col-xs4"><a href="#" class="btn shadow-1 rounded-1 blue">Edit Password</a></div>
+        <div class="col-xs4"><h1>My Posts</h1></div>
+        <div>
+            {% for post in app.user.posts() %}
+            <div class="col-xs1">Title : </div>
+            <div class="col-xs3">{{ post.Title }}</div>
 
+        </div>
+
+    </div>
 {% endblock %}
