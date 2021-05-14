@@ -66,6 +66,11 @@ class User implements UserInterface, \Serializable
      */
     private $orders;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Address::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $address;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -237,6 +242,18 @@ class User implements UserInterface, \Serializable
                 $order->setBuyer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

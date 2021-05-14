@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AccountDetailsController extends AbstractController
@@ -13,7 +15,7 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/account" ,name="account")
      */
-    public function account()
+    public function index()
     {
         return $this->render('account_details/user.html.twig');
     }
@@ -36,22 +38,31 @@ class AccountDetailsController extends AbstractController
 //    }
         //on doit créer un formulaire editType , on modifie name,firstname,phone number,
     /**
-     * @Route("/account/profile" ,name="editprofile")
+     * @Route("/account/settings" ,name="editprofile")
      */
-//    public function editProfile(Request $request ,EntityManagerInterface $manager){
-//       $user=$this->getUser();
-//        $form=$this->createForm(editType::class,$post);
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted() && $form->isvalid()) {
-//            $post->setUser($this->getUser());
-//            $post->SetActive(false);
-//            $manager->persist($post);
-//            $manager->flush();
-//            $this->addFlash('success','This Profile has been successfully updated');
-//            return $this->redirectToRoute();
-//        }
-//        return $this->render('account_details/editProfile.html.twig',['form' =>$form->createview()]);
-//        }
-//    }
+    public function editProfile(Request $request ,EntityManagerInterface $manager){
+       $user=$this->getUser();
+        $form=$this->createForm(editType::class,$post);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isvalid()) {
+            $post->setUser($this->getUser());
+            $post->SetActive(false);
+            $manager->persist($post);
+            $manager->flush();
+            $this->addFlash('success','This Profile has been successfully updated');
+            return $this->redirectToRoute();
+        }
+        return $this->render('account_details/editProfile.html.twig',['form' =>$form->createview()]);
+
+    }
+    /**
+     * @Route("/account/profile" ,name="profile")
+     */
+    public function showProfile(SessionInterface $session ,EntityManagerInterface $manager){
+        $user = $session->get("username");
+        $repository = $manager->getRepository(User::class);
+        $user = $repository->findOneByUsername($user);
+        return $this->render('account_details/index.html.twig',['user'=>$user]);
+    }
 
 }
