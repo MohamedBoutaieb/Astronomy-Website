@@ -3,7 +3,8 @@ import { GUI } from '../node_modules/three/examples/jsm/libs/dat.gui.module.js';
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
-camera.position.z = 10;
+camera.position.z = 9;
+camera.position.y = 5;
 
 let renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -38,6 +39,7 @@ let sandboxMode = false;
 let params = {
     sandboxMode: startSandboxMode,
     globe: false,
+    size: 3,
     reset: initSolarSystem
 }
 
@@ -109,6 +111,7 @@ function init() {
     //Gui
     gui = new GUI();
     gui.add(params, 'globe').name("Globe Spawner");
+    gui.add(params, 'size', 0.5, 10 ).name("Globe Size");
     gui.add(params, 'sandboxMode').name("Sandbox mode");
     gui.add(params, 'reset').name("Reset");
     gui.domElement.style.position = 'absolute';
@@ -263,12 +266,12 @@ function whilemousedown() {
     if (!created) {
         let pos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
         if (params.globe) {
-            let globe = new Globe(pos, 6, scene);
+            let globe = new Globe(pos, params.size, scene);
             globes.push(globe);
             globe.update();
         }
         else {
-            moon = new Moon(pos, new THREE.Vector3(0, 0, 0), 2, globes, moons, scene);
+            moon = new Moon(pos, new THREE.Vector3(0, 0, 0), params.size, globes, moons, scene);
             moon.update();
         }
         created = true;

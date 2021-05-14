@@ -24,7 +24,7 @@ body {
     color: #fff;
 }
 
-li {
+.navbar-list {
     display: inline-block;
     padding: 0;
     text-transform: uppercase;
