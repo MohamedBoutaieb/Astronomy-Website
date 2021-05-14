@@ -24,7 +24,7 @@
 {#                    <li><a href={{ path('signup') }} class="cool-link">Sign Up</a></li>#}
 {#                    <li><a href={{ path('contact') }} class="cool-link">Contact</a></li>#}
                     {% if app.session.has('username') %}
-                        <li><a href="#" class="cool-link">Account Details</a></li>
+                        <li><a href={{ path('account')}} class="cool-link">Account Details</a></li>
                         <li><a href={{ path('logout') }} class="cool-link">logout</a></li>
                     {% else %}
                         <li><a href={{ path('login') }} class="cool-link">login</a></li>

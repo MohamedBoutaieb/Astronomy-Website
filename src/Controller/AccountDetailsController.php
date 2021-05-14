@@ -10,8 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountDetailsController extends AbstractController
 {
-    #[Route("/account", name = "account")]
-    public function index()
+    /**
+     * @Route("/account" ,name="account")
+     */
+    public function account()
     {
         return $this->render('account_details/user.html.twig');
     }

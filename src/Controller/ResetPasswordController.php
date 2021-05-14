@@ -18,7 +18,7 @@ class ResetPasswordController extends AbstractController
 {
     #[Route('/forgot/password', name: 'forgot_password')]
     public function index(Request $request ,EntityManagerInterface $manager ,UserRepository $userRepository
-        , \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+        , TokenGeneratorInterface $tokenGenerator): Response
     {
         //create form
         $form = $this->createForm(ResetPassType::class);
@@ -45,16 +45,16 @@ class ResetPasswordController extends AbstractController
             //je vais générer l'url de réinitialisation
         $url=$this->generateUrl('reset_password' ,['token'=>$token],UrlGeneratorInterface::ABSOLUTE_URL);
             //je vais envoyer le msg
-        $message= (new \Swift_Message('Reset Password'))
-                ->setFrom('azizazouz8b1@gmail.com')
-                ->setTo($user->getEmail())
-                ->setTo('ferielbouhamed@insat.u-carthage.tn')
-                ->setTo('mohamedazizkhayati@insat.u-carthage.tn')
-                ->setBody(
-                    "<p>Hello,</p><p>a request for password renitialisation has been made for the
-                    site Astronomy Magazine please click on the following link:".$url .'</p>','text/html');
-        //j'envoie l'email
-        $mailer->send($message);
+//        $message= (new \Swift_Message('Reset Password'))
+//                ->setFrom('azizazouz8b1@gmail.com')
+//                ->setTo($user->getEmail())
+//                ->setTo('ferielbouhamed@insat.u-carthage.tn')
+//                ->setTo('mohamedazizkhayati@insat.u-carthage.tn')
+//                ->setBody(
+//                    "<p>Hello,</p><p>a request for password renitialisation has been made for the
+//                    site Astronomy Magazine please click on the following link:".$url .'</p>','text/html');
+//        //j'envoie l'email
+//        $mailer->send($message);
               $this->addFlash('message','A password reset email was sent to you');
               return $this->redirectToRoute('login');
 

@@ -71,7 +71,9 @@ class LoginController extends AbstractController
                 $this->addFlash("error", $message);
             }
             elseif($user->getPassword() != $request->request->get('password')){
-                $pass = $passwordEncoder->encodePassword($user, $request->request->get('password'));
+//                $pass = $passwordEncoder->encodePassword($user, $request->request->get('password'));
+//                $encoded = $passwordEncoder->isPasswordValid($user, $request->request->get('password'));
+//                dd($encoded == $user->getPassword());
                 $message = "Username or password incorrect!";
                 $this->addFlash("error", $message);
             }
