@@ -66,7 +66,7 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/edit/password" ,name="edit_password")
      */
-    public function editPassword(SessionInterface $session, Request $request, EntityManagerInterface $manager)
+    public function editPassword(SessionInterface $session, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager)
     {
         $user = $session->get("username");
         $repository = $manager->getRepository(User::class);
@@ -80,7 +80,7 @@ class AccountDetailsController extends AbstractController
                 $this->addFlash('success', 'Password has successfully been changed.');
                 return $this->redirectToRoute('profile');
             } else {
-                $this->addFlash('error', 'Passwords are not the same. Please check.');
+                $this->addFlash('error', "Passwords don't match.");
                 return $this->redirectToRoute('edit_password');
             }
         } else {
