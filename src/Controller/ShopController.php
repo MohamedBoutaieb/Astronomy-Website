@@ -91,16 +91,15 @@ class ShopController extends AbstractController
     }
 
     /**
-     * @Route("/addtocart/{item}/{cost}/{stock}",name="addtocart")
+     * @Route("/addtocart/{id}",name="addtocart")
      */
-    public function add($item, $cost, $stock, SessionInterface $session/*,ObjectManager $manager*/): Response
+    public function add($id, SessionInterface $session/*,ObjectManager $manager*/): Response
     {
+        $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
+        $merch = $MerchRepo->findOneBy()
         if (!($session->has("cart"))) {
             if ($stock >= 1) {
                 for ($i = 0; $i < $_POST['stock']; $i++) $session->set("cart", array('cart' . $i => $item));
-
-                $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
-                $MerchRepo->modifyStock($stock - $_POST['stock'], $item)->execute();
             } else
                 $this->addFlash("success", "out of stock !");
         } else {
@@ -115,8 +114,10 @@ class ShopController extends AbstractController
             $total = $session->get("cost") + $cost * $_POST['stock'];
             $session->set("cost", $total);
 
-        }
 
+            $MerchRepo->modifyStock($stock - $_POST['stock'], $item)->execute();
+        }
+//add flash message + conditions on inStock
 
         return $this->RedirectToRoute('shop');
     }
@@ -173,8 +174,8 @@ class ShopController extends AbstractController
     {
         if (!($session->has("username"))) {
             $session->set("buyer", true);
+            $this->addFlash('error',"connect to purchase your items!!");
             return $this->RedirectToRoute('login');
-            $this->addFlash("connect to purchase your items!!");
         } else {
             return $this->RedirectToRoute('purchasings');
         }

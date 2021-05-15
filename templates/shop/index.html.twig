@@ -21,11 +21,10 @@
                 </div>
             </a>
         </div>
-        <a href={{ path('addtocart',{ item :poster.label, cost:poster.price,stock:poster.instock }) }} class="btn buy">add to cart</a>
         <h5 class="text-center">{{ poster.label }}</h5>
         <h5 class="text-center">{{ poster.price }}</h5>
         <div class="qty mt-5">
-            <form class="Register-form" action="{{ path('addtocart',{ item :poster.label , cost:poster.price ,stock:poster.instock }) }}" method="post">
+            <form class="Register-form" action="{{ path('addtocart',{ id :poster.id}) }}" method="post">
                 <input type="number" class="form-control" name="stock" class="count" value="1" >
                 <button>add to cart</button>
             </form>
@@ -52,7 +51,7 @@
             <h5 class="text-center">{{ magazine.label }}</h5>
             <h5 class="text-center">{{ magazine.price }}</h5>
             <div class="qty mt-5">
-                <form class="Register-form" action="{{ path('addtocart',{ item :magazine.label , cost:magazine.price ,stock:magazine.instock }) }}" method="post">
+                <form class="Register-form" action="{{ path('addtocart',{ id :magazine.id }) }}" method="post">
                     <input type="number" class="form-control" name="stock" class="count" value="1" >
                     <button>add to cart</button>
                 </form>

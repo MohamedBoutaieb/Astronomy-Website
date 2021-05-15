@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Merchandise;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use phpDocumentor\Reflection\Types\Integer;
 
@@ -49,11 +50,21 @@ class MerchandiseRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function modifyStock($value,$label) : \Doctrine\ORM\Query
+    public function modifyStock($value,$label) : Query
     {
-        return $this->createQueryBuilder('m')->update('merchandise','m')->set('m.in_stock','?1')
-            ->Where('p.label = ?2')
-            ->setParameter(1, $value)->setParameter(2,$label)->getQuery();
+/*        return $this->createQueryBuilder('m')->update('App:Merchandise','m')->set('m.label','?1')
+            ->andWhere('m.label = ?2')
+            ->setParameter(1, $value)->setParameter(2,$label)->getQuery();*/
+
+        return $this->createQueryBuilder('m')
+            ->update()
+            ->set('m.inStock', '?1')
+            ->setParameter(1, $value)
+
+            ->where('m.label = ?2')
+            ->setParameter(2, $label)
+            ->getQuery()
+            ;
     }
 
 }
