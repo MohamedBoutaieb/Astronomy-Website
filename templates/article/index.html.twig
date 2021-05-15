@@ -11,14 +11,8 @@
                 <div class="card nb-4 shadow-sm">
 {#                  <img src="{{ article.img }}" alt="{{ article.img }}">#}
                     <div class="card-body">
-                        <p class="card-text">{{ article.content|slice(0,50) }}........ </p>
+                        <p class="card-text">{{ article.content}} </p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{{ path('Show_Post') }}" class="btn btn-primary btn-sm">view </a>
-                                <a href="{{ path('edit_Post',{"id":article.id}) }}"}}
-                                   class="btn btn-primary btn-sm">edit </a>
-                                <a href="{{ path('article_delete',{"id":article.id}) }}" class="btn btn-primary btn-sm">delete </a>
-                            </div>
                             <small class="text-muted">{{ article.createdAt|date("d/m/y") }}</small>
                         </div>
                     </div>
@@ -28,4 +22,8 @@
 
         </div>
     </div>
+    <div class="container">
+        <div class="col-xs4"><a href='{{ path('Add_Post') }}' class="btn shadow-1 rounded-1 blue">Add Post</a></div>
+    </div>
+
 {% endblock %}

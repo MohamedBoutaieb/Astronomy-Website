@@ -14,9 +14,9 @@
         <img class="sidenav-logo dropshadow-1" src="your_img_path" alt="Logo"/>
     </div>
     <a href={{ path("profile")}} class="sidenav-link active">Profile</a>
-    <a href="#" class="sidenav-link">Account</a>
-    <a href="#" class="sidenav-link">Notifications</a>
-    <a href="#" class="sidenav-link">Posts</a>
+    <a href={{ path("edit_address")}} class="sidenav-link">Billing Address</a>
+    <a href="{{ path("profile")}}" class="sidenav-link">Notifications</a>
+    <a href="{{ path("articles")}}" class="sidenav-link">Posts</a>
 </div>
 <main>
     {% block main %}

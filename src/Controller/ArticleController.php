@@ -24,18 +24,14 @@ class ArticleController extends AbstractController
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isvalid()) {
-            $post->setUser($user);
-            $post->SetActive(false);
+            $post->setUser($user)
+                ->SetActive(false)
+                ->SetCreatedAt();
             $manager->persist($post);
             $manager->flush();
+            return $this->redirectToRoute('articles.list');
         }
-        return $this->render('article/index.html.twig', ['form' => $form->createview()]);
-    }
-    /**
-     * @Route("/showPost" ,name="Show_Post")
-     */
-    public function show(Article $article){
-        return $this->render("article/show.html.twig",['article'=>$article]);
+        return $this->render("article/AddPosthtml.twig",['form'=>$form->createView()]);
     }
 
     /**
@@ -50,45 +46,4 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/delete/post/{id}", name="article_delete")
-     */
-    public function deleteArticle(Article $article = null, EntityManagerInterface $manager) {
-
-        if ($article) {
-            $manager->remove($article);
-            $manager->flush();
-            $this->addFlash('success', "The post has been successfully deleted");
-        } else {
-            $this->addFlash('error', "The post does not exist");
-        }
-
-        return $this->redirectToRoute('articles.list');
-    }
-
-    /**
-     * @Route("/edit/Post/{post}" ,name="edit_Post")
-     */
-    public function editPost (Request $request ,EntityManagerInterface $manager,SessionInterface $session,Article $post){
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
-//        $repository = $manager->getRepository(Article::class);
-//        $post=$repository->findOneBySomeField($id);
-        $form=$this->createForm(PostsType::class);
-        $form->handleRequest($request);
-        if($post->getUser()===$user){
-            if ($form->isSubmitted() && $form->isvalid()) {
-                $post->setUser($user);
-                $post->SetActive(false);
-                $manager->persist($post);
-                $manager->flush();
-                $this->addFlash('success','This article has been successfully updated');
-            }
-            else{
-                $this->addFlash('warning','You are not the owner of this article . Changes cannot be made.');
-            }
-        }
-        return $this->render('article/list.html.twig');
-    }
 }
