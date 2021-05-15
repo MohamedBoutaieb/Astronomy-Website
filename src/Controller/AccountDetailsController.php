@@ -87,4 +87,26 @@ class AccountDetailsController extends AbstractController
             return $this->render('account_details/editPassword.html.twig');
         }
     }
+    /**
+     * @Route("/edit/address" ,name="edit_address")
+     */
+    public function editAddress(SessionInterface $session, Request $request, EntityManagerInterface $manager)
+    {
+        $user = $session->get("username");
+        $repository = $manager->getRepository(Address::class);
+        $address = $repository->findOneBy(["user"=>$user]);
+        $form = $this->createForm(EditAddressType::class);
+        $form->handleRequest($request);
+        $data = $form->getData();
+        if ($form->isSubmitted() && $form->isvalid()) {
+            $address->setState($data->getState())
+                    ->setCity($data->getCity())
+                    ->setZip($data->getZip())
+                    ->setAddress($data->getAddress());
+            $manager->flush();
+            $this->addFlash('success', 'Your address has been successfully updated');
+            return $this->redirectToRoute('profile');
+        }
+        return $this->render('account_details/editProfile.html.twig', ['form'=>$form->createView()]);
+    }
 }
