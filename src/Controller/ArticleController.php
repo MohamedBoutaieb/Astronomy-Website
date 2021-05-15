@@ -33,12 +33,6 @@ class ArticleController extends AbstractController
         }
         return $this->render("article/AddPosthtml.twig",['form'=>$form->createView()]);
     }
-    /**
-     * @Route("/showPost/{article}" ,name="Show_Post")
-     */
-    public function show(Article $article){
-        return $this->render("article/show.html.twig",['article'=>$article]);
-    }
 
     /**
      * @Route("/list/{page<\d+>?1}/{number<\d+>?6}", name="articles.list")
@@ -52,48 +46,4 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/delete/post/{article}", name="article_delete")
-     */
-    public function deleteArticle(Article $article = null, EntityManagerInterface $manager) {
-
-        if ($article) {
-            $manager->remove($article);
-            $manager->flush();
-            $this->addFlash('success', "The post has been successfully deleted");
-        } else {
-            $this->addFlash('error', "The post does not exist");
-        }
-
-        return $this->redirectToRoute('articles.list');
-    }
-
-    /**
-     * @Route("/edit/Post/{article}/{page<\d+>?1}/{number<\d+>?6}" ,name="edit_Post")
-     */
-    public function editPost (Request $request ,EntityManagerInterface $manager,SessionInterface $session,Article $article,$page, $number){
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
-//        $repository = $manager->getRepository(Article::class);
-//        $article=$repository->findOneBySomeField($id);
-        $form=$this->createForm(PostsType::class);
-        $form->handleRequest($request);
-        if($article->getUser()===$user){
-            if ($form->isSubmitted() && $form->isvalid()) {
-                $article->setUser($user);
-                $article->SetActive(false);
-                $manager->persist($article);
-                $manager->flush();
-                $this->addFlash('success','This article has been successfully updated');
-            }
-            else{
-                $this->addFlash('warning','You are not the owner of this article . Changes cannot be made.');
-            }
-            $articles = $repository->findBy([], ["createdAt" => "DESC"],$number, ($page - 1) * $number);
-
-        }
-        return $this->render('article/index.html.twig',[
-            'articles' => $articles]);
-    }
 }

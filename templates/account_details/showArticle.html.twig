@@ -1,0 +1,15 @@
+{% extends 'account_details/user.html.twig' %}
+
+{% block title %} Article {% endblock %}
+
+
+{% block main %}
+    <div class="container">
+        <h1>{{ article.title}}</h1>
+        <p>{{ article.content }}</p>
+        <figure>
+            <img src="" alt=""
+        </figure>
+        <small class="text-muted">{{ article.createdAt|date("d/m/y") }}</small>
+    </div>
+{% endblock %}
