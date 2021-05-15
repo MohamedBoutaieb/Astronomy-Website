@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Address;
+use App\Form\EditAddressType;
 use App\Form\EditPofileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -93,9 +95,10 @@ class AccountDetailsController extends AbstractController
     public function editAddress(SessionInterface $session, Request $request, EntityManagerInterface $manager)
     {
         $user = $session->get("username");
-        $repository = $manager->getRepository(Address::class);
-        $address = $repository->findOneBy(["user"=>$user]);
-        $form = $this->createForm(EditAddressType::class);
+        $repository = $manager->getRepository(User::class);
+        $user = $repository->findOneBy(["username"=>$user]);
+        $address = $user->getAddress();
+        $form = $this->createForm(EditAddressType::class,$address);
         $form->handleRequest($request);
         $data = $form->getData();
         if ($form->isSubmitted() && $form->isvalid()) {
