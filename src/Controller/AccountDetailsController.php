@@ -36,15 +36,10 @@ class AccountDetailsController extends AbstractController
         $repository = $manager->getRepository(User::class);
         $user = $repository->findOneByUsername($user);
         //gérer le formulaire
-        $form = $this->createForm(EditPofileType::class);
+        $form = $this->createForm(EditPofileType::class, $user);
         $form->handleRequest($request);
-        $data = $form->getData();
         //verifier si le formulaire est valide et tout va bien et on modifie les attibuts de l'utilisateur en question
         if ($form->isSubmitted() && $form->isvalid()) {
-            $user->setFirstname($data->getFirstname());
-            $user->setLastname($data->getLastname());
-            $user->setEmail($data->getemail());
-            $user->setPhoneNumber($data->getPhoneNumber());
             //remplacer l'ancien user par le nouveau
             $manager->flush();
             //message de succès
@@ -78,7 +73,6 @@ class AccountDetailsController extends AbstractController
             if ($request->request->get('pass') == $request->request->get('Confirm_Pass')) {
                 $user->setPassword($_POST['pass']);
                 // $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('Password')));
-                $manager->persist($user);
                 $manager->flush();
                 $this->addFlash('success', 'Password has successfully been changed.');
                 return $this->redirectToRoute('profile');

@@ -1,11 +1,11 @@
-textureLoader = new THREE.TextureLoader();
-normalTexture = textureLoader.load('../images/sun_texture.jpg');
+let textureLoader = new THREE.TextureLoader();
+let normalTexture = textureLoader.load('../images/sun_texture.jpg');
 class Globe {
     constructor(position, mass, scene) {
         this.position = position;
         this.mass = mass;
-        var geometry = new THREE.SphereGeometry(mass / 10, 50, 50);
-        var material = new THREE.MeshStandardMaterial({ color: 0xFF4411 });
+        let geometry = new THREE.SphereGeometry(mass / 10, 50, 50);
+        let material = new THREE.MeshStandardMaterial({ color: 0xFF4411 });
         material.roughness = 1;
         //material.normalMap = normalTexture;
         this.sphere = new THREE.Mesh(geometry, material);
@@ -28,14 +28,14 @@ class Moon extends Globe {
         this.moons = moons;
         this.sphere.material = new THREE.MeshStandardMaterial({ color: 0xFFFFAA });
         //LineBasicMaterial
-        var material = new THREE.LineBasicMaterial({ color: 0xAAAAAA });
-        var geometry = new THREE.BufferGeometry().setFromPoints(this.points);
+        let material = new THREE.LineBasicMaterial({ color: 0xAAAAAA });
+        let geometry = new THREE.BufferGeometry().setFromPoints(this.points);
         this.line = new THREE.Line(geometry, material);
         scene.add(this.line);
     }
     update() {
         super.update();
-        var outOfBounds = true;
+        let outOfBounds = true;
         this.globes.forEach(globe => {
             if (this != globe) {
                 this.acceleration.addVectors(globe.position, this.position.clone().negate());

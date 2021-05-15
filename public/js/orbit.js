@@ -4,7 +4,7 @@ import { GUI } from '../node_modules/three/examples/jsm/libs/dat.gui.module.js';
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
 camera.position.z = 9;
-camera.position.y = 5;
+camera.position.y = 4;
 
 let renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
