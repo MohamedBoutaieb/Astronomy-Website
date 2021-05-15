@@ -6,7 +6,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            {% for articles in article %}
+            {% for article in articles %}
             <div class="col-nd-4">
                 <div class="card nb-4 shadow-sm">
 {#                  <img src="{{ article.img }}" alt="{{ article.img }}">#}
@@ -24,6 +24,8 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
+
         </div>
     </div>
 {% endblock %}

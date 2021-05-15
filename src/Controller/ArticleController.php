@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Article;
 use App\Entity\User;
 use App\Form\EditPofileType;
@@ -47,7 +45,7 @@ class ArticleController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository('App:Article');
         $articles = $repository->findBy([], ["createdAt" => "DESC"],$number, ($page - 1) * $number);
-        return $this->render('article/list.html.twig', [
+        return $this->render('article/index.html.twig', [
             'articles' => $articles
         ]);
     }

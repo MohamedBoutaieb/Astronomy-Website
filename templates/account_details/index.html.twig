@@ -2,7 +2,13 @@
 {% block title %}Profile{% endblock %}
 
 {% block main %}
-
+    <div class="container">
+        {% for cle, value in  app.session.flashBag.get('success') %}
+            <div class="alert alert-info">
+                {{ value }}
+            </div>
+        {% endfor %}
+    </div>
     <div class="grix xs4 container ">
         <div class="col-xs4"><h1>My Profile</h1></div>
         <div class="col-xs1">Name : </div>
