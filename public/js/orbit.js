@@ -110,10 +110,11 @@ function init() {
 
     //Gui
     gui = new GUI();
-    gui.add(params, 'globe').name("Globe Spawner");
-    gui.add(params, 'size', 0.5, 10 ).name("Globe Size");
-    gui.add(params, 'sandboxMode').name("Sandbox mode");
-    gui.add(params, 'reset').name("Reset");
+    let folder = gui.addFolder("Sandbox");
+    folder.add(params, 'globe').name("Globe Spawner");
+    folder.add(params, 'size', 0.5, 10 ).name("Size");
+    folder.add(params, 'sandboxMode').name("Sandbox mode");
+    gui.add(params, 'reset').name("Reset Solar System");
     gui.domElement.style.position = 'absolute';
     gui.domElement.style.top = '100px';
     gui.domElement.style.right = '-2%';
