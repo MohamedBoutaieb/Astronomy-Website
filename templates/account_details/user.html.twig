@@ -2,30 +2,65 @@
 
 {% block title %}User Profile{% endblock %}
 {% block assets %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@1.2.1/dist/css/axentix.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css">
+{#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@1.2.1/dist/css/axentix.min.css">#}
 {% endblock %}
 {% block body %}
-<body class="layout with-sidenav">
-<div id="example-sidenav" data-ax="sidenav" class="sidenav shadow-1 large fixed white">
-    <div class="sidenav-header">
-        <button data-target="example-sidenav" class="sidenav-trigger"><i class="fas fa-times"></i></button>
-        <img class="sidenav-logo dropshadow-1" src="your_img_path" alt="Logo"/>
+<body class="" style="background: url('{{ asset('images/signup_bg.jpg') }}')">
+{#<div id="example-sidenav" data-ax="sidenav" class="sidenav shadow-1 large fixed white" >#}
+{#    <div class="sidenav-header">#}
+{#        <button data-target="example-sidenav" class="sidenav-trigger"><i class="fas fa-times"></i></button>#}
+{#        <img class="sidenav-logo dropshadow-1" src="your_img_path"/>#}
+{#    </div>#}
+{#    <a href={{ path("profile")}} class="sidenav-link">Profile</a>#}
+{#    <a href={{ path("edit_password")}} class="sidenav-link">Security</a>#}
+{#    <a href={{ path("edit_address")}} class="sidenav-link">Billing Address</a>#}
+{#    <a href="{{ path("profile")}}" class="sidenav-link">Notifications</a>#}
+{#    <a href="{{ path("articles")}}" class="sidenav-link">Posts</a>#}
+{#</div>#}
+{#<main>#}
+{#    <button data-target="example-sidenav"#}
+{#            class="btn rounded-1 press amaranth dark-1 sidenav-trigger hide-md-up">#}
+{#        Open sidenav#}
+{#    </button>#}
+{#    #}
+{#</main>#}
+{% block main %}
+{% endblock %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <button type="button" class="btn btn-primary">
+                <a href='{{ path('editprofile') }}' class="btn btn-primary">
+                    Edit Profile
+                </a>
+            </button>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-primary">
+                <a href='{{ path('edit_password') }}' class="btn btn-primary">
+                    Security
+                </a>
+            </button>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-primary">
+                <a href='{{ path('edit_address') }}' class="btn btn-primary">
+                    Billing Address
+                </a>
+            </button>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-primary">
+                <a href='{{ path('articles') }}' class="btn btn-primary">
+                    Articles
+                </a>
+            </button>
+        </div>
     </div>
-    <a href={{ path("profile")}} class="sidenav-link active">Profile</a>
-    <a href={{ path("edit_address")}} class="sidenav-link">Billing Address</a>
-    <a href="{{ path("profile")}}" class="sidenav-link">Notifications</a>
-    <a href="{{ path("articles")}}" class="sidenav-link">Posts</a>
 </div>
-<main>
-    {% block main %}
-    {% endblock %}
-    <button data-target="example-sidenav"
-            class="btn rounded-1 press amaranth dark-1 sidenav-trigger hide-md-up">
-        Open sidenav
-    </button>
-</main>
+
 </body>
 {% endblock %}
 {% block scripts %}

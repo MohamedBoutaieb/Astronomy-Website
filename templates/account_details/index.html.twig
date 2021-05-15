@@ -1,6 +1,8 @@
 {% extends 'account_details/user.html.twig' %}
 {% block title %}Profile{% endblock %}
-
+{% block assets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
+{% endblock %}
 {% block main %}
     <div class="container">
         {% for cle, value in  app.session.flashBag.get('success') %}
@@ -8,30 +10,41 @@
                 {{ value }}
             </div>
         {% endfor %}
+        <h1 style="color: white">My Profile</h1>
+        <br>
+        <ul class="list-group">
+            <li class="list-group-item disabled">
+                <h4>First Name :</h4>
+                {{ user.firstname }}
+            </li>
+            <li class="list-group-item disabled">
+                <h4>Last Name :</h4>
+                {{ user.lastname }}
+            </li>
+            <li class="list-group-item disabled">
+                <h4>Email :</h4>
+                {{ user.email }}
+            </li>
+            <li class="list-group-item disabled">
+                <h4>Username :</h4>
+                {{ user.username }}
+            </li>
+            <li class="list-group-item disabled">
+                <h4>Phone Number :</h4>
+                {{ user.phoneNumber }}
+            </li>
+        </ul>
     </div>
-    <div class="grix xs4 container ">
-        <div class="col-xs4"><h1>My Profile</h1></div>
-        <div class="col-xs1">Name : </div>
-        <div class="col-xs3">{{ user.username }}</div>
-        <div class="col-xs1">Surname : </div>
-        <div class="col-xs3">{{ user.lastname }}</div>
-        <div class="col-xs1">Email : </div>
-        <div class="col-xs3">{{ user.email}}</div>
-        <div class="col-xs1">PhoneNumber : </div>
-        <div class="col-xs3">{{ user.phonenumber }}</div>
-        <div class="col-xs4">
-            <a href='{{ path('editprofile') }}' class="btn shadow-1 rounded-1 blue">
-            Edit Profile
-            </a>
-        </div>
-        <div class="col-xs4"><a href='{{ path('edit_password') }}' class="btn shadow-1 rounded-1 blue">Edit Password</a></div>
-        <div class="col-xs4"><h1>My Posts</h1></div>
-{#        <div>#}
-{#            {% for post in app.user.posts() %}#}
-{#            <div class="col-xs1">Title : </div>#}
-{#            <div class="col-xs3">{{ post.Title }}</div>#}
-{#            {{ endfor }}#}
-{#        </div>#}
-
-    </div>
+{#    <div class="grix xs4 container ">#}
+{#        <div class="col-xs4"><h1>My Profile</h1></div>#}
+{#        <div class="col-xs1">Name : </div>#}
+{#        <div class="col-xs3">{{ user.username }}</div>#}
+{#        <div class="col-xs1">Surname : </div>#}
+{#        <div class="col-xs3">{{ user.lastname }}</div>#}
+{#        <div class="col-xs1">Email : </div>#}
+{#        <div class="col-xs3">{{ user.email}}</div>#}
+{#        <div class="col-xs1">PhoneNumber : </div>#}
+{#        <div class="col-xs3">{{ user.phonenumber }}</div>#}
+{#        <div class="col-xs4"><a href='{{ path('edit_password') }}' class="btn shadow-1 rounded-1 blue">Edit Password</a></div>#}
+{#    </div>#}
 {% endblock %}

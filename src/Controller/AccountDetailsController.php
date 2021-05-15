@@ -70,14 +70,17 @@ class AccountDetailsController extends AbstractController
         $repository = $manager->getRepository(User::class);
         $user = $repository->findOneByUsername($user);
         if ($request->isMethod('POST')) {
-            if ($request->request->get('pass') == $request->request->get('Confirm_Pass')) {
+            if ($request->request->get('pass') == $request->request->get('confirmPass') &&
+                $request->request->get('oldPass') == $user->getPassword()) {
                 $user->setPassword($_POST['pass']);
-                // $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('Password')));
                 $manager->flush();
                 $this->addFlash('success', 'Password has successfully been changed.');
                 return $this->redirectToRoute('profile');
             } else {
-                $this->addFlash('error', "Passwords don't match.");
+                if($request->request->get('oldPass') != $user->getPassword())
+                    $this->addFlash('error', "Pleace check if you correctly typed your old password.");
+                else
+                    $this->addFlash('error', "Passwords don't match.");
                 return $this->redirectToRoute('edit_password');
             }
         } else {
@@ -115,8 +118,8 @@ class AccountDetailsController extends AbstractController
     public function showArticles(SessionInterface $session, EntityManagerInterface $manager)
     {
         $user = $session->get("username");
-        $repository=$manager->getRepository(Article::class);
-        $articles = $repository->findBy(['user'=>$user]);
+        $repository = $manager->getRepository(Article::class);
+        $articles = $repository->findBy(['user' => $user]);
         return $this->render('account_details/Show_Articles.html.twig', [
             'articles' => $articles
         ]);
@@ -155,18 +158,13 @@ class AccountDetailsController extends AbstractController
         $user = $session->get("username");
         $repository = $manager->getRepository(User::class);
         $user = $repository->findOneByUsername($user);
-        if ($article->getUser() === $user){
-        $post = new Article();
-        $repository = $manager->getRepository(Article::class);
-        $form = $this->createForm(EditPostType::class,$post);
-        $form->handleRequest($request);
+        if ($article->getUser() === $user) {
+            $form = $this->createForm(EditPostType::class, $article);
+            $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isvalid()) {
-                $article->setUser($user);
-                $article->SetActive(false);
-                $manager->persist($article);
                 $manager->flush();
                 $this->addFlash('success', 'This article has been successfully updated');
-                return $this->redirectToRoute('Show_Post',['article'=>$article]);
+                return $this->redirectToRoute('Show_Post', ['article' => $article->getId()]);
             }
             return $this->render('account_details/editArticle.html.twig', ['form' => $form->createView()]);
         }

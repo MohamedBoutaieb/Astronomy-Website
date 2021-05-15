@@ -17,7 +17,7 @@ class PostsType extends AbstractType
         $builder
             ->add('title')
             ->add('content',TextareaType::class)
-            ->add('Add',SubmitType::class)
+            ->add('Share_Article',SubmitType::class)
         ;
     }
 

@@ -37,12 +37,27 @@ class ArticleController extends AbstractController
     /**
      * @Route("/list/{page<\d+>?1}/{number<\d+>?6}", name="articles.list")
      */
-    public function index($page, $number)
+    public function index(Request $request,EntityManagerInterface $manager,SessionInterface $session, $page, $number)
     {
+        $post = new Article();
+        $user = $session->get("username");
+        $repository = $manager->getRepository(User::class);
+        $user = $repository->findOneByUsername($user);
+        $form = $this->createForm(PostsType::class, $post);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isvalid()) {
+            $post->setUser($user)
+                ->SetActive(false)
+                ->SetCreatedAt();
+            $manager->persist($post);
+            $manager->flush();
+            return $this->redirectToRoute('articles.list');
+        }
         $repository = $this->getDoctrine()->getRepository('App:Article');
         $articles = $repository->findBy([], ["createdAt" => "DESC"],$number, ($page - 1) * $number);
         return $this->render('article/index.html.twig', [
-            'articles' => $articles
+            'articles' => $articles,
+            'form' => $form->createView()
         ]);
     }
 
