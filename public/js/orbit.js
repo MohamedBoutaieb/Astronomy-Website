@@ -1,5 +1,5 @@
-import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
-import { GUI } from '../node_modules/three/examples/jsm/libs/dat.gui.module.js';
+import { OrbitControls } from '../modules/three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from '../modules/three/examples/jsm/libs/dat.gui.module.js';
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
