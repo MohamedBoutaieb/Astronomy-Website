@@ -24,15 +24,17 @@ class ArticleController extends AbstractController
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isvalid()) {
-            $post->setUser($user);
-            $post->SetActive(false);
+            $post->setUser($user)
+                ->SetActive(false)
+                ->SetCreatedAt();
             $manager->persist($post);
             $manager->flush();
+            return $this->redirectToRoute('articles.list');
         }
-        return $this->render('article/index.html.twig', ['form' => $form->createview()]);
+        return $this->render("article/AddPosthtml.twig",['form'=>$form->createView()]);
     }
     /**
-     * @Route("/showPost" ,name="Show_Post")
+     * @Route("/showPost/{article}" ,name="Show_Post")
      */
     public function show(Article $article){
         return $this->render("article/show.html.twig",['article'=>$article]);
@@ -51,7 +53,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/delete/post/{id}", name="article_delete")
+     * @Route("/delete/post/{article}", name="article_delete")
      */
     public function deleteArticle(Article $article = null, EntityManagerInterface $manager) {
 
@@ -67,28 +69,31 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/edit/Post/{post}" ,name="edit_Post")
+     * @Route("/edit/Post/{article}/{page<\d+>?1}/{number<\d+>?6}" ,name="edit_Post")
      */
-    public function editPost (Request $request ,EntityManagerInterface $manager,SessionInterface $session,Article $post){
+    public function editPost (Request $request ,EntityManagerInterface $manager,SessionInterface $session,Article $article,$page, $number){
         $user = $session->get("username");
         $repository = $manager->getRepository(User::class);
         $user = $repository->findOneByUsername($user);
 //        $repository = $manager->getRepository(Article::class);
-//        $post=$repository->findOneBySomeField($id);
+//        $article=$repository->findOneBySomeField($id);
         $form=$this->createForm(PostsType::class);
         $form->handleRequest($request);
-        if($post->getUser()===$user){
+        if($article->getUser()===$user){
             if ($form->isSubmitted() && $form->isvalid()) {
-                $post->setUser($user);
-                $post->SetActive(false);
-                $manager->persist($post);
+                $article->setUser($user);
+                $article->SetActive(false);
+                $manager->persist($article);
                 $manager->flush();
                 $this->addFlash('success','This article has been successfully updated');
             }
             else{
                 $this->addFlash('warning','You are not the owner of this article . Changes cannot be made.');
             }
+            $articles = $repository->findBy([], ["createdAt" => "DESC"],$number, ($page - 1) * $number);
+
         }
-        return $this->render('article/list.html.twig');
+        return $this->render('article/index.html.twig',[
+            'articles' => $articles]);
     }
 }

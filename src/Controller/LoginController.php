@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Address;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Message;
@@ -44,7 +45,8 @@ class LoginController extends AbstractController
             $user->setUsername($_POST['username'])
                 ->setPassword($_POST['password'])
                 ->setEmail($_POST['email'])
-                ->setCredits(100);
+                ->setCredits(100)
+                ->setAddress(new Address());
             $manager->persist($user);
             $manager->flush();
             $message = "Your account has been created!";
@@ -62,7 +64,7 @@ class LoginController extends AbstractController
         if($session->has("username")){
             return $this->redirectToRoute('homepage');
         }
-        if(isset($_POST["username"])){
+        if($request->isMethod('post')){
             $user = $repository->findOneByUsername($_POST["username"]);
             if(!$user)
                 $user = $repository->findOneByEmail($_POST["username"]);
@@ -71,9 +73,6 @@ class LoginController extends AbstractController
                 $this->addFlash("error", $message);
             }
             elseif($user->getPassword() != $request->request->get('password')){
-//                $pass = $passwordEncoder->encodePassword($user, $request->request->get('password'));
-//                $encoded = $passwordEncoder->isPasswordValid($user, $request->request->get('password'));
-//                dd($encoded == $user->getPassword());
                 $message = "Username or password incorrect!";
                 $this->addFlash("error", $message);
             }
