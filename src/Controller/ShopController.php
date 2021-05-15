@@ -96,51 +96,60 @@ class ShopController extends AbstractController
     public function add($id, SessionInterface $session/*,ObjectManager $manager*/): Response
     {
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
-        $merch = $MerchRepo->findOneBy();
-        if (!($session->has("cart"))) {
-            if ($stock >= 1) {
-                for ($i = 0; $i < $_POST['stock']; $i++) $session->set("cart", array('cart' . $i => $item));
-            } else
-                $this->addFlash("success", "out of stock !");
+        $merch = $MerchRepo->findOneBy(['id' => $id]);
+        if ($merch->getInStock() <= $_POST['stock']) {
+            $this->addFlash("success", "insufficient stock !");
         } else {
-            $cart = $session->get("cart");
-            for ($i = 0; $i < $_POST['stock']; $i++) {
-                $index = 'cart' . (count($cart) + 1);
-                $cart[$index] = $item;
+            if (!($session->has("cart"))) {
+                $cart = array();
 
+                for ($i = 0; $i < $_POST['stock']; $i++) $arr['cart' . $i] = $merch->getId();
+                $session->set("cart", $cart);
+                $total = $session->get("cost") + $merch->getPrice() * $_POST['stock'];
+                $session->set("cost", $total);
+            } else {
+                $cart = $session->get("cart");
+                for ($i = 0; $i < $_POST['stock']; $i++) {
+                    $index = 'cart' . (count($cart) + 1);
+                    $cart[$index] = $merch->getId();
+                }
 
             }
             $session->set("cart", $cart);
-            $total = $session->get("cost") + $cost * $_POST['stock'];
+            $total = $session->get("cost") + $merch->getPrice() * $_POST['stock'];
             $session->set("cost", $total);
-
-
-            $MerchRepo->modifyStock($stock - $_POST['stock'], $item)->execute();
+            $MerchRepo->modifyStock($merch->getInStock() - $_POST['stock'], $merch->getLabel())->execute();
         }
-//add flash message + conditions on inStock
+
 
         return $this->RedirectToRoute('shop');
+
     }
 
     /**
-     * @Route("/removefromcart/{item}/{stock}",name="removefromcart")
+     * @Route("/removefromcart/{id}",name="removefromcart")
      */
-    public function remove($item, $stock, SessionInterface $session): Response
-    {
+    public function remove($id, SessionInterface $session): Response
+    {   $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
+        $merch = $MerchRepo->findOneBy(['id' => $id]);
+        $id=$merch->getId();
         if (!($session->has("cart"))) {
 
             $this->addFlash("success", "element not found");
-        } else {
+        }
+        else {
             $cart = $session->get("cart");
-                // $MerchRepo= $this->getDoctrine()->getRepository('App:Merchandise');
-                // $MerchRepo->modifyStock($stock-$_POST['stock'],$item)->execute();
-                //fetch price and substract it from total cost
-                foreach ( $cart as $key => $element) { if (!strcmp( $element ,$item) ) unset($cart[$key]); }
-                $session->set("cart", $cart);
 
-          //      $total = $session->get("cost") - $cost;
+            foreach ($cart as $key => $element) {
+                if (!strcmp($element, $id)) unset($cart[$key]);
+            }
+            $session->set("cart", $cart);
+
+            //      $total = $session->get("cost") - $cost;
             //    $session->set("cost", $total);
-
+            $MerchRepo->modifyStock($merch->getInStock() + $_POST['stock'], $merch->getLabel())->execute();
+            $total = $session->get("cost") - $merch->getPrice() * $_POST['stock'];
+            $session->set("cost", $total);
         }
 
 
@@ -156,8 +165,10 @@ class ShopController extends AbstractController
 
             $this->addFlash("success", "cart already empty!!");
         } else {
-            //$MerchRepo= $this->getDoctrine()->getRepository('App:Merchandise');
-            // for item in items $MerchRepo->modifyStock($stock+1,$item);
+            $MerchRepo= $this->getDoctrine()->getRepository('App:Merchandise');
+
+
+
             $session->remove("cart");
             $session->set("cost", 0);
             $this->addFlash("success", "cart cleared!");
@@ -174,7 +185,7 @@ class ShopController extends AbstractController
     {
         if (!($session->has("username"))) {
             $session->set("buyer", true);
-            $this->addFlash('error',"connect to purchase your items!!");
+            $this->addFlash('error', "connect to purchase your items!!");
             return $this->RedirectToRoute('login');
         } else {
             return $this->RedirectToRoute('purchasings');

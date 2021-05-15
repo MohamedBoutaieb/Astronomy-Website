@@ -72,8 +72,15 @@
         <ul class="list-group list-group-flush">
             {% if app.session.get('cart') is defined  %}
                 {% for element,red in cart %}
-                    <li class="list-group-item">{{element}} : {{ red }}</li>
-                    <a href="{{ path('removefromcart',{ item :element ,stock:red }) }}" class="card-link">remove </a>
+                    <form class="Register-form" action="{{ path('removefromcart',{ id : element }) }}" method="post">
+                        <li class="list-group-item">
+                            <input class="form-control" id="disabledInput" type="text" name="label" value={{element}} disabled="">
+                            <input class="form-control" name="stock" value={{ red }} readonly="">
+
+                        <button>remove </button>
+                    </li>
+                    </form>
+
                 {% endfor %}
                 <li class="list-group-item">total cost : {{app.session.get('cost') }}</li>
             {% endif %}
