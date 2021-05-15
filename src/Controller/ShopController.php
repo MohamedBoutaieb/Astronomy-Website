@@ -96,7 +96,7 @@ class ShopController extends AbstractController
     public function add($id, SessionInterface $session/*,ObjectManager $manager*/): Response
     {
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
-        $merch = $MerchRepo->findOneBy()
+        $merch = $MerchRepo->findOneBy();
         if (!($session->has("cart"))) {
             if ($stock >= 1) {
                 for ($i = 0; $i < $_POST['stock']; $i++) $session->set("cart", array('cart' . $i => $item));
