@@ -29,8 +29,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Assert\Length(
-     *      min = 8,
-     *      minMessage+++ = "Your first name must be at least {{ limit }} characters long",
+     *      min = 8
      * )
      * @ORM\Column(type="string", length=50)
      */
