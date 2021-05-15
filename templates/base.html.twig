@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Astronomy Magazine {% endblock %}</title>
-    <link rel="stylesheet" href={{ asset("css/navbar.css") }}>
+    {% block navbar %}<link rel="stylesheet" href={{ asset("css/navbar.css") }}> {% endblock %}
     {% block assets %} {% endblock %}
 </head>
 <body>
+{% block div %} {%  endblock %} <!-- for gallery page -->
 <header class="top-section" id="topScreen">
+
     <img src="" alt="">
     <div class="gen">
         <nav class="navbar">
@@ -34,6 +36,7 @@
         </nav>
     </div>
 </header>
+
 {% block para %} {% endblock %}
 {% block body %} {% endblock %}
 </body>
