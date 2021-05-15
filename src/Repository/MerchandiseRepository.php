@@ -12,6 +12,7 @@ use phpDocumentor\Reflection\Types\Integer;
  * @method Merchandise|null findOneBy(array $criteria, array $orderBy = null)
  * @method Merchandise[]    findAll()
  * @method Merchandise[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
  */
 class MerchandiseRepository extends ServiceEntityRepository
 {
@@ -48,13 +49,11 @@ class MerchandiseRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function modifyStock($value,$label)
+    public function modifyStock($value,$label) : \Doctrine\ORM\Query
     {
-        return $this->createQueryBuilder('p')->update('inStock')->set('p.stock',$value-1)
-            ->Where("p.label = :label")
-            ->setParameter('label', $label)
-
-            ;
+        return $this->createQueryBuilder('m')->update('merchandise','m')->set('m.in_stock','?1')
+            ->Where('p.label = ?2')
+            ->setParameter(1, $value)->setParameter(2,$label)->getQuery();
     }
 
 }

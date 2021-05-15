@@ -25,9 +25,11 @@
         <h5 class="text-center">{{ poster.label }}</h5>
         <h5 class="text-center">{{ poster.price }}</h5>
         <div class="qty mt-5">
-            <span class="minus bg-dark">-</span>
-            <input type="number" class="count" id={{poster.label}} name="qty" value="1" style=" width: 50px; ">
-            <span class="plus bg-dark">+</span>
+            <form class="Register-form" action="{{ path('addtocart',{ item :poster.label , cost:poster.price ,stock:poster.instock }) }}" method="post">
+                <input type="number" class="form-control" name="stock" class="count" value="1" >
+                <button>add to cart</button>
+            </form>
+
         </div>
     </div>
     </div>
@@ -46,13 +48,16 @@
                     </div>
                 </a>
             </div>
-            <a href={{ path('addtocart',{ item :magazine.label , cost:magazine.price ,stock:magazine.instock }) }} class="btn buy">add to cart</a>
+
             <h5 class="text-center">{{ magazine.label }}</h5>
             <h5 class="text-center">{{ magazine.price }}</h5>
             <div class="qty mt-5">
-                <span class="minus bg-dark">-</span>
-                <input type="number" class="count" name="qty" value="1" style=" width: 50px; ">
-                <span class="plus bg-dark">+</span>
+                <form class="Register-form" action="{{ path('addtocart',{ item :magazine.label , cost:magazine.price ,stock:magazine.instock }) }}" method="post">
+                    <input type="number" class="form-control" name="stock" class="count" value="1" >
+                    <button>add to cart</button>
+                </form>
+
+
             </div>
         </div>
         </div>
@@ -67,8 +72,9 @@
         </div>
         <ul class="list-group list-group-flush">
             {% if app.session.get('cart') is defined  %}
-                {% for item,red in cart %}
-                    <li class="list-group-item">{{item}} : {{ red }}</li>
+                {% for element,red in cart %}
+                    <li class="list-group-item">{{element}} : {{ red }}</li>
+                    <a href="{{ path('removefromcart',{ item :element ,stock:red }) }}" class="card-link">remove </a>
                 {% endfor %}
                 <li class="list-group-item">total cost : {{app.session.get('cost') }}</li>
             {% endif %}
