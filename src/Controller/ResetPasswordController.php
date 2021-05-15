@@ -57,10 +57,10 @@ class ResetPasswordController extends AbstractController
 //        $mailer->send($message);
               $this->addFlash('message','A password reset email was sent to you');
               return $this->redirectToRoute('login');
-
         }
         return $this->render('reset_password/forgottenpassword.html.twig',['emailForm'=>$form->createview()]);
     }
+    
     /**
      * @Route("/reset_password/{token}" ,name="reset_password")
      */

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,6 +28,10 @@ class User implements UserInterface, \Serializable
     private $username;
 
     /**
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage+++ = "Your first name must be at least {{ limit }} characters long",
+     * )
      * @ORM\Column(type="string", length=50)
      */
     private $password;
@@ -71,9 +76,15 @@ class User implements UserInterface, \Serializable
      */
     private $address;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user")
+     */
+    private $articles;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
 
@@ -254,6 +265,36 @@ class User implements UserInterface, \Serializable
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getUser() === $this) {
+                $article->setUser(null);
+            }
+        }
 
         return $this;
     }

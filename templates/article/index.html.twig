@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block assets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
+{% endblock %}
+{% block title %}Articles{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for articles in article %}
+            <div class="col-nd-4">
+                <div class="card nb-4 shadow-sm">
+{#                  <img src="{{ article.img }}" alt="{{ article.img }}">#}
+                    <div class="card-body">
+                        <p class="card-text">{{ article.content|slice(0,50) }}........ </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{{ path('Show_Post') }}" class="btn btn-primary btn-sm">view </a>
+                                <a href="{{ path('edit_Post',{"id":article.id}) }}"}}
+                                   class="btn btn-primary btn-sm">edit </a>
+                                <a href="{{ path('article_delete',{"id":article.id}) }}" class="btn btn-primary btn-sm">delete </a>
+                            </div>
+                            <small class="text-muted">{{ article.createdAt|date("d/m/y") }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

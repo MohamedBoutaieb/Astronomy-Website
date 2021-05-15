@@ -8,17 +8,17 @@
         <div class="col-xs1">Name : </div>
         <div class="col-xs3">{{ user.username }}</div>
         <div class="col-xs1">Surname : </div>
-        <div class="col-xs3">{{ user.lastname() }}</div>
+        <div class="col-xs3">{{ user.lastname }}</div>
         <div class="col-xs1">Email : </div>
-        <div class="col-xs3">{{ user.email() }}</div>
+        <div class="col-xs3">{{ user.email}}</div>
         <div class="col-xs1">PhoneNumber : </div>
-        <div class="col-xs3">{{ user.phonenumber() }}</div>
+        <div class="col-xs3">{{ user.phonenumber }}</div>
         <div class="col-xs4">
             <a href='{{ path('editprofile') }}' class="btn shadow-1 rounded-1 blue">
             Edit Profile
             </a>
         </div>
-        <div class="col-xs4"><a href="#" class="btn shadow-1 rounded-1 blue">Edit Password</a></div>
+        <div class="col-xs4"><a href='{{ path('edit_password') }}' class="btn shadow-1 rounded-1 blue">Edit Password</a></div>
         <div class="col-xs4"><h1>My Posts</h1></div>
 {#        <div>#}
 {#            {% for post in app.user.posts() %}#}
