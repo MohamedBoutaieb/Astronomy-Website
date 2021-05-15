@@ -39,6 +39,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
+     * @ORM\JoinColumn(name="username", referencedColumnName="username", nullable=false)
      */
     private $user;
 
