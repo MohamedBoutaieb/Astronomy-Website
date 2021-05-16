@@ -109,7 +109,7 @@ class AccountDetailsController extends AbstractController
             $this->addFlash('success', 'Your address has been successfully updated');
             return $this->redirectToRoute('profile');
         }
-        return $this->render('account_details/editProfile.html.twig', ['form' => $form->createView()]);
+        return $this->render('account_details/editAddress.html.twig', ['form' => $form->createView()]);
     }
 
     /**

@@ -13,28 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/user/addpost" ,name="Add_Post")
-     */
-    public function addPost(Request $request,EntityManagerInterface $manager,SessionInterface $session)
-    {
-        $post = new Article();
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
-        $form = $this->createForm(PostsType::class, $post);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isvalid()) {
-            $post->setUser($user)
-                ->SetActive(false)
-                ->SetCreatedAt();
-            $manager->persist($post);
-            $manager->flush();
-            return $this->redirectToRoute('articles.list');
-        }
-        return $this->render("article/AddPosthtml.twig",['form'=>$form->createView()]);
-    }
-
-    /**
      * @Route("/list/{page<\d+>?1}/{number<\d+>?6}", name="articles.list")
      */
     public function index(Request $request,EntityManagerInterface $manager,SessionInterface $session, $page, $number)

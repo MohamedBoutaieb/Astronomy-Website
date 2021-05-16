@@ -1,15 +1,19 @@
 {% extends 'account_details/user.html.twig' %}
 
-{% block title %} Edit Profile{% endblock %}
+{% block title %} Edit Address{% endblock %}
 
 {% block main %}
-    {{ form_start(form) }}
-    {% for att in form %}
-        {% if if not loop.last  %}
-            {{ att.vars.label }}
-            {{ form_label(att, null, {'label_attr': {'style': 'color:white'}}) }}
-            {{ form_widget(att) }}
-        {% endif %}
-    {% endfor %}
-    {{ form_end(form) }}
+    <div class="container">
+        <h1 style="color: white">Billing Information</h1>
+        {{ form_start(form) }}
+        {% for att in form %}
+            {% if not loop.last %}
+                {{ att.vars.label }}
+                {{ form_label(att, null, {'label_attr': {'style': 'color:white'}}) }}
+                {{ form_widget(att) }}
+                <br>
+            {% endif %}
+        {% endfor %}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
