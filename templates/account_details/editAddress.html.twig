@@ -3,5 +3,13 @@
 {% block title %} Edit Profile{% endblock %}
 
 {% block main %}
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {% for att in form %}
+        {% if if not loop.last  %}
+            {{ att.vars.label }}
+            {{ form_label(att, null, {'label_attr': {'style': 'color:white'}}) }}
+            {{ form_widget(att) }}
+        {% endif %}
+    {% endfor %}
+    {{ form_end(form) }}
 {% endblock %}

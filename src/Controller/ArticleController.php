@@ -54,7 +54,7 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('articles.list');
         }
         $repository = $this->getDoctrine()->getRepository('App:Article');
-        $articles = $repository->findBy([], ["createdAt" => "DESC"],$number, ($page - 1) * $number);
+        $articles = $repository->findBy(["active" => "true"], ["createdAt" => "DESC"],$number, ($page - 1) * $number);
         return $this->render('article/index.html.twig', [
             'articles' => $articles,
             'form' => $form->createView()
