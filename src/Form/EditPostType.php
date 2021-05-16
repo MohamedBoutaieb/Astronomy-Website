@@ -16,8 +16,8 @@ class EditPostType extends AbstractType
     {
         $builder
             ->add('title',TextType::class)
-            ->add('content')
-            ->add('Edit',SubmitType::class)
+            ->add('content', TextareaType::class, ['post_max_size_message'=>500])
+            ->add('Edit_Post',SubmitType::class)
         ;
     }
 

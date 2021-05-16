@@ -3,6 +3,11 @@
 
 {% block main %}
     <div class="container">
-        {{ form(form) }}
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr':{'style': 'height: 250px'}}) }}
+        <br>
+        {{ form_end(form) }}
     </div>
 {% endblock %}

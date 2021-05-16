@@ -42,6 +42,11 @@ class Address
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $Country;
+
 
     public function getId(): ?int
     {
@@ -114,6 +119,18 @@ class Address
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->Country;
+    }
+
+    public function setCountry(?string $Country): self
+    {
+        $this->Country = $Country;
 
         return $this;
     }

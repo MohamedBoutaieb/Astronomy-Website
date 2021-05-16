@@ -15,15 +15,17 @@
             {% for article in articles %}
             <div class="card text-center">
                 <div class="card-header">
-                    {{ article.title}}
+                    {{ article.user.username }}
                 </div>
                 <div class="card-body">
+                    <h5 class="card-title">{{article.title}}</h5>
                     <p class="card-text">{{ article.content }}</p>
                 </div>
                 <div class="card-footer text-muted">
                     {{ article.createdAt|date("d/m/y") }}
                 </div>
             </div>
+                <br>
             {% endfor %}
         </div>
     </body>

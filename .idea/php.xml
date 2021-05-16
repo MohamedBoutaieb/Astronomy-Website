@@ -109,9 +109,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
       <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
-      <path value="$PROJECT_DIR$/vendor/three/src" />
-      <path value="$PROJECT_DIR$/vendor/three/build" />
-      <path value="$PROJECT_DIR$/vendor/three/examples" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2">
