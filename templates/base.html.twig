@@ -11,14 +11,19 @@
     {% endblock %}
     {% block assets %} {% endblock %}
 </head>
-<body>
+<body style="background: url('{{ asset('images/signup_bg.jpg') }}'); overflow-x: hidden">
 {% block div %} {%  endblock %} <!-- for gallery page -->
 <header class="top-section" id="topScreen">
 
     <img src="" alt="">
     <div class="gen">
         <nav class="navbar">
-            <div class="brand-title">Astronomy</div>
+            <div class="brand-title">
+                <form class="form-inline" method="get" action={{ path('search') }}>
+                    <input name="user" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
             <div class="navbar-links">
                 <ul class="nav-area">
                     <li class="navbar-list"><a href={{ path('homepage') }} class="cool-link">Home</a></li>
@@ -27,8 +32,6 @@
                     <li class="navbar-list"><a href={{ path('gallery') }} class="cool-link">Gallery</a></li>
                     <li class="navbar-list"><a href={{ path('shop') }} class="cool-link">Shop</a></li>
                     <li class="navbar-list"><a href={{ path('articles.list') }} class="cool-link">Blog</a></li>
-                    {#                    <li class=navbar-list><a href={{ path('signup') }} class="cool-link">Sign Up</a></li>#}
-{#                    <li class=navbar-list><a href={{ path('contact') }} class="cool-link">Contact</a></li>#}
                     {% if app.session.has('username') %}
                         <li class="navbar-list"><a href={{ path('account')}} class="cool-link">Account Details</a></li>
                         <li class="navbar-list"><a href={{ path('logout') }} class="cool-link">logout</a></li>

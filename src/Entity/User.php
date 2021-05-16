@@ -14,7 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
 //    /**
-//     * @ORM\Id
 //     * @ORM\GeneratedValue
 //     * @ORM\Column(type="integer")
 //     */
