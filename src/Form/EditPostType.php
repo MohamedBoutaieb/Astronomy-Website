@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,7 +17,8 @@ class EditPostType extends AbstractType
     {
         $builder
             ->add('title',TextType::class)
-            ->add('content', TextareaType::class, ['post_max_size_message'=>500])
+            ->add('content',CKEditorType::class , ['post_max_size_message'=>500])
+            //->add('content', TextareaType::class, ['post_max_size_message'=>500])
             ->add('Edit_Post',SubmitType::class)
         ;
     }

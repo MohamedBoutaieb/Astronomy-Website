@@ -76,6 +76,11 @@ class User implements UserInterface, \Serializable
      */
     private $articles;
 
+    /**
+     * @ORM\Column(type="string", length=55, nullable=true)
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -292,5 +297,15 @@ class User implements UserInterface, \Serializable
         }
 
         return $this;
+    }
+
+    public function setRoles(?string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+    public function __toString(){
+        return $this->getUsername();
     }
 }
