@@ -24,13 +24,20 @@ class ArticleController extends AbstractController
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isvalid()) {
-            $post->setUser($user)
-                ->SetActive(false)
-                ->SetCreatedAt();
-            $manager->persist($post);
-            $manager->flush();
-            return $this->redirectToRoute('articles.list');
+            if($user) {
+                $post->setUser($user)
+                    ->SetActive(false)
+                    ->SetCreatedAt();
+                $manager->persist($post);
+                $manager->flush();
+                return $this->redirectToRoute('articles.list');
+            }
+            elseif (!$user){
+                $this->addFlash("error", "You should login so that you can share an article.");
+                return $this->redirectToRoute('login');
+            }
         }
+
         $repository = $this->getDoctrine()->getRepository('App:Article');
         $articles = $repository->findBy(["active" => "true"], ["createdAt" => "DESC"],$number, ($page - 1) * $number);
         return $this->render('article/index.html.twig', [
