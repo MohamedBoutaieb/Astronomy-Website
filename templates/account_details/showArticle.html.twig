@@ -2,10 +2,6 @@
 
 {% block title %} Article {% endblock %}
 
-{% block assets %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
-{% endblock %}
-
 {% block main %}
     <div class="container">
         {% for cle, value in  app.session.flashBag.get('success') %}

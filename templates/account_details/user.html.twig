@@ -24,47 +24,26 @@
 {#    </button>#}
 {#    #}
 {#</main>#}
-{% block main %}
-{% endblock %}
-<br>
-<div class="container">
     <div class="row">
-        <div class="col-sm">
-            <button type="button" class="btn btn-primary">
-                <a href='{{ path('editprofile') }}' class="btn btn-primary">
-                    Edit Profile
-                </a>
-            </button>
+        <div class="col">
+            <h1 style="color: white">Account Settings</h1>
+            <br>
+            <div class="list-group">
+                <a href='{{ path('profile') }}' class="list-group-item list-group-item-action">Profile</a>
+                <a href='{{ path('editprofile') }}' class="list-group-item list-group-item-action">Personal Information</a>
+                <a href='{{ path('edit_password') }}' class="list-group-item list-group-item-action">Security</a>
+                <a href='{{ path('edit_address') }}' class="list-group-item list-group-item-action">Billing Address</a>
+                <a href='{{ path('articles') }}' class="list-group-item list-group-item-action">Articles</a>
+            </div>
         </div>
-        <div class="col-sm">
-            <button type="button" class="btn btn-primary">
-                <a href='{{ path('edit_password') }}' class="btn btn-primary">
-                    Security
-                </a>
-            </button>
-        </div>
-        <div class="col-sm">
-            <button type="button" class="btn btn-primary">
-                <a href='{{ path('edit_address') }}' class="btn btn-primary">
-                    Billing Address
-                </a>
-            </button>
-        </div>
-        <div class="col-sm">
-            <button type="button" class="btn btn-primary">
-                <a href='{{ path('articles') }}' class="btn btn-primary">
-                    Articles
-                </a>
-            </button>
+        <div class="col-10">
+            {% block main %}
+            {% endblock %}
         </div>
     </div>
-</div>
-<br>
-{% block secondMain %}
-{% endblock %}
 </body>
 {% endblock %}
 {% block scripts %}
-    <script src="https://cdn.jsdelivr.net/npm/axentix@1.2.s/1/dist/jaxentix.min.js"></script>
+{#    <script src="https://cdn.jsdelivr.net/npm/axentix@1.2.s/1/dist/jaxentix.min.js"></script>#}
 {% endblock %}
 
