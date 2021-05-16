@@ -182,7 +182,7 @@ const meshs = scene.children.filter(object => {
     }
 });
 
-//onMouseMove event listener 
+//onMouseMove event listener
 function future(clone, x, y) {
     let position = clone.position.clone();
     let velocity = clone.velocity.clone();
@@ -231,8 +231,8 @@ function onClick(event) {
         // let intersects = raycaster.intersectObjects(meshs);
         // try {
         //     //intersects[0].object.position;
-        //     // console.log(globes[0].position.distanceTo(intersects[0].object.position), mouse.length(), 
-        //     // globes[0].position.distanceTo(intersects[0].object.position)/mouse.length()); 
+        //     // console.log(globes[0].position.distanceTo(intersects[0].object.position), mouse.length(),
+        //     // globes[0].position.distanceTo(intersects[0].object.position)/mouse.length());
         // } catch (error) {
         // }
     }
