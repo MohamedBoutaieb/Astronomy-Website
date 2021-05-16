@@ -40,9 +40,15 @@ let params = {
     sandboxMode: startSandboxMode,
     globe: false,
     size: 3,
-    reset: initSolarSystem
+    reset: initSolarSystem,
+    clear: clearSolarSystem
 }
-
+function clearSolarSystem(){
+    moons.forEach(moon => {
+        scene.remove(moon.sphere);
+        scene.remove(moon.line);
+    })
+}
 function initSolarSystem() {
     moons.forEach(moon => {
         scene.remove(moon.sphere);
@@ -114,6 +120,7 @@ function init() {
     folder.add(params, 'globe').name("Globe Spawner");
     folder.add(params, 'size', 0.5, 10 ).name("Size");
     folder.add(params, 'sandboxMode').name("Sandbox mode");
+    gui.add(params, 'clear').name("Clear Solar System");
     gui.add(params, 'reset').name("Reset Solar System");
     gui.domElement.style.position = 'absolute';
     gui.domElement.style.top = '100px';
