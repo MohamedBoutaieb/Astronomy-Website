@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AddressRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,9 +50,16 @@ class Address
     private $Country;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="addresses")
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="address")
      */
     private $shipment;
+
+    public function __construct()
+    {
+        $this->shipment = new ArrayCollection();
+    }
+
+
 
 
     public function getId(): ?int
@@ -140,15 +149,35 @@ class Address
         return $this;
     }
 
-    public function getShipment(): ?Order
+    /**
+     * @return Collection|Order[]
+     */
+    public function getShipment(): Collection
     {
         return $this->shipment;
     }
 
-    public function setShipment(?Order $shipment): self
+    public function addShipment(Order $shipment): self
     {
-        $this->shipment = $shipment;
+        if (!$this->shipment->contains($shipment)) {
+            $this->shipment[] = $shipment;
+            $shipment->setAddress($this);
+        }
 
         return $this;
     }
+
+    public function removeShipment(Order $shipment): self
+    {
+        if ($this->shipment->removeElement($shipment)) {
+            // set the owning side to null (unless already changed)
+            if ($shipment->getAddress() === $this) {
+                $shipment->setAddress(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

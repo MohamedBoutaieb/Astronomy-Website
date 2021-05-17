@@ -57,10 +57,12 @@ class Order
      */
     private $toMerch;
 
+
+
     /**
-     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="shipment")
+     * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="shipment")
      */
-    private $addresses;
+    private $address;
     /**
      * @var string
      */
@@ -219,6 +221,18 @@ class Order
                 $address->setShipment(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

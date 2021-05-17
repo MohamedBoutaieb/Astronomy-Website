@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Merchandise;
+use App\Entity\Order;
 use Doctrine\Persistence\ObjectManager;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -194,39 +195,22 @@ class ShopController extends AbstractController
 
     }
     /**
-     * @Route("/create order" ,name="create order")
+     * @Route("/create order/{total}/" ,name="create order")
      */
-    public function createAccount(EntityManagerInterface $manager, Request $request): Response
+    public function createOrder(EntityManagerInterface $manager,$total, Request $request): Response
     {
-        $repository = $this->getDoctrine()->getRepository('App:Order');
-        if (($_POST['username'] == '' || $_POST['email'] == '' || $_POST['password'] == '' || $_POST['confirm'] == '')) {
-            $message = "Please fill all the fields!";
-            $this->addFlash("warning", $message);
-        }
-        elseif ($_POST['password'] != $_POST['confirm']){
-            $message = "Passwords don't match!";
-            $this->addFlash("warning", $message);
-        }
-        elseif ($repository->findOneByUsername($_POST['username'])){
-            $message = "Username already exists!";
-            $this->addFlash("warning", $message);
-        }
-        elseif ($repository->findOneByEmail($_POST['email'])){
-            $message = "Email already linked to another account!";
-            $this->addFlash("warning", $message);
-        }
-        else {
-            $user = new User();
-            $user->setUsername($_POST['username'])
-                ->setPassword($_POST['password'])
-                ->setEmail($_POST['email'])
-                ->setCredits(100)
-                ->setAddress(new Address());
-            $manager->persist($user);
-            $manager->flush();
-            $message = "Your account has been created!";
+       // $repository = $this->getDoctrine()->getRepository('App:Order');
+        for ($i=0;$i<$total;$i++){
+            $order = new Order();
+            $order->setBuyer($_POST['username'])
+                ->setCost($_POST['cost'])
+                ->setTotalQuantity($_POST['quantity'.$i])
+                ->setMerch($_POST['merch'.$i]);
+            $manager->persist($order);
+            $manager->flush();}
+            $message = "Your order has been created!";
             $this->addFlash("success", $message);
-        }
+
         return $this->redirectToRoute('login', ['warning', $message]);
     }
 
