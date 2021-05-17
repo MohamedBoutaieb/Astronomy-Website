@@ -188,10 +188,47 @@ class ShopController extends AbstractController
             $this->addFlash('error', "connect to purchase your items!!");
             return $this->RedirectToRoute('login');
         } else {
-            return $this->RedirectToRoute('purchasings');
+            return $this->RedirectToRoute('purchasing');
         }
 
 
     }
+    /**
+     * @Route("/create order" ,name="create order")
+     */
+    public function createAccount(EntityManagerInterface $manager, Request $request): Response
+    {
+        $repository = $this->getDoctrine()->getRepository('App:Order');
+        if (($_POST['username'] == '' || $_POST['email'] == '' || $_POST['password'] == '' || $_POST['confirm'] == '')) {
+            $message = "Please fill all the fields!";
+            $this->addFlash("warning", $message);
+        }
+        elseif ($_POST['password'] != $_POST['confirm']){
+            $message = "Passwords don't match!";
+            $this->addFlash("warning", $message);
+        }
+        elseif ($repository->findOneByUsername($_POST['username'])){
+            $message = "Username already exists!";
+            $this->addFlash("warning", $message);
+        }
+        elseif ($repository->findOneByEmail($_POST['email'])){
+            $message = "Email already linked to another account!";
+            $this->addFlash("warning", $message);
+        }
+        else {
+            $user = new User();
+            $user->setUsername($_POST['username'])
+                ->setPassword($_POST['password'])
+                ->setEmail($_POST['email'])
+                ->setCredits(100)
+                ->setAddress(new Address());
+            $manager->persist($user);
+            $manager->flush();
+            $message = "Your account has been created!";
+            $this->addFlash("success", $message);
+        }
+        return $this->redirectToRoute('login', ['warning', $message]);
+    }
+
 
 }

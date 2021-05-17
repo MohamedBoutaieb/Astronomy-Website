@@ -46,6 +46,21 @@ class Order
      * @ORM\JoinColumn(name="username", referencedColumnName="username", nullable=false)
      */
     private $buyer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Merchandise::class, inversedBy="toOrder")
+     */
+    private $Merch;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Merchandise::class, mappedBy="orderedby")
+     */
+    private $toMerch;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="shipment")
+     */
+    private $addresses;
     /**
      * @var string
      */
@@ -54,6 +69,8 @@ class Order
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->toMerch = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +147,78 @@ class Order
     public function setBuyer(?User $buyer): self
     {
         $this->buyer = $buyer;
+
+        return $this;
+    }
+
+    public function getMerch(): ?Merchandise
+    {
+        return $this->Merch;
+    }
+
+    public function setMerch(?Merchandise $Merch): self
+    {
+        $this->Merch = $Merch;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Merchandise[]
+     */
+    public function getToMerch(): Collection
+    {
+        return $this->toMerch;
+    }
+
+    public function addToMerch(Merchandise $toMerch): self
+    {
+        if (!$this->toMerch->contains($toMerch)) {
+            $this->toMerch[] = $toMerch;
+            $toMerch->setOrderedby($this);
+        }
+
+        return $this;
+    }
+
+    public function removeToMerch(Merchandise $toMerch): self
+    {
+        if ($this->toMerch->removeElement($toMerch)) {
+            // set the owning side to null (unless already changed)
+            if ($toMerch->getOrderedby() === $this) {
+                $toMerch->setOrderedby(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Address[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setShipment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getShipment() === $this) {
+                $address->setShipment(null);
+            }
+        }
 
         return $this;
     }

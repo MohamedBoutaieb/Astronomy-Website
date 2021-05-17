@@ -47,6 +47,11 @@ class Address
      */
     private $Country;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="addresses")
+     */
+    private $shipment;
+
 
     public function getId(): ?int
     {
@@ -131,6 +136,18 @@ class Address
     public function setCountry(?string $Country): self
     {
         $this->Country = $Country;
+
+        return $this;
+    }
+
+    public function getShipment(): ?Order
+    {
+        return $this->shipment;
+    }
+
+    public function setShipment(?Order $shipment): self
+    {
+        $this->shipment = $shipment;
 
         return $this;
     }
