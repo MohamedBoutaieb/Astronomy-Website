@@ -100,8 +100,7 @@ class PurchaseController extends AbstractController
         $message = "Your order has been created!";
         $this->addFlash("success", $message); */
 
-        return $this->render('purchase/index.html.twig', [
-            'cart' => ($session->get('cart')),'address'=>$user->getAddress()
-        ]);
+
+
     }
 }

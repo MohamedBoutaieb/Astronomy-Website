@@ -9,7 +9,7 @@
 
             <table class="table table-hover">
                 <thead>
-                <tr>
+                <tr style="color: whitesmoke">
                     <th scope="col">Item Id</th>
                     <th scope="col">Quantity</th>
                 </tr>
@@ -23,7 +23,7 @@
                     </tr>
 
                 {% endfor %}
-                <tr class="table-warning">
+                <tr class="table-warning" >
 
                     <td>total price :</td>
                     <td>{{ app.session.get('cost') }}</td>
@@ -31,7 +31,7 @@
             </table>
             <table class="table table-hover">
                 <thead>
-                <tr>
+                <tr style="color: whitesmoke">
                     <th scope="col">Address coordinate</th>
                     <th scope="col">information</th>
                 </tr>
@@ -71,8 +71,9 @@
             </table>
             <br>
 
+     <div style="display: flex;
+  justify-content: center";><button  class="btn btn-primary" >confirm your purchase</button></div>
 
-            <button>confirm your purchase</button>
 
         </form>
     </div>
