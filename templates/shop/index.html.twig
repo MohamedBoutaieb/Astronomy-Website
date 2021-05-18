@@ -78,8 +78,7 @@
                     {% for key ,quantity in cart %}
                         <form class="Register-form" action="{{ path('removefromcart',{ id : key }) }}" method="post">
                             <li class="list-group-item">
-                                <input class="form-control" id="disabledInput" type="text" name="label" value={{key}} disabled="">
-                                <input class="form-control" name="stock" value={{quantity}} readonly="">
+                              item id : {{ key }}   quantity : {{ quantity }}
 
                                 <button>remove </button>
                             </li>
