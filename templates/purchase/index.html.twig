@@ -22,7 +22,12 @@
                     </tr>
 
                 {% endfor %}
+                <tr class="table-warning">
 
+                    <td>total price :</td>
+                    <td>{{ app.session.get('cost') }}</td>
+
+                </tr>
             </table>
             <table class="table table-hover">
                 <thead>
@@ -66,7 +71,7 @@
             </table>
             <br>
 
-            total price : <input type="text" value={{ app.session.get('cost') }} name="cost"/>
+
             <button>confirm your purchase</button>
 
         </form>
