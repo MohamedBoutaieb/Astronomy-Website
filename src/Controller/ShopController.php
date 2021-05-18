@@ -33,11 +33,14 @@ class ShopController extends AbstractController
         }
         //dd($this->table) ;
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
-
+        $labels= array();
+        foreach ($session->get('cart') as $key => $qt ){
+            $labels +=[$MerchRepo->findOneBy(['id'=> $key])->getLabel() => $qt ];
+        }
         $posters = $MerchRepo->findBy(['type' => 'Poster'], ['price' => 'asc'], 3, ($session->get("posterIndex") - 1) * 3);
         $magazines = $MerchRepo->findBy(['type' => 'magazine'], ['price' => 'asc'], 3, ($session->get("magazineIndex") - 1) * 3);
         return $this->render('shop/index.html.twig', [
-            'posters' => $posters, 'magazines' => $magazines, 'cart' => ($session->get('cart'))
+            'posters' => $posters, 'magazines' => $magazines, 'cart' => ($session->get('cart')),'labels'=>$labels
         ]);
     }
 
