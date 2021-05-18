@@ -22,5 +22,6 @@ class UserSessionUpdater
             $this->session->set('user', $user);
             return $user;
         }
+        return null;
     }
 }
