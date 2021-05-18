@@ -130,14 +130,14 @@ class ShopController extends AbstractController
     public function remove($id, SessionInterface $session): Response
     {   $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
         $merch = $MerchRepo->findOneBy(['id' => $id]);
-        $id=$merch->getId();
         if (!($session->has("cart"))) {
 
             $this->addFlash("success", "element not found");
         }
         else {
             $cart = $session->get("cart");
-
+            $total = $session->get("cost") - $merch->getPrice() * $session->get("cart")[$id];
+            $session->set("cost", $total);
             unset($cart[$id]);
 
             $session->set("cart", $cart);
@@ -145,8 +145,7 @@ class ShopController extends AbstractController
             //      $total = $session->get("cost") - $cost;
             //    $session->set("cost", $total);
             //$MerchRepo->modifyStock($merch->getInStock() + $_POST['stock'], $merch->getLabel())->execute();
-            $total = $session->get("cost") - $merch->getPrice() * $_POST['stock'];
-            $session->set("cost", $total);
+
         }
 
 
