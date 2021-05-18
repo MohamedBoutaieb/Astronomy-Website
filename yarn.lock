@@ -2,7 +2,12 @@
 # yarn lockfile v1
 
 
-black-dashboard@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/black-dashboard/-/black-dashboard-1.0.0.tgz#665f018631b8ad08c78fa5854dfaa0db599324fc"
-  integrity sha512-D2PoijLSVhOwv+9ujLxPwW6jtzhzdAOH8MaYs7wFQ2O+va0zyY+RpO+IEhKNCDGyHdGcXxDc7+IohtTapTxrAQ==
+"black-dashboard@^1.0.0":
+  "integrity" "sha512-D2PoijLSVhOwv+9ujLxPwW6jtzhzdAOH8MaYs7wFQ2O+va0zyY+RpO+IEhKNCDGyHdGcXxDc7+IohtTapTxrAQ=="
+  "resolved" "https://registry.npmjs.org/black-dashboard/-/black-dashboard-1.0.0.tgz"
+  "version" "1.0.0"
+
+"bootstrap-icons@^1.5.0":
+  "integrity" "sha512-44feMc7DE1Ccpsas/1wioN8ewFJNquvi5FewA06wLnqct7CwMdGDVy41ieHaacogzDqLfG8nADIvMNp9e4bfbA=="
+  "resolved" "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.5.0.tgz"
+  "version" "1.5.0"
