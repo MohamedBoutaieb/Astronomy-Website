@@ -14,6 +14,7 @@ class UserSessionUpdater
     public function __construct(SessionInterface $session, ManagerRegistry $registry){
         $this->session = $session;
         $this->registry = $registry;
+        $this->updateUserSession();
     }
     public function updateUserSession(){
         if($this->session->has('username')){
