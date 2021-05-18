@@ -10,18 +10,16 @@
             <table class="table table-hover">
                 <thead>
                 <tr style="color: whitesmoke">
-                    <th scope="col">Item Id</th>
+                    <th scope="col">Item</th>
                     <th scope="col">Quantity</th>
                 </tr>
                 </thead>
-                {% for quantity,key in cart %}
+                {% for key, quantity in cart %}
                     <tr class="table-light">
 
                         <td>{{ key }}</td>
                         <td>{{ quantity }}</td>
-
                     </tr>
-
                 {% endfor %}
                 <tr class="table-warning" >
 
@@ -72,9 +70,7 @@
             <br>
 
      <div style="display: flex;
-  justify-content: center";><button  class="btn btn-primary" >confirm your purchase</button></div>
-
-
+  justify-content: center;"><button  class="btn btn-primary" >confirm your purchase</button></div>
         </form>
     </div>
 
