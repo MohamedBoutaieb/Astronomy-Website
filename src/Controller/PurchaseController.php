@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MerchOrder;
 use App\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,9 +40,50 @@ class PurchaseController extends AbstractController
      * @Route("/create order" ,name="create order")
      */
     public function createOrder(EntityManagerInterface $manager ,SessionInterface $session, Request $request): Response
-    {
-        $repository = $this->getDoctrine()->getRepository('App:User');
-        foreach ($session->get('cart') as $id =>$quantity ){
+    {   $userRepository = $this->getDoctrine()->getRepository('App:User');
+        $merchRepository = $this->getDoctrine()->getRepository('App:Merchandise');
+        $user = $userRepository->findOneBy(['username' => $session->get('username')]);
+
+        if ($user->getCredits()< $session->get('cost'))
+        {
+            $message = "insufficient funds !";
+            $this->addFlash("danger", $message);
+            return $this->RedirectToRoute('shop');
+        }
+        else {
+            foreach ( $session->get('cart') as $id=>$qt )
+            {  $quantity = ($merchRepository->findOneBy(['id'=>$id]))->getInStock();
+                if ($quantity< $qt) {
+                    $message = "insufficient item : $id quantity change your odrer  !";
+                    $this->addFlash("danger", $message);
+                    return $this->RedirectToRoute('shop');
+
+                }
+            }
+            $order = new Order();
+            $order->setBuyer($user)->setCost($session->get('cost'))->setAddress($user->getAddress());
+            $manager->persist($order);
+            $manager->flush();
+
+            foreach ( $session->get('cart') as $id=>$qt )
+            {  $merch = $merchRepository->findOneBy(['id'=>$id]);
+                $merchRepository->modifyStock($merch->getInStock() - $qt, $merch->getLabel())->execute();
+                $merchOrder= new MerchOrder();
+                $merchOrder->setToMerch($merch)->setQuantity($qt)->setToorder($order);
+                $manager->persist($merchOrder);
+                $manager->flush();
+            }
+
+
+            $user->setCredits($user->getCredits()-$session->get('cost'));
+            $manager->persist($user);
+            $manager->flush();
+            return $this->RedirectToRoute('rallfromcart');
+
+
+        }
+
+        /*foreach ($session->get('cart') as $id =>$quantity ){
             $order = new Order();
             $order->setBuyer($repository->findOneByUsername($session->get('username')))
                 ->setCost($session->get('cost'))
@@ -50,10 +92,10 @@ class PurchaseController extends AbstractController
             $manager->persist($order);
             $manager->flush();}
         $message = "Your order has been created!";
-        $this->addFlash("success", $message);
+        $this->addFlash("success", $message); */
 
         return $this->render('purchase/index.html.twig', [
-            'controller_name' => 'PurchaseController',
+            'cart' => ($session->get('cart')),'address'=>$user->getAddress()
         ]);
     }
 }
