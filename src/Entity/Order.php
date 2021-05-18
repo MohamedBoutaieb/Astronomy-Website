@@ -30,22 +30,11 @@ class Order
      */
     private $cost;
 
-
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Merchandise::class)
-     */
-    private $items;
-
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      * @ORM\JoinColumn(name="username", referencedColumnName="username", nullable=false)
      */
     private $buyer;
-
-
-
 
     /**
      * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="shipment")
@@ -63,7 +52,6 @@ class Order
 
     public function __construct()
     {
-        $this->items = new ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->merchOrders = new ArrayCollection();
     }
@@ -97,33 +85,6 @@ class Order
         return $this;
     }
 
-
-
-
-    /**
-     * @return Collection|Merchandise[]
-     */
-    public function getItems(): Collection
-    {
-        return $this->items;
-    }
-
-    public function addItem(Merchandise $item): self
-    {
-        if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-        }
-
-        return $this;
-    }
-
-    public function removeItem(Merchandise $item): self
-    {
-        $this->items->removeElement($item);
-
-        return $this;
-    }
-
     public function getBuyer(): ?User
     {
         return $this->buyer;
@@ -135,11 +96,6 @@ class Order
 
         return $this;
     }
-
-
-
-
-
 
     /**
      * @return Collection|Address[]
