@@ -38,7 +38,7 @@ class PurchaseController extends AbstractController
             return $this->RedirectToRoute('edit_address');
         }
         return $this->render('purchase/index.html.twig', [
-           'cart' => ($session->get('cart')),'address'=>$user->getAddress()
+           'cart' => ($session->get('cart1')),'address'=>$user->getAddress()
         ]);
     }
     /**

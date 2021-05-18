@@ -35,12 +35,13 @@ class ShopController extends AbstractController
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
         $labels= array();
         foreach ($session->get('cart') as $key => $qt ){
-            $labels +=[$MerchRepo->findOneBy(['id'=> $key])->getLabel() => $qt ];
+            $labels +=[$MerchRepo->findOneBy(['id'=> $key])->getLabel()."#$key" => $qt ];
         }
+        $session->set('cart1',$labels);
         $posters = $MerchRepo->findBy(['type' => 'Poster'], ['price' => 'asc'], 3, ($session->get("posterIndex") - 1) * 3);
         $magazines = $MerchRepo->findBy(['type' => 'magazine'], ['price' => 'asc'], 3, ($session->get("magazineIndex") - 1) * 3);
         return $this->render('shop/index.html.twig', [
-            'posters' => $posters, 'magazines' => $magazines, 'cart' => ($session->get('cart')),'labels'=>$labels
+            'posters' => $posters, 'magazines' => $magazines, 'cart' => ($session->get('cart')),'labels'=>$session->get('cart1')
         ]);
     }
 
@@ -136,15 +137,16 @@ class ShopController extends AbstractController
     public function remove($id, SessionInterface $session): Response
     {
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
-        $merch = $MerchRepo->findOneBy(['id' => $id]);
+        $code=substr($id, strpos($id,'#')+1,strlen($id) );
+        $merch = $MerchRepo->findOneBy(['id' => $code]);
         if (!($session->has("cart"))) {
 
             $this->addFlash("warning", "element not found");
         } else {
             $cart = $session->get("cart");
-            $total = $session->get("cost") - $merch->getPrice() * $session->get("cart")[$id];
+            $total = $session->get("cost") - $merch->getPrice() * $session->get("cart")[$code];
             $session->set("cost", $total);
-            unset($cart[$id]);
+            unset($cart[$code]);
 
             $session->set("cart", $cart);
             $this->addFlash("success", "element removed from cart ");
