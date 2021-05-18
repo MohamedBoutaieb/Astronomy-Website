@@ -45,18 +45,15 @@ class Merchandise
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="Merch")
+     * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toMerch")
      */
-    private $toOrder;
+    private $merchOrders;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="toMerch")
-     */
-    private $orderedby;
+
 
     public function __construct()
     {
-        $this->toOrder = new ArrayCollection();
+        $this->merchOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,44 +122,35 @@ class Merchandise
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|MerchOrder[]
      */
-    public function getToOrder(): Collection
+    public function getMerchOrders(): Collection
     {
-        return $this->toOrder;
+        return $this->merchOrders;
     }
 
-    public function addToOrder(Order $toOrder): self
+    public function addMerchOrder(MerchOrder $merchOrder): self
     {
-        if (!$this->toOrder->contains($toOrder)) {
-            $this->toOrder[] = $toOrder;
-            $toOrder->setMerch($this);
+        if (!$this->merchOrders->contains($merchOrder)) {
+            $this->merchOrders[] = $merchOrder;
+            $merchOrder->setToMerch($this);
         }
 
         return $this;
     }
 
-    public function removeToOrder(Order $toOrder): self
+    public function removeMerchOrder(MerchOrder $merchOrder): self
     {
-        if ($this->toOrder->removeElement($toOrder)) {
+        if ($this->merchOrders->removeElement($merchOrder)) {
             // set the owning side to null (unless already changed)
-            if ($toOrder->getMerch() === $this) {
-                $toOrder->setMerch(null);
+            if ($merchOrder->getToMerch() === $this) {
+                $merchOrder->setToMerch(null);
             }
         }
 
         return $this;
     }
 
-    public function getOrderedby(): ?Order
-    {
-        return $this->orderedby;
-    }
 
-    public function setOrderedby(?Order $orderedby): self
-    {
-        $this->orderedby = $orderedby;
 
-        return $this;
-    }
 }

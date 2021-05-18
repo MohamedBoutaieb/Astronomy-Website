@@ -20,12 +20,19 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class PurchaseController extends AbstractController
 {
     /**
-     * @Route("/purchasing",name="purchasing")
+     * @Route("/purchasing/",name="purchasing")
      */
     public function index(SessionInterface $session): Response
-    {
+    { $repository = $this->getDoctrine()->getRepository('App:User');
+        $user = $repository->findOneBy(['username' => $session->get('username')]);
+
+        if ( is_null($user->getAddress()) ){
+            $message = "You must add an address !";
+            $this->addFlash("success", $message);
+            return $this->RedirectToRoute('edit_address');
+        }
         return $this->render('purchase/index.html.twig', [
-            'controller_name' => 'PurchaseController','cart' => ($session->get('cart'))
+           'cart' => ($session->get('cart')),'address'=>$user->getAddress()
         ]);
     }
     /**

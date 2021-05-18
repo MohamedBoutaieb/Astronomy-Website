@@ -47,15 +47,6 @@ class Order
      */
     private $buyer;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Merchandise::class, inversedBy="toOrder")
-     */
-    private $Merch;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Merchandise::class, mappedBy="orderedby")
-     */
-    private $toMerch;
 
 
 
@@ -63,6 +54,11 @@ class Order
      * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="shipment")
      */
     private $address;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toorder")
+     */
+    private $merchOrders;
     /**
      * @var string
      */
@@ -71,8 +67,8 @@ class Order
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->toMerch = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->merchOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,47 +149,10 @@ class Order
         return $this;
     }
 
-    public function getMerch(): ?Merchandise
-    {
-        return $this->Merch;
-    }
 
-    public function setMerch(?Merchandise $Merch): self
-    {
-        $this->Merch = $Merch;
 
-        return $this;
-    }
 
-    /**
-     * @return Collection|Merchandise[]
-     */
-    public function getToMerch(): Collection
-    {
-        return $this->toMerch;
-    }
 
-    public function addToMerch(Merchandise $toMerch): self
-    {
-        if (!$this->toMerch->contains($toMerch)) {
-            $this->toMerch[] = $toMerch;
-            $toMerch->setOrderedby($this);
-        }
-
-        return $this;
-    }
-
-    public function removeToMerch(Merchandise $toMerch): self
-    {
-        if ($this->toMerch->removeElement($toMerch)) {
-            // set the owning side to null (unless already changed)
-            if ($toMerch->getOrderedby() === $this) {
-                $toMerch->setOrderedby(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Address[]
@@ -233,6 +192,36 @@ class Order
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MerchOrder[]
+     */
+    public function getMerchOrders(): Collection
+    {
+        return $this->merchOrders;
+    }
+
+    public function addMerchOrder(MerchOrder $merchOrder): self
+    {
+        if (!$this->merchOrders->contains($merchOrder)) {
+            $this->merchOrders[] = $merchOrder;
+            $merchOrder->setToorder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMerchOrder(MerchOrder $merchOrder): self
+    {
+        if ($this->merchOrders->removeElement($merchOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($merchOrder->getToorder() === $this) {
+                $merchOrder->setToorder(null);
+            }
+        }
 
         return $this;
     }

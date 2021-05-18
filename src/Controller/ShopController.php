@@ -184,6 +184,7 @@ class ShopController extends AbstractController
             $this->addFlash('error', "connect to purchase your items!!");
             return $this->RedirectToRoute('login');
         } else {
+
             return $this->RedirectToRoute('purchasing');
         }
 

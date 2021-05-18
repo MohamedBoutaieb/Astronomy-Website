@@ -7,12 +7,11 @@
 
     <title>{% block title %}Astronomy Magazine {% endblock %}</title>
     {% block maincss %}
-        <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+
         <link rel="stylesheet" href={{ asset("css/navbar.css") }}>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
     {% endblock %}
     {% block assets %} {% endblock %}
-
 </head>
 <body style="background: url('{{ asset('images/signup_bg.jpg') }}'); overflow-x: hidden">
 {% block div %} {%  endblock %} <!-- for gallery page -->
@@ -23,7 +22,8 @@
         <nav class="navbar">
             <div class="brand-title">
                 <form class="form-inline" method="get" action={{ path('search') }}>
-                    <input name="user" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                    <input name="user" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
             <div class="navbar-links">
@@ -237,7 +237,7 @@
 </footer>
 <!-- Footer -->
 <div class="gen">
-
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
