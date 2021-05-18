@@ -30,10 +30,7 @@ class Order
      */
     private $cost;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $totalQuantity;
+
 
 
     /**
@@ -100,17 +97,7 @@ class Order
         return $this;
     }
 
-    public function getTotalQuantity(): ?int
-    {
-        return $this->totalQuantity;
-    }
 
-    public function setTotalQuantity(?int $totalQuantity): self
-    {
-        $this->totalQuantity = $totalQuantity;
-
-        return $this;
-    }
 
 
     /**
