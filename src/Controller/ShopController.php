@@ -37,7 +37,7 @@ class ShopController extends AbstractController
         $posters = $MerchRepo->findBy(['type' => 'Poster'], ['price' => 'asc'], 3, ($session->get("posterIndex") - 1) * 3);
         $magazines = $MerchRepo->findBy(['type' => 'magazine'], ['price' => 'asc'], 3, ($session->get("magazineIndex") - 1) * 3);
         return $this->render('shop/index.html.twig', [
-            'posters' => $posters, 'magazines' => $magazines, 'cart' => array_count_values($session->get('cart'))
+            'posters' => $posters, 'magazines' => $magazines, 'cart' => ($session->get('cart'))
         ]);
     }
 
@@ -104,22 +104,19 @@ class ShopController extends AbstractController
             if (!($session->has("cart"))) {
                 $cart = array();
 
-                for ($i = 0; $i < $_POST['stock']; $i++) $arr['cart' . $i] = $merch->getId();
+                $cart[$merch->getId()]=$_POST['stock'];
+
                 $session->set("cart", $cart);
-                $total = $session->get("cost") + $merch->getPrice() * $_POST['stock'];
-                $session->set("cost", $total);
+
             } else {
                 $cart = $session->get("cart");
-                for ($i = 0; $i < $_POST['stock']; $i++) {
-                    $index = 'cart' . (count($cart) + 1);
-                    $cart[$index] = $merch->getId();
-                }
+                $cart[$merch->getId()]=$_POST['stock'];
 
-            }
+            } //dd($cart);
             $session->set("cart", $cart);
             $total = $session->get("cost") + $merch->getPrice() * $_POST['stock'];
             $session->set("cost", $total);
-            $MerchRepo->modifyStock($merch->getInStock() - $_POST['stock'], $merch->getLabel())->execute();
+           // $MerchRepo->modifyStock($merch->getInStock() - $_POST['stock'], $merch->getLabel())->execute();
         }
 
 
@@ -141,14 +138,13 @@ class ShopController extends AbstractController
         else {
             $cart = $session->get("cart");
 
-            foreach ($cart as $key => $element) {
-                if (!strcmp($element, $id)) unset($cart[$key]);
-            }
+            unset($cart[$id]);
+
             $session->set("cart", $cart);
 
             //      $total = $session->get("cost") - $cost;
             //    $session->set("cost", $total);
-            $MerchRepo->modifyStock($merch->getInStock() + $_POST['stock'], $merch->getLabel())->execute();
+            //$MerchRepo->modifyStock($merch->getInStock() + $_POST['stock'], $merch->getLabel())->execute();
             $total = $session->get("cost") - $merch->getPrice() * $_POST['stock'];
             $session->set("cost", $total);
         }
@@ -194,25 +190,7 @@ class ShopController extends AbstractController
 
 
     }
-    /**
-     * @Route("/create order/{total}/" ,name="create order")
-     */
-    public function createOrder(EntityManagerInterface $manager,$total, Request $request): Response
-    {
-       // $repository = $this->getDoctrine()->getRepository('App:Order');
-        for ($i=0;$i<$total;$i++){
-            $order = new Order();
-            $order->setBuyer($_POST['username'])
-                ->setCost($_POST['cost'])
-                ->setTotalQuantity($_POST['quantity'.$i])
-                ->setMerch($_POST['merch'.$i]);
-            $manager->persist($order);
-            $manager->flush();}
-            $message = "Your order has been created!";
-            $this->addFlash("success", $message);
 
-        return $this->redirectToRoute('login', ['warning', $message]);
-    }
 
 
 }
