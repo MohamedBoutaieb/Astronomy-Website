@@ -102,7 +102,7 @@ class ShopController extends AbstractController
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
         $merch = $MerchRepo->findOneBy(['id' => $id]);
         if ($merch->getInStock() <= $_POST['stock']) {
-            $this->addFlash("success", "insufficient stock !");
+            $this->addFlash("warning", "insufficient stock !");
         } else {
             if (!($session->has("cart"))) {
                 $cart = array();
@@ -136,7 +136,7 @@ class ShopController extends AbstractController
         $merch = $MerchRepo->findOneBy(['id' => $id]);
         if (!($session->has("cart"))) {
 
-            $this->addFlash("success", "element not found");
+            $this->addFlash("warning", "element not found");
         } else {
             $cart = $session->get("cart");
             $total = $session->get("cost") - $merch->getPrice() * $session->get("cart")[$id];
@@ -144,7 +144,7 @@ class ShopController extends AbstractController
             unset($cart[$id]);
 
             $session->set("cart", $cart);
-
+            $this->addFlash("success", "element removed from cart ");
             //      $total = $session->get("cost") - $cost;
             //    $session->set("cost", $total);
             //$MerchRepo->modifyStock($merch->getInStock() + $_POST['stock'], $merch->getLabel())->execute();
@@ -162,7 +162,7 @@ class ShopController extends AbstractController
     {
         if (!($session->has("cart"))) {
 
-            $this->addFlash("success", "cart already empty!!");
+            $this->addFlash("warning", "cart already empty!!");
         } else {
             //$MerchRepo= $this->getDoctrine()->getRepository('App:Merchandise');
 

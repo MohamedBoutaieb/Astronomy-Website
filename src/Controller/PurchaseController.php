@@ -73,11 +73,12 @@ class PurchaseController extends AbstractController
                 $manager->persist($merchOrder);
                 $manager->flush();
             }
-
-
+            $message="your purchase has been done successfully , check your account for more details";
+            $this->addFlash("success", $message);
             $user->setCredits($user->getCredits()-$session->get('cost'));
             $manager->persist($user);
             $manager->flush();
+
             return $this->RedirectToRoute('rallfromcart');
 
 

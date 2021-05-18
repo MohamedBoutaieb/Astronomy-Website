@@ -3,15 +3,29 @@
 {% block title %}Hello ShopController!{% endblock %}
 
 {% block body %}
+    {% for value in  app.session.flashBag.get('success') %}
+        <div class="alert alert-success" style="color: black">
+            {{ value }}
+        </div>
+
+    {% endfor %}
+    {% for value in  app.session.flashBag.get('warning') %}
+        <div class="alert alert-warning" style="color: black">
+            {{ value }}
+        </div>
+
+    {% endfor %}
+    {% for value in  app.session.flashBag.get('danger') %}
+        <div class="alert alert-danger" style="color: black">
+            {{ value }}
+        </div>
+
+    {% endfor %}
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
-    {% for cle, value in  app.session.flashBag.get('warning') %}
-        <div id="create-account-warning" style="color: white">
-            {{ value }}
-        </div>
-    {% endfor %}
+
     <div class="example-wrapper">
         <h1> Posters</h1>
         {% for poster in posters %}
@@ -29,7 +43,7 @@
                     <h5 class="text-center">{{ poster.price }}</h5>
                     <div class="qty mt-5">
                         <form class="Register-form" action="{{ path('addtocart',{ id :poster.id}) }}" method="post">
-                            <input type="number" class="form-control" name="stock" class="count" value="1" >
+                            <input type="number" class="form-control" name="stock" class="count" value="1" min="1" >
                             <button>add to cart</button>
                         </form>
 

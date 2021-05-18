@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% for cle, value in  app.session.flashBag.get('error') %}
+        <div class="alert alert-warning "style="color: black;">
+            {{ value }}
+        </div>
+    {% endfor %}
     <div Class="Login-page">
         <div class="form">
             <form class="Register-form" action="{{ path('create account') }}" method="post">
