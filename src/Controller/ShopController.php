@@ -47,7 +47,8 @@ class ShopController extends AbstractController
     public function nextpost(SessionInterface $session): Response
     {
         $index = $session->get("posterIndex");
-        if ($index <= 6)
+        $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
+        if ($index <= count($MerchRepo->findBy(['type' => 'Poster'])) / 3 )
             $session->set("posterIndex", $index + 1);
 
         return $this->RedirectToRoute('shop');
@@ -71,8 +72,10 @@ class ShopController extends AbstractController
      */
     public function nextmag(SessionInterface $session): Response
     {
+
         $index = $session->get("magazineIndex");
-        if ($index <= 6)
+        $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
+        if ($index <= count($MerchRepo->findBy(['type' => 'magzazine'])) / 3 )
             $session->set("magazineIndex", $index + 1);
 
         return $this->RedirectToRoute('shop');
@@ -104,19 +107,19 @@ class ShopController extends AbstractController
             if (!($session->has("cart"))) {
                 $cart = array();
 
-                $cart[$merch->getId()]=$_POST['stock'];
+                $cart[$merch->getId()] = $_POST['stock'];
 
                 $session->set("cart", $cart);
 
             } else {
                 $cart = $session->get("cart");
-                $cart[$merch->getId()]=$_POST['stock'];
+                $cart[$merch->getId()] = $_POST['stock'];
 
             } //dd($cart);
             $session->set("cart", $cart);
             $total = $session->get("cost") + $merch->getPrice() * $_POST['stock'];
             $session->set("cost", $total);
-           // $MerchRepo->modifyStock($merch->getInStock() - $_POST['stock'], $merch->getLabel())->execute();
+            // $MerchRepo->modifyStock($merch->getInStock() - $_POST['stock'], $merch->getLabel())->execute();
         }
 
 
@@ -128,13 +131,13 @@ class ShopController extends AbstractController
      * @Route("/removefromcart/{id}",name="removefromcart")
      */
     public function remove($id, SessionInterface $session): Response
-    {   $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
+    {
+        $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
         $merch = $MerchRepo->findOneBy(['id' => $id]);
         if (!($session->has("cart"))) {
 
             $this->addFlash("success", "element not found");
-        }
-        else {
+        } else {
             $cart = $session->get("cart");
             $total = $session->get("cost") - $merch->getPrice() * $session->get("cart")[$id];
             $session->set("cost", $total);
@@ -161,8 +164,7 @@ class ShopController extends AbstractController
 
             $this->addFlash("success", "cart already empty!!");
         } else {
-            $MerchRepo= $this->getDoctrine()->getRepository('App:Merchandise');
-
+            //$MerchRepo= $this->getDoctrine()->getRepository('App:Merchandise');
 
 
             $session->remove("cart");
@@ -190,7 +192,6 @@ class ShopController extends AbstractController
 
 
     }
-
 
 
 }
