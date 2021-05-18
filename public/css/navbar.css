@@ -4,6 +4,7 @@ body {
 }
 
 .navbar {
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     display: flex;
     position: relative;
     justify-content: space-between;
@@ -63,7 +64,25 @@ header {
     width: 100%;
     transition: width .3s;
 }
+.dropdown{
+    position: absolute;
+    top: 10px;
+}
 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    background: linear-gradient(rgb(10, 10, 10), #0000);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
 @media (max-width: 800px) {
     .navbar {
