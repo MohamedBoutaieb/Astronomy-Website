@@ -19,11 +19,11 @@ class ProfileController extends AbstractController
         $userRepo = $manager->getRepository('App:User');
         if($request->isMethod("get")){
             $users = $userRepo->search($_GET["user"]);
-            dd($users);
-            return $this->redirectToRoute('homepage');
+
+            return $this->redirectToRoute('searchpage');
         }
         else{
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('searchpage');
         }
     }
 }
