@@ -194,7 +194,7 @@ class AccountDetailsController extends AbstractController
     {
         $user = $sessionUpdater->updateUserSession();
         $orderRepo = $manager->getRepository(Order::class);
-        $orders = $orderRepo->findBy(['buyer' => $user]);
+        $orders = $orderRepo->findBy(['buyer' => $user], ['id'=>'desc']);
 
         return $this->render('account_details/orders.html.twig', [
             'orders' => $orders
@@ -208,11 +208,7 @@ class AccountDetailsController extends AbstractController
     {
 
         $orderMerchRepo = $manager->getRepository(MerchOrder::class);
-        $subOrders = $orderMerchRepo->findBy(["toOrder"=>$order]);
-        $merch = array();
-        foreach ($subOrders as $subOrder ){
-            array_push($merch, $subOrder->getToMerch());
-        }
+        $subOrders = $orderMerchRepo->findBy(["toOrder"=>$order], ['id'=>'desc']);
         return $this->render('account_details/order_details.html.twig', [
             'subOrders' => $subOrders,
             'order' => $order

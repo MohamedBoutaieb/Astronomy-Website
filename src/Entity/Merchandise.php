@@ -40,9 +40,9 @@ class Merchandise
     private $label;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="string", length=50)
      */
-    private $type= ["poster","magazine"];
+    private $type;
 
     /**
      * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toMerch")
@@ -123,7 +123,7 @@ class Merchandise
         return $this;
     }
 
-    public function getType(): ?array
+    public function getType(): ?string
     {
         return $this->type;
     }
