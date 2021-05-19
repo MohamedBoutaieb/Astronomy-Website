@@ -101,7 +101,7 @@ class ShopController extends AbstractController
     /**
      * @Route("/addtocart/{id}",name="addtocart")
      */
-    public function add($id, SessionInterface $session/*,ObjectManager $manager*/): Response
+    public function add($id, SessionInterface $session): Response
     {
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
         $merch = $MerchRepo->findOneBy(['id' => $id]);

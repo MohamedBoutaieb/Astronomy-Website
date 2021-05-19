@@ -40,15 +40,29 @@ class Merchandise
     private $label;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="array")
      */
-    private $type;
+    private $type= ["poster","magazine"];
 
     /**
      * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toMerch")
      */
     private $merchOrders;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $available;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $availability = ["In Stock", "Out of Stock"];
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $types = ["poster","magazine"];
 
 
     public function __construct()
@@ -109,7 +123,7 @@ class Merchandise
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?array
     {
         return $this->type;
     }
@@ -150,6 +164,43 @@ class Merchandise
 
         return $this;
     }
+
+    public function getAvailable(): ?string
+    {
+        return $this->available;
+    }
+
+    public function setAvailable(string $available): self
+    {
+        $this->available = $available;
+
+        return $this;
+    }
+
+    public function getAvailability(): ?array
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability(array $availability): self
+    {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
+    public function getTypes(): ?array
+    {
+        return $this->types;
+    }
+
+    public function setTypes(array $types): self
+    {
+        $this->types = $types;
+
+        return $this;
+    }
+
 
 
 

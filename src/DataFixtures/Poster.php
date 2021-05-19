@@ -17,6 +17,7 @@ class Poster extends Fixture
          $product->setUrl($faker->imageUrl());
          $product->setPrice($faker->randomFloat(2,1,70));
          $product->setInStock($faker->numberBetween(0,30));
+         $product->setAvailable($product->getAvailability()[$faker->numberBetween(0,1)]);
          $manager->persist($product);
 
 

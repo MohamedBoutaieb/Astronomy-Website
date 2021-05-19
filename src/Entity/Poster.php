@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PosterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass=PosterRepository::class)
@@ -36,6 +37,18 @@ class Poster
      * @ORM\Column(type="string", length=255)
      */
     private $Label;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $available;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $availability = ["In Stock", "Out of Stock"];
+
 
     public function getId(): ?int
     {
@@ -89,4 +102,29 @@ class Poster
 
         return $this;
     }
+
+    public function getAvailable(): ?string
+    {
+        return $this->available;
+    }
+
+    public function setAvailable(string $available): self
+    {
+        $this->available = $available;
+
+        return $this;
+    }
+
+    public function getAvailability(): ?array
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability(array $availability): self
+    {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
 }

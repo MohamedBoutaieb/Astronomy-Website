@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShopController!{% endblock %}
+{% block title %}Shop • Astronomy Magazine{% endblock %}
 
 {% block body %}
     {% for value in  app.session.flashBag.get('success') %}
@@ -21,103 +21,128 @@
         </div>
 
     {% endfor %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="example-wrapper">
-        <h1> Posters</h1>
-        {% for poster in posters %}
-            <div class="card text-white bg-success mb-3">
-                <div class="col-md-4 product-grid">
-                    <div class="image">
-                        <a href="#">
-                            <img src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 width="100">
-                            <div class="overlay">
-                                <div class="detail">View Details</div>
-                            </div>
-                        </a>
-                    </div>
-                    <h5 class="text-center">{{ poster.label }}</h5>
-                    <h5 class="text-center">{{ poster.price }}</h5>
-                    <div class="qty mt-5">
-                        <form class="Register-form" action="{{ path('addtocart',{ id :poster.id}) }}" method="post">
-                            <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
-                            <button>add to cart</button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        <a  class="btn buy" href={{ path('nextp') }} >next</a>
-        <a  class="btn buy" href={{ path('previousp') }} >previous</a>
-        <h1> magazines</h1>
-        {% for magazine in magazines %}
-            <div class="card text-white bg-success mb-3">
-                <div class="col-md-4 product-grid">
-                    <div class="image">
-                        <a href="#">
-                            <img src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 width="100">
-                            <div class="overlay">
-                                <div class="detail">View Details</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <h5 class="text-center">{{ magazine.label }}</h5>
-                    <h5 class="text-center">{{ magazine.price }}</h5>
-                    <div class="qty mt-5">
-                        <form class="Register-form" action="{{ path('addtocart',{ id :magazine.id }) }}" method="post">
-                            <input type="number" class="form-control"  name="stock" class="count"oninput="validity.valid||(value='');" value="1" >
-                            <button>add to cart</button>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        <a  class="btn buy" href={{ path('nextm') }} >next</a>
-        <a  class="btn buy" href={{ path('previousm') }} >previous</a>
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Cart</h5>
-                <p class="card-text">These are your selected items </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                {% if app.session.get('cart') is defined  %}
-                    {% for key ,quantity in labels %}
-                        <form class="Register-form" action="{{ path('removefromcart',{ id : key }) }}" method="post">
-                            <li class="list-group-item">
-                              item  : {{ key }} <br>
-                                quantity : {{ quantity }}
-
-                                <button>remove </button>
+    <div class="section">
+        <div class="container">
+            <section class="posters">
+                <h1>
+                        Our Posters
+                </h1>
+                <div class="image-carousel style2 flexslider" data-animation="slide" data-item-width="270" data-item-margin="30">
+                <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                    <ul class="slides image-box hotel listing-style1" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-300px, 0px, 0px);">
+                        {% for poster in posters %}
+                            <li style="width: 270px; float: left; display: block; border: 0;">
+                                <article class="box">
+                                    <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt="" src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 draggable="false"></a> </figure>
+                                    <div class="details"> <span class="price"><small>Price</small>{{ poster.price }}</span>
+                                        <h4 class="box-title">{{ poster.label }}<small>{{ poster.available }}</small></h4>
+                                        <br>
+                                        <p class="description">For what reason would it be advisable for me to think about business content?</p>
+                                        <form class="Register-form" action="{{ path('addtocart',{ id :poster.id}) }}" method="post">
+                                            <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
+                                        </form>
+                                        <div class="action">
+                                            <a class="button btn-small" href="#">View Details</a>
+                                            <a class="button btn-small yellow popup-map" href="#" data-box="37.089072, -8.247880">Add to Cart</a> </div>
+                                    </div>
+                                </article>
                             </li>
-                        </form>
+                        {% endfor %}
+                    </ul>
 
-                    {% endfor %}
-                    <li class="list-group-item">total cost : {{app.session.get('cost') }}</li>
-                {% endif %}
-            </ul>
-            <div class="card-body">
-                {% if app.session.get('cart') is defined  %}
-
-
-                {% endif %}
-                <a href={{ path('rallfromcart') }} class="card-link">remove all</a>
-
-                <a href={{ path('purchase') }} class="card-link">purchase</a>
-
+                </div>
+            </div>
+            <div class="buttons">
+                <a  class="btn buy" href={{ path('previousp') }} >
+                    <button class="w3-button w3-large w3-black">‹</button>
+                </a>
+                <a  class="btn buy" href={{ path('nextp') }} >
+                    <button class="w3-button w3-large w3-black">›</button>
+                </a>
             </div>
 
+            </section>
+            <br>
+            <section class="magazines">
+                <h1>Our Magazines</h1>
+                <div class="image-carousel style2 flexslider" data-animation="slide" data-item-width="270" data-item-margin="30">
+                    <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                        <ul class="slides image-box hotel listing-style1" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-300px, 0px, 0px);">
+
+                            {% for magazine in magazines %}
+                                <li style="width: 270px; float: left; display: block;">
+                                    <article class="box">
+                                        <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt="" src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 draggable="false"></a> </figure>
+                                        <div class="details"> <span class="price"><small>Price</small>{{ magazine.price }}</span>
+                                            <h4 class="box-title">{{ magazine.label }}<small>{{ magazine.available }}</small></h4>
+                                            <br>
+                                            <p class="description">For what reason would it be advisable for me to think about business content?</p>
+                                            <form class="Register-form" action="{{ path('addtocart',{ id :magazine.id }) }}" method="post">
+                                                <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
+                                                <div class="action">
+                                                    <a class="button btn-small" href="#">View Details</a>
+                                                    <a class="button btn-small yellow popup-map" href="#" data-box="37.089072, -8.247880">Add to Cart</a>
+                                                </div>
+                                            </form>
+
+
+                                        </div>
+                                    </article>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+
+
+                    </div>
+                </div>
+                <div class="buttons">
+                    <a  class="btn buy" href={{ path('previousm') }} >
+                        <button class="w3-button w3-large w3-black">‹</button>
+                    </a>
+                    <a  class="btn buy" href={{ path('nextm') }} >
+                        <button class="w3-button w3-large w3-black">›</button>
+                    </a>
+                </div>
+            </section>
+            <br>
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Cart</h5>
+                    <p class="card-text">These are your selected items </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if app.session.get('cart') is defined  %}
+                        {% for key ,quantity in labels %}
+                            <form class="Register-form" action="{{ path('removefromcart',{ id : key }) }}" method="post">
+                                <li class="list-group-item">
+                                    item  : {{ key }} <br>
+                                    quantity : {{ quantity }}
+
+                                    <button>remove </button>
+                                </li>
+                            </form>
+
+                        {% endfor %}
+                        <li class="list-group-item">total cost : {{app.session.get('cost') }}</li>
+                    {% endif %}
+                </ul>
+                <div class="card-body">
+                    {% if app.session.get('cart') is defined  %}
+
+
+                    {% endif %}
+                    <a href={{ path('rallfromcart') }} class="card-link">remove all</a>
+
+                    <a href={{ path('purchase') }} class="card-link">purchase</a>
+
+                </div>
+
+            </div>
         </div>
     </div>
-
-
 
 {% endblock %}
 {% block assets  %}<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
