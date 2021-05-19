@@ -3,6 +3,12 @@
     <link rel="stylesheet" href={{ asset("css/main.css") }}>
 {% endblock %}
 {% block para %}
+    {% for value in  app.session.flashBag.get('danger') %}
+        <div class="alert alert-danger" style="color: black">
+            {{ value }}
+        </div>
+
+    {% endfor %}
     <div class="paras">
         <h1>The magazine for all the space geeks.</h1>
         <p>Join us for a better experience.</p>
