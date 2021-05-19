@@ -117,7 +117,10 @@ class ShopController extends AbstractController
 
             } else {
                 $cart = $session->get("cart");
-                $cart[$merch->getId()] += $_POST['stock'];
+                if (isset($cart[$merch->getId()])){$cart[$merch->getId()] += $_POST['stock'];}
+                else {$cart[$merch->getId()]= $_POST['stock'];
+                }
+
 
             } //dd($cart);
             $session->set("cart", $cart);

@@ -114,9 +114,15 @@
             </section>
             <br>
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+
                 <div class="card-body">
-                    <h5 class="card-title">Cart</h5>
+                    <h5 class="card-title" style ="display :inline;align-items: center;">Cart
+                        {% if labels %}
+                        <img style= "margin-left: 60%;" height="60" width="60" src={{ asset('images/full.png')}}  >
+                        {% else%}
+                        <img style= "margin-left: 60%;" height="60" width="60" src={{ asset('images/empty.png')}}  >
+                    {% endif %}
+                    </h5>
                     <p class="card-text">These are your selected items </p>
                 </div>
                 <ul class="list-group list-group-flush">
