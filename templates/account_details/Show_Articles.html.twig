@@ -13,7 +13,7 @@
                     <h5 class="card-header">{{ article.title }}</h5>
                     <div class="card-body">
                         {% if article.content|length > 50 %}
-                            <p class="card-text">{{ article.content|slice(0,100) }} ...</p>
+                            <p class="card-text">{{ article.content|slice(0,100)|raw }} ...</p>
                         {% else %}
                             <p class="card-text">{{ article.content }}</p>
                         {% endif %}

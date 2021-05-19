@@ -12,12 +12,15 @@
                 <a href='{{ path('edit_password') }}' class="list-group-item list-group-item-action">Security</a>
                 <a href='{{ path('edit_address') }}' class="list-group-item list-group-item-action">Billing Address</a>
                 <a href='{{ path('articles') }}' class="list-group-item list-group-item-action">Articles</a>
+                <a href='{{ path('articles') }}' class="list-group-item list-group-item-action">Orders</a>
             </div>
         </div>
-        <div class="col-10">
+        <div class="col-9">
             {% block main %}
             {% endblock %}
         </div>
+        {% block second_main %}
+        {% endblock %}
     </div>
 </body>
 {% endblock %}

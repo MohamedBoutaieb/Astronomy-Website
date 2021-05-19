@@ -9,13 +9,18 @@ use App\Form\EditAddressType;
 use App\Form\EditPofileType;
 use App\Form\EditPostType;
 use App\Form\PostsType;
+use App\Services\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 class AccountDetailsController extends AbstractController
 {
     /**
@@ -29,7 +34,8 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/account/settings" ,name="editprofile")
      */
-    public function editProfile(Request $request, EntityManagerInterface $manager, SessionInterface $session)
+    public function editProfile(Request $request, EntityManagerInterface $manager, SessionInterface $session,
+                                SluggerInterface $slugger, FileUploader $fileUploader)
     {
         //on cherche l'utilisateur avec une requête selon le username
         $user = $session->get("username");
@@ -40,6 +46,15 @@ class AccountDetailsController extends AbstractController
         $form->handleRequest($request);
         //verifier si le formulaire est valide et tout va bien et on modifie les attibuts de l'utilisateur en question
         if ($form->isSubmitted() && $form->isvalid()) {
+            /** @var UploadedFile $brochureFile */
+            $photoFile = $form->get('photo')->getData();
+            if ($photoFile) {
+                if($user->getPhoto()!='../default_profile_picture.png'){
+                    unlink($this->getParameter('profile_directory').'/'.$user->getPhoto());
+                }
+                $photoFileName = $fileUploader->upload($photoFile);
+                $user->setPhoto($photoFileName);
+            }
             //remplacer l'ancien user par le nouveau
             $manager->flush();
             //message de succès

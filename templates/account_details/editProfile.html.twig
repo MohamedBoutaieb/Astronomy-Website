@@ -7,14 +7,16 @@
         <h1 style="color: white">Personal Information</h1>
         {{ form_start(form) }}
         {% for att in form %}
-            {% if not loop.last %}
-                {{ att.vars.label }}
+            {% if not loop.last and att.vars.id != 'edit_pofile_photo' and att.vars.id != 'edit_pofile_Validate'%}
                 {{ form_label(att, null, {'label_attr': {'style': 'color:white'}}) }}
                 {{ form_widget(att) }}
                 <br>
             {% endif %}
         {% endfor %}
-        {{ form_end(form) }}
+        {{ form_label(form.photo, "Profile Picture", {'label_attr': {'style': 'color:white'}}) }}
+        {{ form_widget(form.photo, {'label_attr': {'style': 'width:90px'}})}}
+        <br> <br>
+        {{ form_rest(form) }}
     </div>
 
 {% endblock %}
