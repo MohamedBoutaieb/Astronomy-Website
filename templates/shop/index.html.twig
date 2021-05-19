@@ -26,43 +26,41 @@
         <div class="container">
             <section class="posters">
                 <h1>
-                        Our Posters
+                    Our Posters
                 </h1>
                 <div class="image-carousel style2 flexslider" data-animation="slide" data-item-width="270" data-item-margin="30">
-                <div class="flex-viewport" style="overflow: hidden; position: relative;">
-                    <ul class="slides image-box hotel listing-style1" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(0px, 0px, 0px);">
-                        {% for poster in posters %}
-                            <li style="width: 270px; float: left; display: block; border: 0;">
-                                <article class="box">
-                                    <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt=""
-                                    src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 draggable="false"></a> </figure>
-                                    <div class="details"> <span class="price"><small>Price</small>{{ poster.price }}</span>
-                                        <h4 class="box-title">{{ poster.label}}<small>{{ poster.available }}</small></h4>
-                                        <br>
-                                        <p class="description">For what reason would it be advisable for me to think about business content?</p>
-                                        <form class="Register-form" action="{{ path('addtocart',{ id :poster.id}) }}" method="post">
-                                            <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
-                                            <div class="action">
-                                                <a class="button btn-small" href="#">View Details</a>
-                                                <button data-box="37.089072, -8.247880"  class="button btn-small yellow popup-map">Add to Cart </button> </div>
-                                    </div>
-                                        </form>
-
-                                </article>
-                            </li>
-                        {% endfor %}
-                    </ul>
-
+                    <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                        <ul class="slides image-box hotel listing-style1" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(0px, 0px, 0px);">
+                            {% for poster in posters %}
+                                <li style="width: 270px; float: left; display: block; border: 0;">
+                                    <article class="box">
+                                        <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt=""
+                                                                                                     src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 draggable="false"></a> </figure>
+                                        <div class="details"> <span class="price"><small>Price</small>{{ poster.price }}</span>
+                                            <h4 class="box-title">{{ poster.label}}<small>{{ poster.available }}</small></h4>
+                                            <br>
+                                            <p class="description">For what reason would it be advisable for me to think about business content?</p>
+                                            <form class="Register-form" action="{{ path('addtocart',{ id :poster.id}) }}" method="post">
+                                                <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
+                                                <div class="action">
+                                                    <a class="button btn-small" href="#">View Details</a>
+                                                    <button data-box="37.089072, -8.247880"  class="button btn-small yellow popup-map">Add to Cart </button> </div>
+                                            </form>
+                                        </div>
+                                    </article>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="buttons">
-                <a  class="btn buy" href={{ path('previousp') }} >
-                    <button class="w3-button w3-large w3-black">‹</button>
-                </a>
-                <a  class="btn buy" href={{ path('nextp') }} >
-                    <button class="w3-button w3-large w3-black">›</button>
-                </a>
-            </div>
+                <div class="buttons">
+                    <a  class="btn buy" href={{ path('previousp') }} >
+                        <button class="w3-button w3-large w3-black">‹</button>
+                    </a>
+                    <a  class="btn buy" href={{ path('nextp') }} >
+                        <button class="w3-button w3-large w3-black">›</button>
+                    </a>
+                </div>
 
             </section>
             <br>
@@ -73,73 +71,67 @@
                         <ul class="slides image-box hotel listing-style1" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(0px, 0px, 0px);">
 
                             {% for magazine in magazines %}
-                                <li style="width: 270px; float: left; display: block;">
-                                    <article class="box">
-                                        <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt="" src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 draggable="false"></a> </figure>
-                                        <div class="details"> <span class="price"><small>Price</small>{{ magazine.price }}</span>
-                                            <h4 class="box-title">{{ magazine.label }}<small>{{ magazine.available }}</small></h4>
-                                            <br>
-                                            <p class="description">For what reason would it be advisable for me to think about business content?</p>
-                                            <form class="Register-form" action="{{ path('addtocart',{ id :magazine.id }) }}" method="post">
-                                                <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
-                                                <div class="action">
-                                                    <a class="button btn-small" href="#">View Details</a>
-                                                    <button data-box="37.089072, -8.247880"  class="button btn-small yellow popup-map">Add to Cart </button> </div>
-                                        </div>
-                                            </form>
-
-
-                                        </div>
-                                    </article>
-                                </li>
+                            <li style="width: 270px; float: left; display: block;">
+                                <article class="box">
+                                    <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt="" src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 draggable="false"></a> </figure>
+                                    <div class="details"> <span class="price"><small>Price</small>{{ magazine.price }}</span>
+                                        <h4 class="box-title">{{ magazine.label }}<small>{{ magazine.available }}</small></h4>
+                                        <br>
+                                        <p class="description">For what reason would it be advisable for me to think about business content?</p>
+                                        <form class="Register-form" action="{{ path('addtocart',{ id :magazine.id }) }}" method="post">
+                                            <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
+                                            <div class="action">
+                                                <a class="button btn-small" href="#">View Details</a>
+                                                <button data-box="37.089072, -8.247880"  class="button btn-small yellow popup-map">Add to Cart </button> </div>
+                                        </form>
+                                    </div>
+                                </article>
+                            </li>
                             {% endfor %}
-                        </ul>
-
-
-
-                    </div>
+                    </ul>
                 </div>
-                <div class="buttons">
-                    <a  class="btn buy" href={{ path('previousm') }} >
-                        <button class="w3-button w3-large w3-black">‹</button>
-                    </a>
-                    <a  class="btn buy" href={{ path('nextm') }} >
-                        <button class="w3-button w3-large w3-black">›</button>
-                    </a>
-                </div>
-            </section>
-            <br>
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Cart</h5>
-                    <p class="card-text">These are your selected items </p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    {% if app.session.get('cart') is defined  %}
-                        {% for key ,quantity in labels %}
-                            <form class="Register-form" action="{{ path('removefromcart',{ id : key }) }}" method="post">
-                                <li class="list-group-item">
-                                    item  : {{ key }} <br>
-                                    quantity : {{ quantity }}
+        </div>
+        <div class="buttons">
+            <a  class="btn buy" href={{ path('previousm') }} >
+                <button class="w3-button w3-large w3-black">‹</button>
+            </a>
+            <a  class="btn buy" href={{ path('nextm') }} >
+                <button class="w3-button w3-large w3-black">›</button>
+            </a>
+        </div>
+        </section>
+        <br>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Cart</h5>
+                <p class="card-text">These are your selected items </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% if app.session.get('cart') is defined  %}
+                    {% for key ,quantity in labels %}
+                        <form class="Register-form" action="{{ path('removefromcart',{ id : key }) }}" method="post">
+                            <li class="list-group-item">
+                                item  : {{ key }} <br>
+                                quantity : {{ quantity }}
 
-                                    <button>remove </button>
-                                </li>
-                            </form>
+                                <button>remove </button>
+                            </li>
+                        </form>
 
-                        {% endfor %}
-                        <li class="list-group-item">total cost : {{app.session.get('cost') }}</li>
-                    {% endif %}
-                </ul>
-                <div class="card-body">
-                    {% if app.session.get('cart') is defined  %}
+                    {% endfor %}
+                    <li class="list-group-item">total cost : {{app.session.get('cost') }}</li>
+                {% endif %}
+            </ul>
+            <div class="card-body">
+                {% if app.session.get('cart') is defined  %}
 
-                    {% endif %}
-                    <a href={{ path('rallfromcart') }} class="card-link">remove all</a>
-                    <a href={{ path('purchase') }} class="card-link">purchase</a>
-                </div>
+                {% endif %}
+                <a href={{ path('rallfromcart') }} class="card-link">remove all</a>
+                <a href={{ path('purchase') }} class="card-link">purchase</a>
             </div>
         </div>
+    </div>
     </div>
 
 {% endblock %}
