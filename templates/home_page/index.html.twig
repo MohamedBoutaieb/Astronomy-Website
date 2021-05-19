@@ -1,24 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block assets %}
-    <link rel="stylesheet" href={{ asset("css/main.css") }}>
+    <link rel="stylesheet" href={{ asset("css/home_page.css") }}>
 {% endblock %}
 {% block para %}
     {% for value in  app.session.flashBag.get('danger') %}
         <div class="alert alert-danger" style="color: black">
             {{ value }}
         </div>
-
     {% endfor %}
-    <div class="paras">
+    <div class="header">
         <h1>The magazine for all the space geeks.</h1>
         <p>Join us for a better experience.</p>
     </div>
 {% endblock %}
 {% block body %}
-  <section class="overview">
-      <h2> Did you know ... </h2>
+  <section class="container">
       <div class="row">
-          <div class="overview-col">
+          <div class="col">
+              <h2> Did you know ... </h2>
               <h3>POWERFUL MAGNETIC FIELDS</h3>
               <p>The most powerful magnetic fields in the universe are from magnets - neutron stars with crazy
                   magnetic fields. How crazy is that? On Earth, your typical magnet has a strength of about 1.25
@@ -26,11 +25,22 @@
                   kill you if you get within 1,000 kilometers of the magnetar by distorting the electrons in your
                   body
                   too much. All the electrons in the atoms in your body would be stripped away, so all the molecules
-                  would break apart. So you'd be ionized into a whiff of plasma, basically.</p>
-              <img alt="Magnetic field." src={{ asset("images/magnetic-field1.jpg") }}>
-              <img alt="Magnetic field. " src={{ asset("images/magnetic-field2.jpg") }}>
+                  would break apart. So you'd be ionized into a whiff of plasma, basically.
+              </p>
           </div>
-          <div class="overview-col">
+          <div class="col-4">
+              <img alt="Magnetic field." style="width: 100%;" src={{ asset("images/magnetic-field1.jpg") }}>
+          </div>
+{#          <div class="col">#}
+{#              <img alt="Magnetic field." style="width: 70%;" src={{ asset("images/magnetic-field2.jpg") }}>#}
+{#          </div>#}
+      </div>
+      <div class="row second_info">
+          <div class="col">
+              <img alt="Sun in solar system." src={{ asset("images/sun.jpg") }}>
+          </div>
+          <div class="col">
+              <br> <br>
               <h3>THE SUN’S MASS TAKES UP 99.86% OF THE SOLAR SYSTEM</h3>
               <p>The Sun accounts for 99.86% of the mass in our solar system with a mass of around 330,000 times
                   that
@@ -38,10 +48,12 @@
                   rest of its mass attributed to helium. If the Sun had a voice would it be high and squeaky from
                   all
                   that helium?</p>
-              <img alt="Sun in solar system." src={{ asset("images/sun.jpg") }}>
-              <img alt="Sun behind Earth." src={{ asset("images/sun2.jpg") }}>
           </div>
       </div>
+      <br>
+{#      <img alt="Sun behind Earth." style="position: relative; left: 25%; width: 50%" src={{ asset("images/sun2.jpg") }}>#}
+{#      <br>#}
+{#      <br>#}
   </section>
 
 {% endblock %}
