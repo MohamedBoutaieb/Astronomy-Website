@@ -23,13 +23,14 @@ class UserRepository extends ServiceEntityRepository
      * @return User[] Returns an array of User objects
      */
     public function search($value){
+        if ($value!='') {
         $qb = $this->createQueryBuilder('u');
         $qb->where($qb->expr()->like('u.username', $qb->expr()->literal('%'.$value.'%')))
             ->orWhere($qb->expr()->like('u.firstname', $qb->expr()->literal('%'.$value.'%')))
             ->orWhere($qb->expr()->like('u.lastname', $qb->expr()->literal('%'.$value.'%')))
         ;
         $query = $qb->getQuery();
-        return $query->execute();
+        return $query->execute();}
     }
 
     // /**

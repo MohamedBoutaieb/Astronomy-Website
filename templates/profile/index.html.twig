@@ -9,12 +9,31 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table table-hover">
+        <tr class="table-light">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Aziz/Documents/Web Projects/Web Project/Astronomy-Website/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Aziz/Documents/Web Projects/Web Project/Astronomy-Website/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
+            <td>username</td>
+            <td>{{user.username}}</td>
+        </tr>
+
+    <tr class="table-light">
+
+        <td>firstname</td>
+        <td>{{user.firstname}}</td>
+    </tr>
+    <tr class="table-light">
+
+        <td> lastname</td>
+        <td>{{user.lastname}} </td>
+    </tr>
+        {% if user.phoneNumber!=null  %}
+        <tr class="table-light">
+
+            <td> phone number </td>
+            <td>{{user.phoneNumber}} </td>
+        </tr>
+        {% endif  %}
+    </table>
+<a href="{{ path('search') }}"><button class ="btn-dark" > return</button></a>
 </div>
 {% endblock %}
