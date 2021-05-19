@@ -90,6 +90,7 @@ class LoginController extends AbstractController
      */
     public function logout(SessionInterface $session){
         $session->remove("username");
+        $session->remove('buyer');
         return $this->redirectToRoute('login');
     }
 }
