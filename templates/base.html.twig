@@ -33,15 +33,19 @@
                     <li class="navbar-list"><a href={{ path('gallery') }} class="cool-link">Gallery</a></li>
                     <li class="navbar-list"><a href={{ path('shop') }} class="cool-link">Shop</a></li>
                     <li class="navbar-list"><a href={{ path('articles.list') }} class="cool-link">Blog </a></li>
-                    {% if app.session.has('username') %}
-                        <div class="dropdown">
-                            <button class="btn btn-outline-light"> Settings </button>
+                    {% set user = userSession.updateUserSession %}
+                    {% if user %}
+                        <div class="dropdown ">
+                                <li class="navbar-list">
+                                    <img width="50" height="50" style ="border-radius: 50%" src="{{ asset('images/profile/uploads/' ~ user.photo) }}" id="Avatar">
+                                </li>
                             <div class="dropdown-content">
                                 <li class="navbar-list"><a href={{ path('account')}} class="cool-link">Account</a></li>
                                 <li class="navbar-list"><a href={{ path('logout') }} class="cool-link">logout</a></li>
-                                <li class="navbar-list"><a class="cool-link"> Credits: {{ userSession.updateUserSession.credits }} </a></li>
+                                <li class="navbar-list"><a class="cool-link"> Credits: {{ user.credits }} </a></li>
                             </div>
                         </div>
+
                     {% else %}
                         <li class="navbar-list"><a href={{ path('login') }} class="cool-link">login</a></li>
                     {% endif %}
