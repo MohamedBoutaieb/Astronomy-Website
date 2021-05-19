@@ -3,28 +3,30 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\MerchOrder;
+use App\Entity\Order;
 use App\Entity\User;
-use App\Entity\Address;
 use App\Form\EditAddressType;
 use App\Form\EditPofileType;
 use App\Form\EditPostType;
-use App\Form\PostsType;
 use App\Services\FileUploader;
+use App\Services\UserSessionUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use Symfony\Component\String\Slugger\SluggerInterface;
-
+/**
+ * @Route("/account")
+ */
 class AccountDetailsController extends AbstractController
 {
     /**
-     * @Route("/account" ,name="account")
+     * @Route("/" ,name="account")
      */
     public function index()
     {
@@ -32,7 +34,7 @@ class AccountDetailsController extends AbstractController
     }
 
     /**
-     * @Route("/account/settings" ,name="editprofile")
+     * @Route("/settings" ,name="editprofile")
      */
     public function editProfile(Request $request, EntityManagerInterface $manager, SessionInterface $session,
                                 SluggerInterface $slugger, FileUploader $fileUploader)
@@ -65,7 +67,7 @@ class AccountDetailsController extends AbstractController
     }
 
     /**
-     * @Route("/account/profile" ,name="profile")
+     * @Route("/profile" ,name="profile")
      */
     public function showProfile(SessionInterface $session, EntityManagerInterface $manager)
     {
@@ -77,7 +79,7 @@ class AccountDetailsController extends AbstractController
     }
 
     /**
-     * @Route("/edit/password" ,name="edit_password")
+     * @Route("/security" ,name="edit_password")
      */
     public function editPassword(SessionInterface $session, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager)
     {
@@ -104,7 +106,7 @@ class AccountDetailsController extends AbstractController
     }
 
     /**
-     * @Route("/edit/address" ,name="edit_address")
+     * @Route("/adress" ,name="edit_address")
      */
     public function editAddress(SessionInterface $session, Request $request, EntityManagerInterface $manager)
     {
@@ -128,7 +130,7 @@ class AccountDetailsController extends AbstractController
     }
 
     /**
-     * @Route("/showArticles", name="articles")
+     * @Route("/articles", name="articles")
      */
     public function showArticles(SessionInterface $session, EntityManagerInterface $manager)
     {
@@ -141,7 +143,7 @@ class AccountDetailsController extends AbstractController
     }
 
     /**
-     * @Route("/showPost/{article}" ,name="Show_Post")
+     * @Route("/article/{article}" ,name="Show_Post")
      */
     public function show(Article $article)
     {
@@ -183,5 +185,37 @@ class AccountDetailsController extends AbstractController
             }
             return $this->render('account_details/editArticle.html.twig', ['form' => $form->createView()]);
         }
+    }
+
+    /**
+     * @Route("/orders", name="orders")
+     */
+    public function showOrders(EntityManagerInterface $manager, UserSessionUpdater $sessionUpdater): Response
+    {
+        $user = $sessionUpdater->updateUserSession();
+        $orderRepo = $manager->getRepository(Order::class);
+        $orders = $orderRepo->findBy(['buyer' => $user]);
+
+        return $this->render('account_details/orders.html.twig', [
+            'orders' => $orders
+        ]);
+    }
+
+    /**
+     * @Route("/order/id={order<\d+>}", name="order_details")
+     */
+    public function showOrderDetails(EntityManagerInterface $manager, Order $order): Response
+    {
+
+        $orderMerchRepo = $manager->getRepository(MerchOrder::class);
+        $subOrders = $orderMerchRepo->findBy(["toOrder"=>$order]);
+        $merch = array();
+        foreach ($subOrders as $subOrder ){
+            array_push($merch, $subOrder->getToMerch());
+        }
+        return $this->render('account_details/order_details.html.twig', [
+            'subOrders' => $subOrders,
+            'order' => $order
+        ]);
     }
 }

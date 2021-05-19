@@ -1,0 +1,52 @@
+{% extends 'account_details/user.html.twig' %}
+
+{% block title %} Order {% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h1 style="color: white">Order</h1>
+        <br>
+        <div class="card text-center">
+            <div class="card-header">
+                Order#{{ "%09d"|format(order.id)}}
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Item ID</th>
+                        <th scope="col">Label</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for subOrder in subOrders %}
+                        <tr>
+                            <th>#{{"%07d"|format(subOrder.toMerch.id)}}</th>
+                            <td>{{ subOrder.toMerch.label }}</td>
+                            <td>{{ subOrder.toMerch.type }}</td>
+                            <td>{{ subOrder.quantity }}</td>
+                            <td>Ꞓ{{ subOrder.toMerch.price }}</td>
+                            <td>Ꞓ{{ subOrder.toMerch.price * subOrder.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>#</td>
+                        <td>#</td>
+                        <td>#</td>
+                        <td>#</td>
+                        <td>Ꞓ{{ order.cost }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer text-muted">
+                {{ order.date|date }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

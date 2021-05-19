@@ -1,0 +1,23 @@
+{% extends 'account_details/user.html.twig' %}
+
+{% block title %}
+    My Orders
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h1 style="color: white">My Orders</h1>
+        <br>
+        {% for order in orders %}
+            <div class="card" style="width: 100%;">
+                <h5 class="card-header">Order#{{  "%09d"|format(order.id)}}</h5>
+                <div class="card-body">
+                    <p class="card-text">Created on: {{ order.date|date }}</p>
+                    <p class="card-text">Bill: Ꞓ{{ order.cost }}</p>
+                    <a href="{{ path('order_details',{"order":order.id}) }}" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}
