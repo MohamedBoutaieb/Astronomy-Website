@@ -42,12 +42,12 @@
                                         <p class="description">For what reason would it be advisable for me to think about business content?</p>
                                         <form class="Register-form" action="{{ path('addtocart',{ id :poster.id}) }}" method="post">
                                             <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
-                                            <div class="action">
-                                                <a class="button btn-small" href="#">View Details</a>
-                                                <button data-box="37.089072, -8.247880"  class="button btn-small yellow popup-map">Add to Cart </button> </div>
-                                    </div>
+                                            <a class="button btn-small" href="#">View Details</a>
+                                            <button class="button btn-small yellow popup-map" type="submit" data-box="37.089072, -8.247880">Add to Cart</button>
                                         </form>
-
+                                        <div class="action">
+                                          </div>
+                                    </div>
                                 </article>
                             </li>
                         {% endfor %}
@@ -84,8 +84,8 @@
                                                 <input type="number" class="form-control" name="stock" oninput="validity.valid||(value='');" class="count" value="1" min="1" >
                                                 <div class="action">
                                                     <a class="button btn-small" href="#">View Details</a>
-                                                    <button data-box="37.089072, -8.247880"  class="button btn-small yellow popup-map">Add to Cart </button> </div>
-                                        </div>
+                                                    <button class="button btn-small yellow popup-map" type="submit" data-box="37.089072, -8.247880">Add to Cart</button>
+                                                </div>
                                             </form>
 
 
