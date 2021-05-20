@@ -29,7 +29,7 @@ class ProfileController extends AbstractController
             return $this->render('profile/search_result.html.twig', [
                'users'=> $users
             ]);
-            $message= " No user found";
+            $message= " No user was found";
             $this->addFlash("danger", $message);
             return $this->redirectToRoute('homepage');
         }

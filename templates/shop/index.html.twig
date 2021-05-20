@@ -116,7 +116,7 @@
             <div class="card" style="width: 18rem;">
 
                 <div class="card-body">
-                    <h5 class="card-title" style ="display :inline;align-items: center;">Cart
+                    <h5 class="card-title" style ="display :flex;align-items:stretch;">Cart
                         {% if labels %}
                         <img style= "margin-left: 60%;" height="60" width="60" src={{ asset('images/full.png')}}  >
                         {% else%}
@@ -147,10 +147,17 @@
                     {% endif %}
                     <a href={{ path('rallfromcart') }} class="card-link">remove all</a>
                     <a href={{ path('purchase') }} class="card-link">purchase</a>
+
                 </div>
+            <!--   <div style ="display: inline-block;align-content:center; "> <span style =" background-color: #bbb;
+  border-radius: 50%; display: block; width: 25px; height: 25px" >
+                </span></div>
+            </div> -->
             </div>
         </div>
     </div>
+
+
 
 {% endblock %}
 {% block assets  %}
