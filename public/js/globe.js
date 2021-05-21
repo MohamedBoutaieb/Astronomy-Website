@@ -7,9 +7,7 @@ class Globe {
         let geometry = new THREE.SphereGeometry(mass / 10, 50, 50);
         let material = new THREE.MeshStandardMaterial({ color: 0xFF4411 });
         material.roughness = 1;
-        //material.normalMap = normalTexture;
         this.sphere = new THREE.Mesh(geometry, material);
-        //this.sphere.position = this.position;
         scene.add(this.sphere);
     }
     update() {
@@ -37,9 +35,9 @@ class Moon extends Globe {
         super.update();
         let inBounds = true;
         this.globes.forEach(globe => {
-            if (this != globe) {
+            if (this !== globe) {
                 this.acceleration.addVectors(globe.position, this.position.clone().negate());
-                this.acceleration.multiplyScalar(1 / Math.pow(this.acceleration.length(), 3) * this.mass * globe.mass * 0.00001);
+                this.acceleration.multiplyScalar(1 / Math.pow(this.acceleration.length(), 3) * globe.mass * 0.00001);
                 this.velocity.add(this.acceleration);
                 this.position.add(this.velocity);
                 //collision detection
@@ -55,8 +53,7 @@ class Moon extends Globe {
         this.line.geometry.setFromPoints(this.points);
         
         //out of bounds
-        if(!inBounds)
-            return false;
-        return true;
+        return inBounds;
+
     }
 }

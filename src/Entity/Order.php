@@ -45,6 +45,11 @@ class Order
      * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toorder")
      */
     private $merchOrders;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $deliveryDate;
     /**
      * @var string
      */
@@ -165,6 +170,18 @@ class Order
                 $merchOrder->setToorder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeliveryDate(): ?\DateTimeInterface
+    {
+        return $this->deliveryDate;
+    }
+
+    public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
+    {
+        $this->deliveryDate = $deliveryDate;
 
         return $this;
     }
