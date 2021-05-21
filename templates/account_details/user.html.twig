@@ -3,10 +3,11 @@
 {% block body %}
 <body style="background: url('{{ asset('images/signup_bg.jpg') }}'); overflow-x: hidden">
     <div class="row">
-        <div class="col">
-            <h1 style="color: white">Account Settings</h1>
+        <div class="col-3" style=" border-radius: 2%; background: rgb(0,0,0);
+background: linear-gradient(180deg, rgba(69,58,58,1) 5%, rgba(58,58,68,0.9444152661064426) 28%, rgba(64,64,75,0.7511379551820728) 60%, rgba(50,50,57,0) 92%);">
+            <h1 style="color: white; text-align: center">Account Settings</h1>
             <br>
-            <div class="list-group">
+            <div class="list-group" style="position: relative; right: -5px">
                 <a href='{{ path('profile') }}' class="list-group-item list-group-item-action">Profile</a>
                 <a href='{{ path('editprofile') }}' class="list-group-item list-group-item-action">Personal Information</a>
                 <a href='{{ path('edit_password') }}' class="list-group-item list-group-item-action">Security</a>
@@ -15,7 +16,7 @@
                 <a href='{{ path('orders') }}' class="list-group-item list-group-item-action">Orders</a>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col">
             {% block main %}
             {% endblock %}
         </div>

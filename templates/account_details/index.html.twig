@@ -2,11 +2,6 @@
 {% block title %}Profile{% endblock %}
 {% block main %}
     <div class="container">
-        {% for cle, value in  app.session.flashBag.get('success') %}
-            <div class="alert alert-info">
-                {{ value }}
-            </div>
-        {% endfor %}
         <h1 class="header">My Profile</h1>
         <br>
         <ul class="list-group">
@@ -30,13 +25,20 @@
                 <h4>Phone Number : {{ user.phoneNumber }}</h4>
             </li>
         </ul>
+        <br>
+        {% for cle, value in  app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                {{ value }}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 {% block second_main %}
-    <div class="col">
-        <div class="container" style="position: absolute; right: 20%">
+    <div class="col-3">
+        <div class="container" style="">
             <h1 class="header">Profile Picture</h1>
-            <img width="150" height="150" style ="border-radius: 50%" src="{{ asset('images/profile/uploads/' ~ user.photo) }}" alt="Avatar">
+            <br>
+            <img width="250" height="250" style ="border-radius: 5%" src="{{ asset('images/profile/uploads/' ~ user.photo) }}" alt="Avatar">
         </div>
     </div>
 {% endblock %}
