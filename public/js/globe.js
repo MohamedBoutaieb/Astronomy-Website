@@ -4,6 +4,7 @@ class Globe {
     constructor(position, mass, scene) {
         this.position = position;
         this.mass = mass;
+        this.clock = new THREE.Clock();
         let geometry = new THREE.SphereGeometry(mass / 10, 50, 50);
         let material = new THREE.MeshStandardMaterial({ color: 0xFF4411 });
         material.roughness = 1;

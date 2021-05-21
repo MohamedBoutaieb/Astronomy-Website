@@ -90,20 +90,20 @@ function initSolarSystem() {
     //Nepture 24
     moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.0038, 0, 0), 0.65, globes, moons, scene));
 
-    setTimeout(()=>{
-        for (let index = 0; index < 3000; index++) {
-            moons.forEach(moon => {
-                if (!moon.update()) {
-                    moons.splice(moons.indexOf(moon), 1);
-                    scene.remove(moon.sphere);
-                    scene.remove(moon.line);
-                }
-            });
-        }
-        // moons.forEach(moon => {
-        //     console.log(moon.position, moon.velocity);
-        // });
-    },5)
+    // setTimeout(()=>{
+    //     for (let index = 0; index < 3000; index++) {
+    //         moons.forEach(moon => {
+    //             if (!moon.update()) {
+    //                 moons.splice(moons.indexOf(moon), 1);
+    //                 scene.remove(moon.sphere);
+    //                 scene.remove(moon.line);
+    //             }
+    //         });
+    //     }
+    //     // moons.forEach(moon => {
+    //     //     console.log(moon.position, moon.velocity);
+    //     // });
+    // },5)
 }
 
 //init Scene
@@ -273,16 +273,8 @@ function whileMouseDown() {
         let pos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
         moon = new Moon(pos, new THREE.Vector3(0, 0, 0), params.size, globes, moons, scene);
         if (params.globe) {
-            // let globe = new Globe(pos, params.size, scene);
-            // globe.sphere.material = new THREE.MeshStandardMaterial({ color: 0xFFFFAA });
-            // globes.push(globe);
-            // globe.update();
             globes.push(moon);
         }
-        // else {
-        //     moon = new Moon(pos, new THREE.Vector3(0, 0, 0), params.size, globes, moons, scene);
-        //     moon.update();
-        // }
         moon.update();
         created = true;
     }
