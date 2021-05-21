@@ -28,7 +28,7 @@ const mouse = new THREE.Vector2();
 
 //space background
 let textureLoader = new THREE.TextureLoader();
-textureLoader.load('../images/space2.jpg', function (texture) {
+textureLoader.load('../images/space.png', function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     texture.encoding = THREE.sRGBEncoding;
     scene.background = texture;
@@ -48,65 +48,62 @@ function clearSolarSystem(){
         scene.remove(moon.sphere);
         scene.remove(moon.line);
     })
-}
-function initSolarSystem() {
-    moons.forEach(moon => {
-        scene.remove(moon.sphere);
-        scene.remove(moon.line);
-    })
     globes.forEach(globe => {
         if (globes.indexOf(globe))
             scene.remove(globe.sphere);
     })
     globes.splice(1, globes.length - 1);
     moons = [];
+}
+function initSolarSystem() {
+    clearSolarSystem()
     //Mercury 2.5
-    let mercury = new Moon(new THREE.Vector3(0, 0, 2), new THREE.Vector3(0.002, 0, 0), 0.1, globes, moons, scene);
+    let mercury = new Moon(new THREE.Vector3(0, 0, 2), new THREE.Vector3(0.007, 0, 0), 0.1, globes, moons, scene);
     moons.push(mercury);
     //normalTexture = textureLoader.load('assets/Mercury.png');
     //mercury.sphere.material.normalMap = normalTexture;
 
     //Venus 3 * 2.5
-    let venus = new Moon(new THREE.Vector3(0, 0, 2.5), new THREE.Vector3(0.003, 0, 0), 0.3, globes, moons, scene);
+    let venus = new Moon(new THREE.Vector3(0, 0, 2.5), new THREE.Vector3(0.006, 0, 0), 0.3, globes, moons, scene);
     moons.push(venus);
     //normalTexture = textureLoader.load('assets/venus.png');
     //mercury.sphere.material.normalMap = normalTexture;
 
     //Earth 6.5
-    let earth = new Moon(new THREE.Vector3(0, 0, 3), new THREE.Vector3(0.003, 0, 0), 0.32, globes, moons, scene);
+    let earth = new Moon(new THREE.Vector3(0, 0, 3), new THREE.Vector3(0.0055, 0, 0), 0.32, globes, moons, scene);
     moons.push(earth);
     //earth.sphere.material.map = THREE.ImageUtils.loadTexture('assets/Earth.jpg');
     //normalTexture = textureLoader.load('assets/Earth.jpg');
     //mercury.sphere.material.normalMap = normalTexture;
     //Mars 3.2
-    moons.push(new Moon(new THREE.Vector3(0, 0, 3.3), new THREE.Vector3(0.002, 0, 0), 0.15, globes, moons, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 3.3), new THREE.Vector3(0.0052, 0, 0), 0.15, globes, moons, scene));
 
     //Jupiter 70
-    moons.push(new Moon(new THREE.Vector3(0, 0, 5), new THREE.Vector3(0.005, 0, 0), 1.5, globes, moons, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 5), new THREE.Vector3(0.0043, 0, 0), 1.5, globes, moons, scene));
 
     //Saturn 58
     moons.push(new Moon(new THREE.Vector3(0, 0, 5.7), new THREE.Vector3(0.004, 0, 0), 1, globes, moons, scene));
 
     //Uranus 25
-    moons.push(new Moon(new THREE.Vector3(0, 0, 6.5), new THREE.Vector3(0.003, 0, 0), 0.7, globes, moons, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 6.5), new THREE.Vector3(0.0039, 0, 0), 0.7, globes, moons, scene));
 
     //Nepture 24
-    moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.003, 0, 0), 0.65, globes, moons, scene));
+    moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.0038, 0, 0), 0.65, globes, moons, scene));
 
-    setTimeout(()=>{
-        for (let index = 0; index < 3000; index++) {
-            moons.forEach(moon => {
-                if (!moon.update()) {
-                    moons.splice(moons.indexOf(moon), 1);
-                    scene.remove(moon.sphere);
-                    scene.remove(moon.line);
-                }
-            });
-        }
-        moons.forEach(moon => {
-            console.log(moon.position, moon.velocity);
-        });
-    },5)
+    // setTimeout(()=>{
+    //     for (let index = 0; index < 3000; index++) {
+    //         moons.forEach(moon => {
+    //             if (!moon.update()) {
+    //                 moons.splice(moons.indexOf(moon), 1);
+    //                 scene.remove(moon.sphere);
+    //                 scene.remove(moon.line);
+    //             }
+    //         });
+    //     }
+    //     // moons.forEach(moon => {
+    //     //     console.log(moon.position, moon.velocity);
+    //     // });
+    // },5)
 }
 
 //init Scene
@@ -117,7 +114,8 @@ function init() {
     //Gui
     gui = new GUI();
     let folder = gui.addFolder("Sandbox");
-    folder.add(params, 'globe').name("Globe Spawner");
+    folder.open();
+    folder.add(params, 'globe').name("Planet Spawner");
     folder.add(params, 'size', 0.5, 10 ).name("Size");
     folder.add(params, 'sandboxMode').name("Sandbox mode");
     gui.add(params, 'clear').name("Clear Solar System");
@@ -141,7 +139,7 @@ function init() {
     let material = new THREE.PointsMaterial({ size: 0.005 });
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     particles = new THREE.Points(particlesGeometry, material);
-    scene.add(particles);
+    // scene.add(particles);
 
     //init globes
     let sun = new Globe(new THREE.Vector3(0, 0, 0), 10, scene, 0);
@@ -254,34 +252,30 @@ function onDocumentKeyDown(event) {
 };
 
 //mouse down
-let mousedownID = -1;  //Global ID of mouse down interval
+let mouseDown = -1;  //Global ID of mouse down interval
 function mousedown(event) {
-    if (mousedownID == -1)  //Prevent multimple loops!
-        mousedownID = setInterval(whilemousedown, 20);
+    if (mouseDown === -1)  //Prevent multiple loops!
+        mouseDown = setInterval(whileMouseDown, 20);
 }
 
 function mouseup(event) {
-    if (mousedownID != -1) {  //Only stop if exists
-        clearInterval(mousedownID);
-        mousedownID = -1;
+    if (mouseDown !== -1) {  //Only stop if exists
+        clearInterval(mouseDown);
+        mouseDown = -1;
     }
     created = false;
     if (moon)
         moons.push(moon);
     moon = null;
 }
-function whilemousedown() {
+function whileMouseDown() {
     if (!created) {
         let pos = new THREE.Vector3(mouse.x * 12.46, 0, -mouse.y * 7.77);
+        moon = new Moon(pos, new THREE.Vector3(0, 0, 0), params.size, globes, moons, scene);
         if (params.globe) {
-            let globe = new Globe(pos, params.size, scene);
-            globes.push(globe);
-            globe.update();
+            globes.push(moon);
         }
-        else {
-            moon = new Moon(pos, new THREE.Vector3(0, 0, 0), params.size, globes, moons, scene);
-            moon.update();
-        }
+        moon.update();
         created = true;
     }
     else if (moon) {

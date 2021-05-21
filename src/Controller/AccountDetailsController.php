@@ -60,7 +60,7 @@ class AccountDetailsController extends AbstractController
             //remplacer l'ancien user par le nouveau
             $manager->flush();
             //message de succès
-            $this->addFlash('success', 'This Profile has been successfully updated');
+            $this->addFlash('success', 'Your Profile has been successfully updated');
             return $this->redirectToRoute('profile');
         }
         return $this->render('account_details/editProfile.html.twig', ['form' => $form->createView()]);

@@ -47,9 +47,15 @@ class Order
     private $merchOrders;
 
     /**
+<<<<<<< HEAD
      * @ORM\Column(type="date")
      */
     private $arrival;
+=======
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $deliveryDate;
+>>>>>>> c7270e74e79eed90fbac29800bdf93a9a96d5774
     /**
      * @var string
      */
@@ -174,6 +180,7 @@ class Order
         return $this;
     }
 
+<<<<<<< HEAD
     public function getArrival(): ?\DateTimeInterface
     {
         return $this->arrival;
@@ -183,6 +190,16 @@ class Order
     {   $arrivals=new \Datetime('now');
         $delay =rand(3,20 );
         $this->arrival = $arrivals ->modify('+'.$delay.' day');
+=======
+    public function getDeliveryDate(): ?\DateTimeInterface
+    {
+        return $this->deliveryDate;
+    }
+
+    public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
+    {
+        $this->deliveryDate = $deliveryDate;
+>>>>>>> c7270e74e79eed90fbac29800bdf93a9a96d5774
 
         return $this;
     }
