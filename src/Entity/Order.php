@@ -45,6 +45,11 @@ class Order
      * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toorder")
      */
     private $merchOrders;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $arrival;
     /**
      * @var string
      */
@@ -165,6 +170,19 @@ class Order
                 $merchOrder->setToorder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getArrival(): ?\DateTimeInterface
+    {
+        return $this->arrival;
+    }
+
+    public function setArrival(): self
+    {   $arrivals=new \Datetime('now');
+        $delay =rand(3,20 );
+        $this->arrival = $arrivals ->modify('+'.$delay.' day');
 
         return $this;
     }
