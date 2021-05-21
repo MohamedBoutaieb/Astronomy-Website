@@ -66,9 +66,9 @@ class Order
         return $this->Date;
     }
 
-    public function setDate(?\DateTimeInterface $Date): self
+    public function setDate(): self
     {
-        $this->Date = $Date;
+        $this->Date =  new \DateTime();
 
         return $this;
     }

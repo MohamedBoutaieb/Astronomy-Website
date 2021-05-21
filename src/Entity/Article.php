@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ *
  */
 class Article
 {
@@ -108,4 +109,6 @@ class Article
     public function __toString(){
         return $this->getTitle();
     }
+    
+
 }

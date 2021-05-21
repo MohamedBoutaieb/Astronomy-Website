@@ -66,7 +66,7 @@ class PurchaseController extends AbstractController
                 }
             }
             $order = new Order();
-            $order->setBuyer($user)->setCost($session->get('cost'))->setAddress($user->getAddress());
+            $order->setBuyer($user)->setCost($session->get('cost'))->setAddress($user->getAddress())->setDate();
             $manager->persist($order);
             $manager->flush();
 
