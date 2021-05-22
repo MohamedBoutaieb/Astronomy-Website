@@ -15,7 +15,6 @@ body {
 .top-section {
     -webkit-background-size: cover;
     background-size: cover;
-    /*background: linear-gradient(rgba(0, 0, 0, 0.29), rgba(0, 0, 0, 0.19)) url(images/index_bg.jpg);*/
     transition: opacity 0.1s;
     position: relative;
     font-family: 'Archivo', sans-serif;
@@ -83,10 +82,13 @@ header {
     box-shadow: 0 0 1pt 1pt white;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
+    }
+    .brand-title {
+        display: none;
     }
     .toggle-button {
         display: flex;

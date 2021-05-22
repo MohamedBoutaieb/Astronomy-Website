@@ -36,17 +36,16 @@ class Moon extends Globe {
         super.update();
         let inBounds = true;
         this.globes.forEach(globe => {
-            if (this !== globe) {
+            if ( this !== globe ){
                 this.acceleration.addVectors(globe.position, this.position.clone().negate());
                 this.acceleration.multiplyScalar(1 / Math.pow(this.acceleration.length(), 3) * globe.mass * 0.00001);
                 this.velocity.add(this.acceleration);
-                this.position.add(this.velocity);
                 //collision detection
                 if(this.position.clone().add(globe.position.clone().negate()).length() <= (globe.mass + this.mass)/10)
                     inBounds = false;
             }
         });
-
+        this.position.add(this.velocity);
         //Orbit
         if (this.points.length > 1000)
             this.points.splice(0, 1);

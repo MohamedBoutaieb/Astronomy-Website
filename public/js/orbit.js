@@ -40,6 +40,7 @@ let params = {
     sandboxMode: startSandboxMode,
     globe: false,
     size: 3,
+    pause: false,
     reset: initSolarSystem,
     clear: clearSolarSystem
 }
@@ -118,6 +119,7 @@ function init() {
     folder.add(params, 'globe').name("Planet Spawner");
     folder.add(params, 'size', 0.5, 10 ).name("Size");
     folder.add(params, 'sandboxMode').name("Sandbox mode");
+    gui.add(params, 'pause').name("Pause Simulation");
     gui.add(params, 'clear').name("Clear Solar System");
     gui.add(params, 'reset').name("Reset Solar System");
     gui.domElement.style.position = 'absolute';
@@ -264,8 +266,21 @@ function mouseup(event) {
         mouseDown = -1;
     }
     created = false;
-    if (moon)
+    if (moon){
         moons.push(moon);
+        let minDistance = globes[0].position.clone().add(moon.position.clone().negate()).length();
+        let planet = globes[0];
+        globes.forEach(globe => {
+            if(globe !== moon){
+                let temp = globe.position.clone().add(moon.position.clone().negate()).length();
+                if ( temp < minDistance){
+                    minDistance = temp;
+                    planet = globe;
+                }
+            }
+        });
+        moon.velocity.add(planet.velocity);
+    }
     moon = null;
 }
 function whileMouseDown() {
@@ -318,6 +333,7 @@ let animate = function () {
     globes.forEach(globe => {
         globe.sphere.rotation.y += 0.005;
     });
+    if(! params.pause)
     moons.forEach(moon => {
         if (!moon.update()) {
             moons.splice(moons.indexOf(moon), 1);
@@ -325,7 +341,7 @@ let animate = function () {
             scene.remove(moon.line);
         }
     });
-    particles.rotation.y += 0.0005;
+    //particles.rotation.y += 0.0005;
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 };
