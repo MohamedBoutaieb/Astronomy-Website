@@ -206,12 +206,13 @@ class AccountDetailsController extends AbstractController
      */
     public function showOrderDetails(EntityManagerInterface $manager, Order $order): Response
     {
-
+        $orderMerchRepo = $manager->getRepository(MerchOrder::class);
         $orderMerchRepo = $manager->getRepository(MerchOrder::class);
         $subOrders = $orderMerchRepo->findBy(["toOrder"=>$order], ['id'=>'desc']);
+        $now =new \DateTime();
         return $this->render('account_details/order_details.html.twig', [
             'subOrders' => $subOrders,
-            'order' => $order
+            'order' => $order, 'date' =>  $order->getArrival()->getTimestamp()-$now->getTimestamp(),
         ]);
     }
 }
