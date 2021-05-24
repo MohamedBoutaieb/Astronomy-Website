@@ -8,9 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich ;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
 {
@@ -87,6 +90,15 @@ class User implements UserInterface, \Serializable
      */
     private $bio;
 
+//    /**
+//     * @ORM\Column(type="string", length=255)
+//     */
+//    private $file;
+    /**
+     * @Vich\UploadableField(mapping="profile_pictures",fileNameProperty="photo")
+     * @var File;
+     */
+    private $imageFile;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -348,7 +360,15 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
+   public function setImageFile(File $photo =null){
+        $this->imageFile=$photo;
+        if($photo){
+            $this->createdAt = new \DateTime('now');
+        }
+   }
+   public function getImageFile(){
+        return $this->imageFile;
+   }
     public function getBirthday(): ?\DateTimeInterface
     {
         return $this->birthday;

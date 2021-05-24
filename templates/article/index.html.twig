@@ -4,30 +4,44 @@
 {% endblock %}
 {% block title %}Articles{% endblock %}
 {% block body %}
-    <body class="" style="background: url('{{ asset('images/signup_bg.jpg') }}')">
-        <div class="container">
-            <div class="container" style="background-color: lightgrey; border-radius: 1%">
-                {{ form(form) }}
-                <br>
-            </div>
-            <br>
-{#                <div class="col-xs4"><a href='{{ path('Add_Post') }}' class="btn shadow-1 rounded-1 blue">Add Post</a></div>#}
-            {% for article in articles %}
+<body class="" style="background: url('{{ asset('images/signup_bg.jpg') }}')">
+<div class="container">
+    <div class="container" style="background-color: lightgrey; border-radius: 1%">
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        <p>Content</p>
+        <div id="editor" style =
+        "border: 1px solid black">
+        </div>
+        {{ form_end(form) }}
+        <br>
+    </div>
+    <br>
+    <div class="container">
+        <br>
+        {% for article in articles %}
             <div class="card text-center">
                 <div class="card-header">
-                    {{ article.user.username }}
+                    <h5 class="card-title"> Title : {{article.title}}</h5>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{article.title}}</h5>
                     <p class="card-text">{{ article.content|raw }}</p>
                 </div>
                 <div class="card-footer text-muted">
-                    {{ article.createdAt|date("d/m/y") }}
+                  Published on  {{ article.createdAt|date("d/m/y h:i") }} By {{ article.user }}
+                </div>
+                <div class="container">
+                    <a href="{{ path('Show_Article',{"article":article.id}) }}" class="btn btn-primary">View</a>
                 </div>
             </div>
-                <br>
-            {% endfor %}
-        </div>
-    </body>
-
+        {% endfor %}
+            <br>
+    </div>
+</div>
+</body>
 {% endblock %}
+{% block scripts %}
+    <script src="../../node_modules/ckeditor5-build-balloon/build/ckeditor.js"></script>
+    <script src="{{ asset('js/ckeditor.js') }}"></script>
+{% endblock %}
+

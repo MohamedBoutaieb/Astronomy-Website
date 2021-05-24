@@ -15,3 +15,6 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+###< symfony/webpack-encor-bundle ###
+/public/images/profile/uploads
+

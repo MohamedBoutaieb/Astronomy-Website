@@ -17,7 +17,7 @@
                 {{ article.title}}
             </div>
             <div class="card-body">
-                <p class="card-text">{{ article.content }}</p>
+                <p class="card-text">{{ article.content | raw  }}</p>
                 <a href="{{ path('edit_Post',{"article":article.id}) }}" class="btn btn-primary">Edit</a>
                 <a href="{{ path('article_delete',{"article":article.id}) }}" class="btn btn-primary">Delete</a>
             </div>

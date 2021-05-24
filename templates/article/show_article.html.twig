@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block assets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
+{% endblock %}
+{% block title %}Article{{ article.id }}{% endblock %}
+{% block body %}
+        <section class="pt-8 pt-md-11">
+            <div class="container mb-2">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+                        <div class="card card-row shadow-light-lg">
+                            <div class="row gx-0">
+                                <div class="card-body">
+                                    <blockquote class="mb-0 text-center">
+                                        <p>{{ article.content | raw}}</p>
+                                        <footer class="blockquote-footer">
+                                            <span class="h6 text-uppercase">Published on {{ article.createdAt|date("d/m/y h:i")}} By {{ article.user }}</span>
+                                        </footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {#    <div class="container">#}
+{#        {% for cle, value in  app.session.flashBag.get('success') %}#}
+{#            <div class="alert alert-success">#}
+{#                {{ value }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#        <div class="card text-center">#}
+{#            <div class="card-header">#}
+{#                {{ article.title}}#}
+{#            </div>#}
+{#            <div class="card-body">#}
+{#                <p class="card-text">{{ article.content | raw }}</p>#}
+{#            </div>#}
+{#            <div class="card-footer text-muted">#}
+{#                   {{ article.createdAt|date("d/m/y h:i") }}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#<br>#}
+{#<div class="container">#}
+{#    <div class="container" style="background-color: lightgrey; border-radius: 1%" id="write_comment">#}
+{#        <h2> The List of comments </h2>#}
+{#            {% for comment in  article.comments %}#}
+{#                {% if comment.parent == null  %}#}
+{#                    <h3>Comment {{ loop.index }} : </h3>#}
+{#                    <p>Published by {{ comment.pseudo}} on {{ comment.createdAt|date("d/m/y h:i")  }}</p>#}
+{#                    <div>{{ comment.content | raw }}</div>#}
+{#                    <p><a href ="#add_comment" data-reply data-id="{{ comment.id }}" class="btn btn-primary">Reply</a></p>#}
+{#                    {% for reply in comment.replies %}#}
+{#                        <p>Published by {{ reply.nickname}} on {{ reply.createdAt|date("d/m/y h:i")  }}</p>#}
+{#                        <div>{{ reply.content | raw }}</div>#}
+{#                    {% endfor %}#}
+{#                {% endif %}#}
+{#        {% endfor %}#}
+{#        <div class="container">#}
+{#            <div class="container" style="background-color: lightgrey; border-radius: 1%"  id="add_comment">#}
+{#                <h1>Add Comment </h1>#}
+{#                {{ form_start(commentForm) }}#}
+{#                {{ form_row(commentForm.email) }}#}
+{#                {{ form_row(commentForm.pseudo) }}#}
+{#                <p>Content</p>#}
+{#                <div id="editor" style =#}
+{#                "border: 1px solid black">#}
+{#                </div>#}
+{#                {{ form_end(commentForm) }}#}
+{#                <br>#}
+{#            </div>#}
+{#        </div>#}
+    {% include "comments/form.html.twig" %}
+    {% include "comments/comments.html.twig" %}
+{% endblock %}
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../../node_modules/ckeditor5-build-balloon/build/ckeditor.js"></script>
+    <script src="{{ asset('js/ckeditor.js') }}"></script>
+{#    $('#myModal').on('shown.bs.modal', function () {#}
+{#    $('#myInput').trigger('focus')#}
+{#    })#}
+{% endblock %}

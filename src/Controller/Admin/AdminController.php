@@ -19,60 +19,25 @@ class AdminController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+         return $this->render('admin/dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Astronomy Website')
-            ->renderContentMaximized()
-            ->renderSidebarMinimized()
-            ->disableUrlSignatures();
-        //->setTranslationDomain('admin');
-
-
+            ->setTitle('Astronomy Website');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-        MenuItem::section('Blog');
-            MenuItem::linkToCrud('Blog Posts', 'fa fa-file-text', Article::class);
-        MenuItem::linkToCrud('Add Post', 'fa fa-tags', Article::class)
-            ->setAction('new');
-        MenuItem::linkToCrud('Show Main Post', 'fa fa-tags', Article::class)
-            ->setAction('detail')
-            ->setEntityId(1);
-        MenuItem::linkToCrud('Articles', 'fa fa-tags', Article::class)
-            ->setController(ArticleController::class);
-        MenuItem::linkToCrud('Articles', 'fa fa-tags', Article::class)
-            ->setDefaultSort(['createdAt' => 'DESC']);
-            MenuItem::section('Users');
-            MenuItem::linkToCrud('Users', 'fa fa-user', \App\Entity\User::class);
-        MenuItem::linkToDashboard('Home', 'fa fa-home');
-        yield MenuItem::linktoRoute('Stats', 'fa fa-chart-bar', 'shop');
-        MenuItem::section('Blog');
-        MenuItem::linkToLogout('Logout', 'fa fa-exit');
-        MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit');
-        MenuItem::subMenu('Blog', 'fa fa-article')->setSubItems([
-            MenuItem::linkToCrud('Posts', 'fa fa-file-text', Article::class),
-        ]);}
-        public function configureUserMenu( UserInterface $user):UserMenu
-    {
-        return parent::configureUserMenu($user)
-            ->setName($user->getUsername())
-            ->displayUserName(false)
-          //  ->setAvatarUrl($user->getProfileImageUrl())
-            // use this method if you don't want to display the user image
-            ->displayUserAvatar(false)
-            // you can use any type of menu item, except submenus
-            ->addMenuItems([
-                MenuItem::linkToRoute('My Profile', 'fa fa-id-card', 'profile'),
-                MenuItem::section(),
-                MenuItem::linkToLogout('Logout', 'fa fa-sign-out'),
-            ]);
-    }
+        yield MenuItem::linkToCrud(' Users', 'fa fa-users', \App\Entity\User::class);
+        yield MenuItem::linkToCrud(' Posts', 'fa fa-newspaper', Article::class);
+        yield MenuItem::linkToCrud(' Comments', 'fa fa-comments', \App\Entity\Comments::class);
+        yield MenuItem::linkToCrud(' Merchandise', 'fa fa-product', \App\Entity\Merchandise::class);
+        yield MenuItem::linkToCrud(' Orders', 'fa fa-credit-card', \App\Entity\Order::class);
+        yield MenuItem::linkToCrud(' MerchandiseOrders', 'fa fa-orders', \App\Entity\MerchOrder::class);
 
+
+    }
 }

@@ -1,0 +1,28 @@
+{% block body %}
+    <section >
+    {% for   comment in comments %}
+        <div class="container mb-2">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+                    <div class="card card-row shadow-light-lg">
+                        <div class="row gx-0">
+                            <div class="card-body">
+                    <blockquote class="mb-0 text-center">
+                        <p>{{ comment.content | raw}}</p>
+                        <footer class="blockquote-footer">
+                            <span class="h6 text-uppercase">Published on {{ comment.createdAt|date("d/m/y h:i")}} By {{ comment.pseudo}} </span>
+                            <div class="container">
+                                <a href="{{ path('show_replies',{"comment":comment.id}) }}" class="btn btn-primary">View</a>
+                                <a href="{{ path('add_reply',{"comment":comment.id}) }}" class="btn btn-primary">Reply</a>
+                            </div>
+                        </footer>
+                    </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+{% endblock %}

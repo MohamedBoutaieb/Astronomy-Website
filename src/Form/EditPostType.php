@@ -3,10 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Article;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,9 +15,8 @@ class EditPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',TextType::class)
-            ->add('content',CKEditorType::class , ['post_max_size_message'=>500])
-            //->add('content', TextareaType::class, ['post_max_size_message'=>500])
+            ->add('title', \Doctrine\DBAL\Types\TextType::class ,['label'=>'title of the post','attr'=>['class'=>'form-control']])
+            ->add('content',HiddenType::class)
             ->add('Edit_Post',SubmitType::class)
         ;
     }
