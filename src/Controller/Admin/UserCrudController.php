@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -28,8 +29,9 @@ class UserCrudController extends AbstractCrudController
             TextField::new('email'),
             TextField::new('firstname'),
             TextField::new('lastname'),
-            NumberField::new('phoneNumber'),
+            TextField::new('phoneNumber'),
             NumberField::new('credits'),
+            ArrayField::new('roles'),
             TextField::new('imageFile')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('photo')->setBasePath('/images/profile/uploads')->onlyOnIndex(),
             AssociationField::new('address'),

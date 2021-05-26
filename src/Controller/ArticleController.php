@@ -23,9 +23,7 @@ class ArticleController extends AbstractController
     public function index(Request $request, EntityManagerInterface $manager, SessionInterface $session, $page, $number)
     {
         $post = new Article();
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
+        $user = $this->getUser();
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isvalid()) {
@@ -38,7 +36,7 @@ class ArticleController extends AbstractController
                 return $this->redirectToRoute('articles.list');
             } elseif (!$user) {
                 $this->addFlash("error", "You should login so that you can share an article.");
-                return $this->redirectToRoute('login');
+                return $this->redirectToRoute('app_login');
             }
         }
 

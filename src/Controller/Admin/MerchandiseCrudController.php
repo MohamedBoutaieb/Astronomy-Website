@@ -27,7 +27,6 @@ class MerchandiseCrudController extends AbstractCrudController
             NumberField::new('price')->hideOnIndex(),
             NumberField::new('inStock'),
             TextField::new('available'),
-            AssociationField::new('merchOrders')
         ];
     }
     public function configureCrud(Crud $crud): Crud

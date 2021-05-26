@@ -91,20 +91,20 @@ function initSolarSystem() {
     //Nepture 24
     moons.push(new Moon(new THREE.Vector3(0, 0, 7), new THREE.Vector3(0.0038, 0, 0), 0.65, globes, moons, scene));
 
-    // setTimeout(()=>{
-    //     for (let index = 0; index < 3000; index++) {
-    //         moons.forEach(moon => {
-    //             if (!moon.update()) {
-    //                 moons.splice(moons.indexOf(moon), 1);
-    //                 scene.remove(moon.sphere);
-    //                 scene.remove(moon.line);
-    //             }
-    //         });
-    //     }
-    //     // moons.forEach(moon => {
-    //     //     console.log(moon.position, moon.velocity);
-    //     // });
-    // },5)
+    setTimeout(()=>{
+        for (let index = 0; index < 3000; index++) {
+            moons.forEach(moon => {
+                if (!moon.update()) {
+                    moons.splice(moons.indexOf(moon), 1);
+                    scene.remove(moon.sphere);
+                    scene.remove(moon.line);
+                }
+            });
+        }
+        // moons.forEach(moon => {
+        //     console.log(moon.position, moon.velocity);
+        // });
+    },5)
 }
 
 //init Scene

@@ -22,30 +22,32 @@ class SendContactCommand extends Command
     private $contactService;//pour mettre à jour la partie isSent
     private $userRepository;
     //à taper après symfony console qui permet d'exécuter la fonction execute
-    protected static $defaultName ='app:send_contact';
+    protected static $defaultName = 'app:send_contact';
+
     public function __construct(
         ContactRepository $contactRepository,
-         MailerInterface   $mailer,
-         ContactService $contactService,
-         UserRepository $userRepository)
-{
-        $this->contactRepository=$contactRepository;
-        $this->contactService=$contactService;
-        $this->userRepository=$userRepository;
-        $this->mailer=$mailer;
+        MailerInterface $mailer,
+        ContactService $contactService,
+        UserRepository $userRepository)
+    {
+        $this->contactRepository = $contactRepository;
+        $this->contactService = $contactService;
+        $this->userRepository = $userRepository;
+        $this->mailer = $mailer;
         parent::__construct();
     }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         //recupérer les msg qui sont en attente d'envoi
-        $toSend =$this->contactRepository->findBy(['isSend'=>false]);
+        $toSend = $this->contactRepository->findBy(['isSend' => false]);
         //pour chaque email qui n'est pas envoyé , on crée un email
-        foreach ($toSend as $mail){
-        $email=(new Email())
-            ->from($mail->getEmail())
-            ->to('bouhamedfarioula@gmail.com')
-            ->subject('New message sent by'. $mail->getName())
-            ->text($mail->getMessage());
+        foreach ($toSend as $mail) {
+            $email = (new Email())
+                ->from($mail->getEmail())
+                ->to('bouhamedfarioula@gmail.com')
+                ->subject('New message sent by' . $mail->getName())
+                ->text($mail->getMessage());
             $this->mailer->send($email);
             $this->contactService->isSend($mail);
         }

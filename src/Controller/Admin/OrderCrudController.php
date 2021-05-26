@@ -26,7 +26,7 @@ class OrderCrudController extends AbstractCrudController
             AssociationField::new('buyer')->hideOnForm(),
             AssociationField::new('address')->hideOnForm(),
             DateField::new('Date')->hideOnForm(),
-            AssociationField::new('merchOrders'),
+//            AssociationField::new('merchOrders'),
 
         ];
     }

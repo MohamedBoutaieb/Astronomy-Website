@@ -6,23 +6,23 @@
         <br>
         <ul class="list-group">
             <li class="list-group-item ">
-                <h4> Username : {{ user.username }}</h4>
+                <h4> Username : {{ app.user.username }}</h4>
             </li>
             <li class="list-group-item ">
-                <h4>Email : {{ user.email }}</h4>
+                <h4>Email : {{ app.user.email }}</h4>
             </li>
             <li class="list-group-item ">
-                <h4>First Name : {{ user.firstname }}</h4>
+                <h4>First Name : {{ app.user.firstname }}</h4>
             </li>
             <li class="list-group-item ">
-                <h4>Last Name : {{ user.lastname }}</h4>
+                <h4>Last Name : {{ app.user.lastname }}</h4>
             </li>
             <li class="list-group-item">
                 <h4>Bio : </h4>
-                {{ user.bio }}
+                {{ app.user.bio }}
             </li>
             <li class="list-group-item ">
-                <h4>Phone Number : {{ user.phoneNumber }}</h4>
+                <h4>Phone Number : {{ app.user.phoneNumber }}</h4>
             </li>
         </ul>
         <br>
@@ -38,7 +38,7 @@
         <div class="container" style="">
             <h1 class="header">Profile Picture</h1>
             <br>
-            <img width="250" height="250" style ="border-radius: 5%" src="{{ asset('images/profile/uploads/' ~ user.photo) }}" alt="Avatar">
+            <img width="250" height="250" style ="border-radius: 5%" src="{{ asset('images/profile/uploads/' ~ app.user.photo) }}" alt="Avatar">
         </div>
     </div>
 {% endblock %}

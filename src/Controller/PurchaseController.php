@@ -24,8 +24,8 @@ class PurchaseController extends AbstractController
      * @Route("/purchasing/",name="purchasing")
      */
     public function index(SessionInterface $session): Response
-    { $repository = $this->getDoctrine()->getRepository('App:User');
-        $user = $repository->findOneBy(['username' => $session->get('username')]);
+    {
+        $user = $this->getUser();
         if (count($session->get('cart'))==0) {
             $message = "Your cart is empty!";
             $this->addFlash("danger", $message);

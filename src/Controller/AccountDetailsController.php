@@ -30,38 +30,44 @@ class AccountDetailsController extends AbstractController
      */
     public function index()
     {
+        $user = $this->getUser();
+        if(!$user){
+            $this->addFlash('error', 'Please login to access your profile.');
+            return $this->redirectToRoute('app_login');
+        }
         return $this->redirectToRoute("profile");
     }
 
     /**
      * @Route("/settings" ,name="editprofile")
      */
-    public function editProfile(Request $request, EntityManagerInterface $manager, SessionInterface $session,
-                                SluggerInterface $slugger, FileUploader $fileUploader)
+    public function editProfile(Request $request, EntityManagerInterface $manager, FileUploader $fileUploader)
     {
-        //on cherche l'utilisateur avec une requête selon le username
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
         //gérer le formulaire
-        $form = $this->createForm(EditPofileType::class, $user);
-        $form->handleRequest($request);
-        //verifier si le formulaire est valide et tout va bien et on modifie les attibuts de l'utilisateur en question
-        if ($form->isSubmitted() && $form->isvalid()) {
-            /** @var UploadedFile $brochureFile */
-            $photoFile = $form->get('photo')->getData();
-            if ($photoFile) {
-                if($user->getPhoto()!='../default_profile_picture.png'){
-                    unlink($this->getParameter('profile_directory').'/'.$user->getPhoto());
+        $user = $this->getUser();
+        if($user){
+            $form = $this->createForm(EditPofileType::class, $user);
+            $form->handleRequest($request);
+            //verifier si le formulaire est valide et tout va bien et on modifie les attibuts de l'utilisateur en question
+            if ($form->isSubmitted() && $form->isvalid()) {
+                /** @var UploadedFile $brochureFile */
+                $photoFile = $form->get('photo')->getData();
+                if ($photoFile) {
+                    if($user->getPhoto()!='../default_profile_picture.png'){
+                        unlink($this->getParameter('profile_directory').'/'.$user->getPhoto());
+                    }
+                    $photoFileName = $fileUploader->upload($photoFile);
+                    $user->setPhoto($photoFileName);
                 }
-                $photoFileName = $fileUploader->upload($photoFile);
-                $user->setPhoto($photoFileName);
+                //remplacer l'ancien user par le nouveau
+                $manager->flush();
+                //message de succès
+                $this->addFlash('success', 'Your Profile has been successfully updated');
+                return $this->redirectToRoute('profile');
             }
-            //remplacer l'ancien user par le nouveau
-            $manager->flush();
-            //message de succès
-            $this->addFlash('success', 'Your Profile has been successfully updated');
-            return $this->redirectToRoute('profile');
+        }
+        else{
+            $this->redirectToRoute('account');
         }
         return $this->render('account_details/editProfile.html.twig', ['form' => $form->createView()]);
     }
@@ -69,27 +75,21 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/profile" ,name="profile")
      */
-    public function showProfile(SessionInterface $session, EntityManagerInterface $manager)
+    public function showProfile(): Response
     {
-        //on cherche l'utilisateur avec la requête findOneByUsername
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
-        return $this->render('account_details/index.html.twig', ['user' => $user]);
+        return $this->render('account_details/index.html.twig');
     }
 
     /**
      * @Route("/security" ,name="edit_password")
      */
-    public function editPassword(SessionInterface $session, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager)
+    public function editPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager)
     {
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
+        $user = $this->getUser();
         if ($request->isMethod('POST')) {
             if ($request->request->get('pass') == $request->request->get('confirmPass') &&
-                $request->request->get('oldPass') == $user->getPassword()) {
-                $user->setPassword($_POST['pass']);
+                $passwordEncoder->isPasswordValid($user, $request->request->get('oldPass'))) {
+                $user->setPassword($passwordEncoder->encodePassword($user, $_POST['pass']));
                 $manager->flush();
                 $this->addFlash('success', 'Password has successfully been changed.');
                 return $this->redirectToRoute('profile');
@@ -108,11 +108,9 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/adress" ,name="edit_address")
      */
-    public function editAddress(SessionInterface $session, Request $request, EntityManagerInterface $manager)
+    public function editAddress(Request $request, EntityManagerInterface $manager)
     {
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneBy(["username" => $user]);
+        $user = $this->getUser();
         $address = $user->getAddress();
         $form = $this->createForm(EditAddressType::class, $address);
         $form->handleRequest($request);
@@ -132,9 +130,9 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/articles", name="articles")
      */
-    public function showArticles(SessionInterface $session, EntityManagerInterface $manager)
+    public function showArticles(EntityManagerInterface $manager): Response
     {
-        $user = $session->get("username");
+        $user = $this->getUser();
         $repository = $manager->getRepository(Article::class);
         $articles = $repository->findBy(['user' => $user]);
         return $this->render('account_details/Show_Articles.html.twig', [
@@ -155,7 +153,6 @@ class AccountDetailsController extends AbstractController
      */
     public function deleteArticle(Article $article = null, EntityManagerInterface $manager)
     {
-
         if ($article) {
             $manager->remove($article);
             $manager->flush();
@@ -170,11 +167,9 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/edit/Post/{article}" ,name="edit_Post")
      */
-    public function editArticle(Request $request, EntityManagerInterface $manager, SessionInterface $session, Article $article)
+    public function editArticle(Request $request, EntityManagerInterface $manager, Article $article)
     {
-        $user = $session->get("username");
-        $repository = $manager->getRepository(User::class);
-        $user = $repository->findOneByUsername($user);
+        $user = $this->getUser();
         if ($article->getUser() === $user) {
             $form = $this->createForm(EditPostType::class, $article);
             $form->handleRequest($request);
@@ -190,9 +185,9 @@ class AccountDetailsController extends AbstractController
     /**
      * @Route("/orders", name="orders")
      */
-    public function showOrders(EntityManagerInterface $manager, UserSessionUpdater $sessionUpdater): Response
+    public function showOrders(EntityManagerInterface $manager): Response
     {
-        $user = $sessionUpdater->updateUserSession();
+        $user = $this->getUser();
         $orderRepo = $manager->getRepository(Order::class);
         $orders = $orderRepo->findBy(['buyer' => $user], ['id'=>'desc']);
 

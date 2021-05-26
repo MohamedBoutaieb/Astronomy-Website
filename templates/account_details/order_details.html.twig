@@ -31,11 +31,6 @@
                             <td>{{ subOrder.quantity }}</td>
                             <td>Ꞓ{{ subOrder.toMerch.price }}</td>
                             <td>Ꞓ{{ subOrder.toMerch.price * subOrder.quantity }}</td>
-                            {% if date<=0 %}
-                            <td>order arrived !</td>
-                            {% else %}
-                                <td>order arriving in soon ! </td>
-                                {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -48,6 +43,14 @@
                         <td>Ꞓ{{ order.cost }}</td>
                     </tr>
                 </table>
+                <h4>Status:
+                    {% if date<=0 %}
+                        order delivered !
+                    {% else %}
+                        order delivering soon !
+                    {% endif %}
+                </h4>
+
             </div>
             <div class="card-footer text-muted">
                 {{ order.date | date }}

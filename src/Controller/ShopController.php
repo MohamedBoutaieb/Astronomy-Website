@@ -189,16 +189,13 @@ class ShopController extends AbstractController
      */
     public function purchase(SessionInterface $session): Response
     {
-        if (!($session->has("username"))) {
+        if (!$this->getUser()) {
             $session->set("buyer", true);
             $this->addFlash('error', "connect to purchase your items!!");
-            return $this->RedirectToRoute('login');
+            return $this->RedirectToRoute('app_login');
         } else {
-
             return $this->RedirectToRoute('purchasing');
         }
-
-
     }
 
 
