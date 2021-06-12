@@ -65,6 +65,12 @@ class Comments
      */
     private $replies;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(name="user", referencedColumnName="username", nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->replies = new ArrayCollection();
@@ -190,5 +196,17 @@ class Comments
     }
     public function __toString(){
         return $this->id;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

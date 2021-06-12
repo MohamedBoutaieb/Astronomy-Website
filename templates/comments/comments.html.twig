@@ -13,6 +13,7 @@
                             <span class="h6 text-uppercase">Published on {{ comment.createdAt|date("d/m/y h:i")}} By {{ comment.pseudo}} </span>
                             <div class="container">
                                 <a href="{{ path('show_replies',{"comment":comment.id}) }}" class="btn btn-primary">View</a>
+                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm">Add Reply</a>
                                 <a href="{{ path('add_reply',{"comment":comment.id}) }}" class="btn btn-primary">Reply</a>
                             </div>
                         </footer>

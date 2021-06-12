@@ -104,6 +104,11 @@ class User implements UserInterface
      */
     private $birthday;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $comments;
+
 //    public function getId(): ?int
 //    {
 //        return $this->id;
@@ -148,6 +153,7 @@ class User implements UserInterface
     {
         $this->orders = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
     /**
      * @see UserInterface
@@ -395,5 +401,35 @@ class User implements UserInterface
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
