@@ -65,15 +65,22 @@ class ArticleController extends AbstractController
         $comments= $commentsRepository->findBy(['article'=>$article->getId()]);
         //on crée le commentaire
         $comment = new Comments();
+        $user = $this->getUser();
         //on gère le formulaire
         $commentForm = $this->createForm(CommentsType::class, $comment);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isvalid()) {
-            $comment = $commentForm->getData();
-            //on récupère le contenu du champ parent
-            $parentId = $commentForm->get("parent")->getData();
-            $commentService->persistComment($comment, $article, $parentId);
-            return $this->redirectToRoute('Show_Article',['article'=>$article->getId()]);
+            if($user){
+                $comment->setUser($user);
+                $comment = $commentForm->getData();
+                //on récupère le contenu du champ parent
+                $parentId = $commentForm->get("parent")->getData();
+                $commentService->persistComment($comment, $article, $parentId);
+                return $this->redirectToRoute('Show_Article',['article'=>$article->getId()]);
+            }
+            else{
+                return $this->redirectToRoute('app_login');
+            }
         }
         return $this->render('article/show_article.html.twig' ,[
             'form' => $commentForm->createView(),'article' => $article , 'comments'=>$comments,]);
