@@ -42,7 +42,7 @@ class Order
     private $address;
 
     /**
-     * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toorder")
+     * @ORM\OneToMany(targetEntity=MerchOrder::class, mappedBy="toOrder")
      */
     private $merchOrders;
 
