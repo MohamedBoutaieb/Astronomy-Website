@@ -22,10 +22,7 @@ class ProfileController extends AbstractController
             if (isset($_GET["user"]))
             {$session->set('keysearch',$_GET["user"]);}
             $users = $userRepo->search($session->get('keysearch'));
-
-
-
-          if ($users!=null)
+          if ($users)
             return $this->render('profile/search_result.html.twig', [
                'users'=> $users
             ]);
