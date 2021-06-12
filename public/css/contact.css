@@ -1,0 +1,18 @@
+*{
+    text-align: center
+}
+body{
+    color: #83aae7;
+    background-image: url(../images/about_bg.jpg);
+    height: 100vh;
+    background-attachment:fixed ;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0;
+    padding: 0;
+}

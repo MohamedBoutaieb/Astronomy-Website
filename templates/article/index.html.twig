@@ -10,8 +10,7 @@
         {{ form_start(form) }}
         {{ form_row(form.title) }}
         <p>Content</p>
-        <div id="editor" style =
-        "border: 1px solid black">
+        <div id="editor" >
         </div>
         {{ form_end(form) }}
         <br>
@@ -39,7 +38,7 @@
         <br>
     </div>
 </div>
-</body>
+
 {% endblock %}
 {% block scripts %}
     <script src="../../node_modules/ckeditor5-build-balloon/build/ckeditor.js"></script>
