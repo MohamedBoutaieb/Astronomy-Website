@@ -34,7 +34,7 @@ class ArticleController extends AbstractController
                 $manager->persist($post);
                 $manager->flush();
                 return $this->redirectToRoute('articles.list');
-            } elseif (!$user) {
+            } else {
                 $this->addFlash("error", "You should login so that you can share an article.");
                 return $this->redirectToRoute('app_login');
             }
@@ -69,10 +69,10 @@ class ArticleController extends AbstractController
         $commentForm = $this->createForm(CommentsType::class, $comment);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isvalid()) {
-          $comment = $commentForm->getData();
+            $comment = $commentForm->getData();
             //on récupère le contenu du champ parent
-            $parentid = $commentForm->get("parent")->getData();
-            $commentService->persistComment($comment,$article,$parentid);
+            $parentId = $commentForm->get("parent")->getData();
+            $commentService->persistComment($comment, $article, $parentId);
             return $this->redirectToRoute('Show_Article',['article'=>$article->getId()]);
         }
         return $this->render('article/show_article.html.twig' ,[
@@ -96,8 +96,8 @@ class ArticleController extends AbstractController
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isvalid()) {
             $reply = $commentForm->getData();
-           $parentid = $comment->getId() ;
-            $commentService->persistComment($reply,$comment->getArticle(),$parentid);
+           $parentId = $comment->getId() ;
+            $commentService->persistComment($reply,$comment->getArticle(),$parentId);
 //            return $this->redirectToRoute('Show_Article',['article'=>$comment->getArticle()->getId()]);
         }
         return $this->redirectToRoute('Show_Article',['article'=>$comment->getArticle()->getId()]);

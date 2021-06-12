@@ -19,7 +19,7 @@ class CommentsType extends AbstractType
         $builder
             ->add('email',EmailType::class ,['label'=>'Your Email','attr'=>['class'=>'form-control']])
             ->add('pseudo',\Symfony\Component\Form\Extension\Core\Type\TextType::class ,['label'=>'Your nickname','attr'=>['class'=>'form-control']])
-            ->add('content',\Symfony\Component\Form\Extension\Core\Type\HiddenType::class ,['label'=>'Your comment','attr'=>['class'=>'form-control']])
+            ->add('content',\Symfony\Component\Form\Extension\Core\Type\TextType::class ,['label'=>'Your comment','attr'=>['class'=>'form-control']])
             ->add('parent', HiddenType::class,['mapped'=>false])
             ->add('Share_Comment',SubmitType::class)
 
