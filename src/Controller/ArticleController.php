@@ -91,7 +91,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/add_reply/{comment}", name="add_reply")
      */
-    public function addReply(CommentService $commentService, Comments $comment, Request $request, CommentsRepository $commentsRepository)
+    public function addReply(CommentService $commentService, Comments $comment, Request $request)
     {
         $reply = new Comments();
         $user = $this->getUser();
@@ -102,6 +102,7 @@ class ArticleController extends AbstractController
                 $reply->setUser($user);
                 $reply = $replyForm->getData();
                 $commentService->persistComment($reply, $comment->getArticle(), $comment);
+                $comment = $comment->addReply($reply);
                 return $this->redirectToRoute('add_reply', ['comment' => $comment->getId()]);
             } else {
                 return $this->redirectToRoute('app_login');

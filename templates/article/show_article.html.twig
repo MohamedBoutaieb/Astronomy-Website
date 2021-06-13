@@ -1,8 +1,6 @@
-{% extends 'base.html.twig' %}
-{% block assets %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
-{% endblock %}
-{% block title %}Article{{ article.id }}{% endblock %}
+{% extends 'article/index.html.twig' %}
+
+{% block title %}Article {{ article.id }} • Astronomy Magazine{% endblock %}
 {% block body %}
         <section class="pt-8 pt-md-11">
             <div class="container mb-2">
