@@ -13,7 +13,8 @@
     {% endblock %}
     {% block assets %} {% endblock %}
 </head>
-<body style="background: url('{{ asset('images/signup_bg.jpg') }}'); overflow-x: hidden">
+{% block background %} <body style="background: url('{{ asset('images/signup_bg.jpg') }}'); overflow-x: hidden"> {% endblock %}
+
 {% block div %} {%  endblock %} <!-- for gallery page -->
 <header class="top-section" id="topScreen">
     <div class="gen">

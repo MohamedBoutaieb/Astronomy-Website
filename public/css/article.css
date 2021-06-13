@@ -1,0 +1,31 @@
+.container{
+    padding-top: 20px;
+    margin-top: 20px;
+    padding-bottom: 5px;
+}
+.form-end{
+    text-align: center;
+}
+#share{
+    margin: 10px 0 0 0;
+}
+#editor{
+    background-color: whitesmoke;
+}
+.posting, .posts{
+
+    background-color: #c8c7cf;
+    border-radius: 1%;
+}
+.posting{
+    padding: 20px 20px 0 20px;
+}
+.btn{
+    margin: 10px;
+}
+.card {
+    margin: 7px;
+}
+body{
+    background: url("../images/blog.jpg");
+}

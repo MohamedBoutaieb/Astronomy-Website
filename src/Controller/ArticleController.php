@@ -36,7 +36,7 @@ class ArticleController extends AbstractController
                 $manager->flush();
                 return $this->redirectToRoute('articles.list');
             } else {
-                $this->addFlash("error", "You should login so that you can share an article.");
+                $this->addFlash("error", "You must login to share an article.");
                 return $this->redirectToRoute('app_login');
             }
         }
