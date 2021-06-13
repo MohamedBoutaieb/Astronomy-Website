@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block assets %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
-    <link rel="stylesheet" href={{ asset('css/contact.css') }} >
+    <link rel="stylesheet" href={{ asset('css/contactUs.css') }} >
 
 {% endblock %}
 {% block title %} Contact {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Contact the staff</h1>
-    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
@@ -24,9 +32,10 @@
             </div>
         </div>
     </div>
-
+   <br>
+        <br>
     <div class="text-center">
- <a class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">    <button class="btn btn-success"> Contact Us</button></a>
+        <a class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"  style="color: deeppink">Contact Us</a>
     </div>
     <h2> Where to find us?
     </h2>

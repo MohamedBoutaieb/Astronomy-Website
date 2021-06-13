@@ -27,12 +27,10 @@ class SendContactCommand extends Command
     public function __construct(
         ContactRepository $contactRepository,
         MailerInterface $mailer,
-        ContactService $contactService,
-        UserRepository $userRepository)
+        ContactService $contactService)
     {
         $this->contactRepository = $contactRepository;
         $this->contactService = $contactService;
-        $this->userRepository = $userRepository;
         $this->mailer = $mailer;
         parent::__construct();
     }
@@ -45,7 +43,7 @@ class SendContactCommand extends Command
         foreach ($toSend as $mail) {
             $email = (new Email())
                 ->from($mail->getEmail())
-                ->to('bouhamedfarioula@gmail.com')
+                ->to('insat.astronomy@gmail.com')
                 ->subject('New message sent by' . $mail->getName())
                 ->text($mail->getMessage());
             $this->mailer->send($email);

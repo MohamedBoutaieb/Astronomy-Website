@@ -48,11 +48,6 @@ class Article
      */
     private $comments;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $slug;
-
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -121,7 +116,9 @@ class Article
 
         return $this;
     }
-    public function __toString(){
+
+    public function __toString()
+    {
         return $this->getTitle();
     }
 
@@ -151,18 +148,6 @@ class Article
                 $comment->setArticle(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }

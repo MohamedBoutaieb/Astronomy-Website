@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\CommentsType;
 use App\Form\EditPofileType;
 use App\Form\PostsType;
+use App\Form\ReplyType;
 use App\Repository\CommentsRepository;
 use App\Services\CommentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,20 +50,12 @@ class ArticleController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/show_article/{article}" ,name="Show_Article")
-//     */
-//    public function show(Article $article)
-//    {
-//        return $this->render("article/show_article.html.twig", ['article' => $article]);
-//    }
-
     /**
      * @Route("/add_comment/{article}", name="Show_Article")
      */
-    public function showDetails(Request $request, CommentService $commentService, Article $article,CommentsRepository $commentsRepository)
+    public function showDetails(Request $request, CommentService $commentService, Article $article, CommentsRepository $commentsRepository)
     {
-        $comments= $commentsRepository->findBy(['article'=>$article->getId()]);
+        $comments = $commentsRepository->findBy(['article' => $article->getId()]);
         //on crée le commentaire
         $comment = new Comments();
         $user = $this->getUser();
@@ -70,47 +63,51 @@ class ArticleController extends AbstractController
         $commentForm = $this->createForm(CommentsType::class, $comment);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isvalid()) {
-            if($user){
+            if ($user) {
                 $comment->setUser($user);
                 $comment = $commentForm->getData();
                 //on récupère le contenu du champ parent
                 $parentId = $commentForm->get("parent")->getData();
                 $commentService->persistComment($comment, $article, $parentId);
-                return $this->redirectToRoute('Show_Article',['article'=>$article->getId()]);
-            }
-            else{
+                return $this->redirectToRoute('Show_Article', ['article' => $article->getId()]);
+            } else {
                 return $this->redirectToRoute('app_login');
             }
         }
-        return $this->render('article/show_article.html.twig' ,[
-            'form' => $commentForm->createView(),'article' => $article , 'comments'=>$comments,]);
+        return $this->render('article/show_article.html.twig', [
+            'form' => $commentForm->createView(), 'article' => $article, 'comments' => $comments,]);
     }
 
     /**
      * @Route("/show_replies/{comment}", name="show_replies")
      */
-    public function showReplies( CommentsRepository  $commentsRepository, Comments  $comment ){
-        $replies= $commentsRepository->findBy(['parent'=>$comment->getId()]);
-        return $this->render('comments/Replies.html.twig' ,[
-             'replies'=>$replies,]);
+    public function showReplies(CommentsRepository $commentsRepository, Comments $comment)
+    {
+        $replies = $commentsRepository->findBy(['parent' => $comment->getId()]);
+        return $this->render('comments/Replies.html.twig', [
+            'replies' => $replies,]);
     }
+
     /**
      * @Route("/add_reply/{comment}", name="add_reply")
      */
-    public function addReply( CommentService $commentService, Comments  $comment ,Request $request){
+    public function addReply(CommentService $commentService, Comments $comment, Request $request, CommentsRepository $commentsRepository)
+    {
         $reply = new Comments();
-        $commentForm = $this->createForm(CommentsType::class, $reply);
-        $commentForm->handleRequest($request);
-        if ($commentForm->isSubmitted() && $commentForm->isvalid()) {
-            $reply = $commentForm->getData();
-           $parentId = $comment->getId() ;
-            $commentService->persistComment($reply,$comment->getArticle(),$parentId);
-//            return $this->redirectToRoute('Show_Article',['article'=>$comment->getArticle()->getId()]);
+        $user = $this->getUser();
+        $replyForm = $this->createForm(ReplyType::class, $reply);
+        $replyForm->handleRequest($request);
+        if ($replyForm->isSubmitted() && $replyForm->isvalid()) {
+            if ($user) {
+                $reply->setUser($user);
+                $reply = $replyForm->getData();
+                $commentService->persistComment($reply, $comment->getArticle(), $comment);
+                return $this->redirectToRoute('add_reply', ['comment' => $comment->getId()]);
+            } else {
+                return $this->redirectToRoute('app_login');
+            }
         }
-        return $this->redirectToRoute('Show_Article',['article'=>$comment->getArticle()->getId()]);
-
     }
 
 }
-
 

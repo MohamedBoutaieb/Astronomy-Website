@@ -18,7 +18,7 @@ class ContactType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('email',EmailType::class)
-            ->add('message',\Symfony\Component\Form\Extension\Core\Type\HiddenType::class )
+            ->add('message',TextareaType::class )
             ->add('Send',SubmitType::class);
         ;
     }

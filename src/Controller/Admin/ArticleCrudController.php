@@ -30,7 +30,6 @@ class ArticleCrudController extends AbstractCrudController
         return [
             NumberField::new('id')->hideOnForm(),
             TextField::new('Title'),
-            SlugField::new('slug')->setTargetFieldName('Title')->hideOnIndex(),
             TextareaField::new('content' ),
             DateField::new('createdAt')->hideOnForm(),
             TextField::new('active'),
