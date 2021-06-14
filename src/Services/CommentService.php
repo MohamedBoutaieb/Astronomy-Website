@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Entity\Article;
 use App\Entity\Comments;
 use App\Entity\Contact;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 

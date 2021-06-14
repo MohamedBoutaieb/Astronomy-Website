@@ -29,15 +29,6 @@ class Comments
      */
     private $active;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $pseudo;
 
     /**
      * @ORM\Column(type="datetime")
@@ -105,29 +96,6 @@ class Comments
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -176,8 +144,8 @@ class Comments
     public function addReply(self $reply): self
     {
         if (!$this->replies->contains($reply)) {
-            $this->replies[] = $reply;
-            $reply->setParent($this);
+           array_push($this->replies[], $reply);
+           $reply->setParent($this);
         }
 
         return $this;
