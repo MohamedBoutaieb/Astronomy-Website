@@ -1,9 +1,38 @@
-{% extends 'base.html.twig' %}
+{% extends 'article/index.html.twig' %}
 {% block assets %}
+    {{ parent() }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css">
 {% endblock %}
 {% block title %} Replies {% endblock %}
 {% block body %}
+    <section class="pt-8 pt-md-11">
+        <div class="container mb-2">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+                    <div class="card card-row shadow-light-lg">
+                        <div class="row gx-0">
+                            <div class="card-body">
+                                <blockquote class="mb-0 text-center">
+                                    <p>{{ comment.content | raw}}</p>
+                                    <footer class="blockquote-footer">
+                                        <span class="h6 text-uppercase">Published on {{ comment.createdAt |date("d/m/y h:i")}} By {{ comment.user }}</span>
+                                    </footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    {% include "comments/form.html.twig" %}
+    <div class="text-center">
+
+    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalSubscriptionForm">Add reply</button>
+
+    </div>
     <section >
     {% for   reply in replies %}
         <div class="container mb-2">
@@ -15,7 +44,7 @@
                     <blockquote class="mb-0 text-center">
                         <p>{{ reply.content | raw}}</p>
                         <footer class="blockquote-footer">
-                            <span class="h6 text-uppercase">Published on {{ reply.createdAt|date("d/m/y h:i")}} By {{ reply.pseudo}}</span>
+                            <span class="h6 text-uppercase">Published on {{ reply.createdAt|date("d/m/y h:i")}} By {{ pseudo}}</span>
                         </footer>
                     </blockquote>
                             </div>
@@ -25,5 +54,6 @@
             </div>
         </div>
         {% endfor %}
+
     </section>
 {% endblock %}

@@ -17,15 +17,16 @@
                     {{ form_row(form.title) }}
                 </h4>
 
-                <h4>What do you want to share ? </h4>
+              <h4>What do you want to share ?</h4>
 
-                <div class="form-end">
                     <div id="editor" ></div>
-                    <div id="share"> {{ form_end(form) }}</div>
-                </div>
+                     {{ form_end(form) }}
+            </div>
                 <br>
             </div>
+
             <br>
+            <div class="container">
             <div class="posts">
                 <br>
                 {% for article in articles %}
@@ -39,14 +40,15 @@
                         <div class="card-footer text-muted">
                             Published on  {{ article.createdAt|date("d/m/y h:i") }} By {{ article.user }}
                         </div>
-                        <a href="{{ path('Show_Article',{"article":article.id}) }}" class="btn btn-primary">View</a>
+                        <a href="{{ path('Show_Article',{"article":article.id}) }}" class="btn btn-primary">View comments</a>
 
                     </div>
                     <br>
                 {% endfor %}
                 <br>
             </div>
-        </div>
+            </div>
+
 
 
 
