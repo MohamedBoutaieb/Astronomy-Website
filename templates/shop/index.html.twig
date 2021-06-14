@@ -120,16 +120,16 @@
                 </div>
             </section>
             <br>
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: auto;">
 
                 <div class="card-body">
-                    <h5 class="card-title" style ="display :flex;align-items:stretch;">Cart
+                    <h2 class="card-title" style ="display :flex;align-items:stretch; font-weight: bold; text-align: center">Your cart
                         {% if labels %}
                         <img style= "margin-left: 60%;" height="60" width="60" src={{ asset('images/full.png')}}  >
                         {% else%}
                         <img style= "margin-left: 60%;" height="60" width="60" src={{ asset('images/empty.png')}}  >
                     {% endif %}
-                    </h5>
+                    </h2>
                     <p class="card-text">These are your selected items </p>
                 </div>
                 <ul class="list-group list-group-flush">
