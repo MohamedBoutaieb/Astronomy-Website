@@ -15,7 +15,7 @@
         "easycorp/easyadmin-bundle": "^3.3",
         "fzaninotto/faker": "^1.5",
         "helios-ag/fm-elfinder-bundle": "^10.1",
-        "knplabs/knp-time-bundle": "^1.16",
+
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.2.*",

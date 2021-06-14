@@ -44,11 +44,10 @@ class PurchaseController extends AbstractController
     /**
      * @Route("/create order" ,name="create order")
      */
-    public function createOrder(EntityManagerInterface $manager ,SessionInterface $session, Request $request): Response
+    public function createOrder(AuthenticationUtils $authenticationUtils,EntityManagerInterface $manager ,SessionInterface $session, Request $request): Response
     {   $userRepository = $this->getDoctrine()->getRepository('App:User');
         $merchRepository = $this->getDoctrine()->getRepository('App:Merchandise');
-        $user = $userRepository->findOneBy(['username' => $session->get('username')]);
-
+        $user = $this->getUser();
         if ($user->getCredits()< $session->get('cost'))
         {
             $message = "insufficient funds !";
