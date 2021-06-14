@@ -1,7 +1,9 @@
 *{
     margin: 0;
     padding: 0;
+
 }
+
 .gallery img {
     width: 230px;
     padding:15px;
@@ -12,23 +14,7 @@
     filter: grayscale(0);
     transform: scale(1.1);
 }
-.title{
-    font-family: 'montserrat', sans-serif;
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
 
-    font-weight: 900;
-    font-size: 3.25em;
-    margin-bottom: 30px;
-    text-shadow: 4px 3px 0px #898999;
-    line-height: 1.2;
-    color: white;
-    font-family: Monda, Sans-serif;
-    font-weight: 500;
-    margin-left: 5rem;
-    text-transform: uppercase;
-}
 .imageSet{
 
     justify-content: center;
@@ -36,8 +22,10 @@
 
 }
 .gallery{
-    background: rgb(20, 20, 20);
+    padding-top: 50px;
+    background-color: black;
     position: relative;
+    margin-bottom: -70px;
 }
 
 .picture{
@@ -45,13 +33,12 @@
     width: 100% !important;
 }
 .bgimage{
-    background: url("../images/index_bg.jpg");
+    background-attachment: fixed;
+    background-image: url("../images/pic1gallery.jpg");
+    margin: 0;
+    padding: 0;
 }
-.wave{
-    position: absolute;
-    bottom:0;
-    left: 0;
-}
+
 .h2{
 
     font-size: 50px;
@@ -61,8 +48,27 @@
 
 }
 .h2:hover {
-     letter-spacing: 25px;
- }
+    letter-spacing: 25px;
+}
 #text{
     padding:0 15%;
 }
+/*.divider svg {*/
+/*    position: relative;*/
+/*    display: block;*/
+/*    width: calc(100% + 1.3px);*/
+/*    height: 80px;*/
+/*}*/
+
+/*.divider .shape-fill {*/
+/*    background-image: url("../images/pic1gallery.jpg");*/
+/*}*/
+
+/*!* For mobile devices *!*/
+/*@media (max-width: 767px) {*/
+/*    .divider svg {*/
+/*        width: calc(100% + 1.3px);*/
+/*        height: 60px;*/
+/*    }*/
+/*}*/
+

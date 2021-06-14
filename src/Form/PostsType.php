@@ -14,7 +14,7 @@ class PostsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',\Symfony\Component\Form\Extension\Core\Type\TextType::class ,['label'=>'title of the post','attr'=>['class'=>'form-control']])
+            ->add('title',\Symfony\Component\Form\Extension\Core\Type\TextType::class ,['label'=>'Give your post a title ! ','attr'=>['class'=>'form-control']])
             ->add('content',HiddenType::class)
             ->add('Share_Article',SubmitType::class)
         ;
