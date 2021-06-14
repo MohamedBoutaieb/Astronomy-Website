@@ -20,11 +20,10 @@ class CommentService
         $this->manager=$manager;
         $this->flash=$flash;
     }
-    public function persistComment(Comments $comment, Article $article, Comments $parent = null):void{
+    public function persistComment(Comments $comment, Article $article):void{
         $comment->setActive(1)
                 ->setArticle($article)
                 ->setCreatedAt(new \DateTime('now'));
-        $comment->setParent($parent);
         $this->manager->persist($comment);
         $this->manager->flush();
         $this->flash->add('success','Your comment has been published.Thank you!');

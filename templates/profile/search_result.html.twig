@@ -19,6 +19,7 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.firstName}}</td>
                 <td>{{ user.lastname}}</td>
+
                 <td> <a href={{ path('details' , {id :user.username}) }}>  <button class="btn-info" > more details</button></a> </td>
             </tr>
         {% endfor %}
