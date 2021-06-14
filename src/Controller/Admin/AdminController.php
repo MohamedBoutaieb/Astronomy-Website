@@ -32,8 +32,6 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linkToCrud(' Comments', 'fa fa-comments', \App\Entity\Comments::class);
         yield MenuItem::linkToCrud(' Merchandise', 'fa fa-product', \App\Entity\Merchandise::class);
         yield MenuItem::linkToCrud(' Orders', 'fa fa-credit-card', \App\Entity\Order::class);
-        yield MenuItem::linkToCrud(' MerchandiseOrders', 'fa fa-orders', \App\Entity\MerchOrder::class);
-
-
+        yield MenuItem::linkToCrud(' Messages', 'fa fa-comment', \App\Entity\Contact::class);
     }
 }

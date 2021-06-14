@@ -25,9 +25,7 @@ class OrderCrudController extends AbstractCrudController
             NumberField::new('cost'),
             AssociationField::new('buyer')->hideOnForm(),
             AssociationField::new('address')->hideOnForm(),
-            DateField::new('Date')->hideOnForm(),
-//            AssociationField::new('merchOrders'),
-
+            DateField::new('Date')->hideOnForm()
         ];
     }
     public function configureCrud(Crud $crud): Crud

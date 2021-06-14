@@ -4,6 +4,8 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Article;
+use App\Entity\Comments;
+use App\Entity\Contact;
 use App\Entity\Order;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,7 +21,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
     public function __construct(SluggerInterface $slugger, Security $security)
     {
-        $this->slugger = $slugger;
         $this->security=$security;
     }
 
@@ -35,23 +36,21 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $entity = $event->getEntityInstance();
 
         if (($entity instanceof Article)) {
-
-//        $slug = $this->slugger->slug($entity->getTitle());
-//        $entity->setSlug($slug);
             $now = new DateTime('now');
             $entity->setCreatedAt($now);
             $user = $this->security->getUser();
             $entity->setUser($user);
         }
         else if (($entity instanceof Order)) {
-
-//        $slug = $this->slugger->slug($entity->getTitle());
-//        $entity->setSlug($slug);
             $now = new DateTime('now');
             $entity->setCreatedAt($now);
             $user = $this->security->getUser()->getUsername();
             $entity->setBuyer($user);
             $entity->setAddres($this->security->getUser()->getAddress());
+        }
+        else if($entity instanceof Contact){
+            $now = new DateTime('now');
+            $entity->setCreatedAt($now);
         }
         return;
     }
