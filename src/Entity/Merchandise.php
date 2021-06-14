@@ -54,16 +54,6 @@ class Merchandise
      */
     private $available;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $availability = ["In Stock", "Out of Stock"];
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $types = ["poster","magazine"];
-
 
     public function __construct()
     {
@@ -176,32 +166,6 @@ class Merchandise
 
         return $this;
     }
-
-    public function getAvailability(): ?array
-    {
-        return $this->availability;
-    }
-
-    public function setAvailability(array $availability): self
-    {
-        $this->availability = $availability;
-
-        return $this;
-    }
-
-    public function getTypes(): ?array
-    {
-        return $this->types;
-    }
-
-    public function setTypes(array $types): self
-    {
-        $this->types = $types;
-
-        return $this;
-    }
-
-
 
 
 }
