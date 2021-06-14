@@ -80,7 +80,7 @@
                             {% for magazine in magazines %}
                                 <li style="width: 270px; float: left; display: block;">
                                     <article class="box">
-                                        <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt="" src=https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80 draggable="false"></a> </figure>
+                                        <figure> <a href="#" class="hover-effect popup-gallery"><img class="zoom" width="270" height="160" alt="" src={{ magazine.url }} draggable="false"></a> </figure>
                                         <div class="details"> <span class="price"><small>Price</small>{{ magazine.price }}</span>
                                             <h4 class="box-title">{{ magazine.label }}<small>{{ magazine.available }}</small></h4>
                                             <br>
