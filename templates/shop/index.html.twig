@@ -57,13 +57,16 @@
 
                 </div>
             </div>
-            <div class="buttons">
+            <div class="buttons">     {%  if app.session.get("posterIndex")>1 %}
                 <a  class="btn buy" href={{ path('previousp') }} >
                     <button class="w3-button w3-large w3-black">‹</button>
-                </a>
+                </a>   {% endif %}
+                {%  if app.session.get("posterIndex")< posterStock %}
                 <a  class="btn buy" href={{ path('nextp') }} >
                     <button class="w3-button w3-large w3-black">›</button>
                 </a>
+                {%  endif %}
+
             </div>
 
             </section>
@@ -104,12 +107,16 @@
                     </div>
                 </div>
                 <div class="buttons">
+                    {%  if app.session.get("magazineIndex")>1 %}
                     <a  class="btn buy" href={{ path('previousm') }} >
                         <button class="w3-button w3-large w3-black">‹</button>
                     </a>
+                    {%  endif %}
+                    {%  if app.session.get("magazineIndex")< merchStock %}
                     <a  class="btn buy" href={{ path('nextm') }} >
                         <button class="w3-button w3-large w3-black">›</button>
                     </a>
+                    {% endif %}
                 </div>
             </section>
             <br>

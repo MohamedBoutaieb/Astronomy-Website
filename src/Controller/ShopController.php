@@ -38,10 +38,12 @@ class ShopController extends AbstractController
             $labels +=[$MerchRepo->findOneBy(['id'=> $key])->getLabel()."#$key" => $qt ];
         }
         $session->set('cart1',$labels);
-        $posters = $MerchRepo->findBy(['type' => 'Poster'], ['price' => 'asc'], 3, ($session->get("posterIndex") - 1) * 3);
+        $posters = $MerchRepo->findBy(['type' => 'poster'], ['price' => 'asc'], 3, ($session->get("posterIndex") - 1) * 3);
         $magazines = $MerchRepo->findBy(['type' => 'magazine'], ['price' => 'asc'], 3, ($session->get("magazineIndex") - 1) * 3);
         return $this->render('shop/index.html.twig', [
-            'posters' => $posters, 'magazines' => $magazines, 'cart' => ($session->get('cart')),'labels'=>$session->get('cart1')
+            'posters' => $posters, 'magazines' => $magazines, 'cart' => ($session->get('cart')),'labels'=>$session->get('cart1'),'merchStock'=>count($MerchRepo->findBy(['type' => 'magazine'])) / 3,
+            'posterStock'=>count($MerchRepo->findBy(['type' => 'poster'])) / 3
+
         ]);
     }
 
@@ -79,7 +81,7 @@ class ShopController extends AbstractController
 
         $index = $session->get("magazineIndex");
         $MerchRepo = $this->getDoctrine()->getRepository('App:Merchandise');
-        if ($index <= count($MerchRepo->findBy(['type' => 'magzazine'])) / 3 )
+        if ($index <= count($MerchRepo->findBy(['type' => 'magazine'])) / 3 )
             $session->set("magazineIndex", $index + 1);
 
         return $this->RedirectToRoute('shop');

@@ -289,7 +289,7 @@ input{
     margin-bottom: 10%;
 }
 .zoom:hover {
-    transform: scale(1.25);
+    transform: scale(1.15);
 }
 .zoom{
     transition: transform .2s;
