@@ -46,15 +46,7 @@ class Comments
      */
     private $article;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Comments::class, inversedBy="replies")
-     */
-    private $parent;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="parent")
-     */
-    private $replies;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
@@ -121,35 +113,7 @@ class Comments
         return $this;
     }
 
-    public function getParent(): ?self
-    {
-        return $this->parent;
-    }
 
-    public function setParent(?self $parent): self
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|self[]
-     */
-    public function getReplies(): Collection
-    {
-        return $this->replies;
-    }
-
-    public function addReply(self $reply): self
-    {
-        if (!$this->replies->contains($reply)) {
-           array_push($this->replies[], $reply);
-           $reply->setParent($this);
-        }
-
-        return $this;
-    }
 
     public function removeReply(self $reply): self
     {

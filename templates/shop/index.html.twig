@@ -3,27 +3,28 @@
 {% block title %}Shop • Astronomy Magazine{% endblock %}
 
 {% block body %}
-    {% for value in  app.session.flashBag.get('success') %}
-        <div class="alert alert-success" style="color: black">
-            {{ value }}
-        </div>
 
-    {% endfor %}
-    {% for value in  app.session.flashBag.get('warning') %}
-        <div class="alert alert-warning" style="color: black">
-            {{ value }}
-        </div>
-
-    {% endfor %}
-    {% for value in  app.session.flashBag.get('danger') %}
-        <div class="alert alert-danger" style="color: black">
-            {{ value }}
-        </div>
-
-    {% endfor %}
 
     <div class="section">
         <div class="container">
+            {% for value in  app.session.flashBag.get('success') %}
+                <div class="alert alert-success" style="color: black">
+                    {{ value }}
+                </div>
+
+            {% endfor %}
+            {% for value in  app.session.flashBag.get('warning') %}
+                <div class="alert alert-warning" style="color: black">
+                    {{ value }}
+                </div>
+
+            {% endfor %}
+            {% for value in  app.session.flashBag.get('danger') %}
+                <div class="alert alert-danger" style="color: black">
+                    {{ value }}
+                </div>
+
+            {% endfor %}
             <section class="posters">
                 <h1>
                         Our Posters

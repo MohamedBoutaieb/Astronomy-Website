@@ -11,10 +11,7 @@
                         <p>{{ comment.content | raw}}</p>
                         <footer class="blockquote-footer">
                             <span class="h6 text-uppercase">Published on {{ comment.createdAt|date("d/m/y h:i")}} By {{ pseudo }} </span>
-                            <div class="container">
-                                <a href="{{ path('show_replies',{"comment":comment.id}) }}" class="btn btn-primary">View replies</a>
 
-                            </div>
                         </footer>
                     </blockquote>
                             </div>

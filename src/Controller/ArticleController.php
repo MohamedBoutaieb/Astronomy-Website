@@ -69,8 +69,7 @@ class ArticleController extends AbstractController
                      $comment->setUser($user);
                      $comment = $commentForm->getData();
                      //on récupère le contenu du champ parent
-                     $parentId = $commentForm->get("parent")->getData();
-                     $commentService->persistComment($comment, $article, $parentId);
+                     $commentService->persistComment($comment, $article);
                      return $this->redirectToRoute('Show_Article', ['article' => $article->getId()]);
                 }
             } else {
@@ -82,35 +81,6 @@ class ArticleController extends AbstractController
     }
 
 
-    /**
-     * @Route("/add_reply/{comment}", name="show_replies")
-     */
-    public function addReply(Request $request, CommentService $commentService, Comments $comment, CommentsRepository $commentsRepository)
-    {
-//            $replies = $commentsRepository->findBy(['parent' => $comment->getId()]);
-
-        $reply = new Comments();
-        $user = $this->getUser();
-        $replyForm = $this->createForm(ReplyType::class, $reply);
-        $replyForm->handleRequest($request);
-        if ($user) {
-            if ($replyForm->isSubmitted() && $replyForm->isvalid()) {
-                $reply->setUser($user);
-                $reply = $replyForm->getData();
-                $commentService->persistComment($reply, $comment->getArticle(), $comment);
-                $comment = $comment->addReply($reply);
-
-                return $this->redirectToRoute('show_replies', ['comment' => $comment->getId()]);
-
-            }
-        } else {
-            return $this->redirectToRoute('app_login');
-        }
-        $replies = $comment->getReplies();
-        $pseudo = $user->getUsername();
-        return $this->render('comments/Replies.html.twig', [
-            'form' => $replyForm->createView(), 'comment' => $comment, 'replies' => $replies, 'pseudo' => $pseudo]);
-    }
 
 }
 
