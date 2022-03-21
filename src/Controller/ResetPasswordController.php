@@ -16,7 +16,9 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class ResetPasswordController extends AbstractController
 {
-    #[Route('/forgot/password', name: 'forgot_password')]
+    /**
+ * @Route("/forgot/password",name="forgot_password")
+ */
     public function index(Request $request ,EntityManagerInterface $manager ,UserRepository $userRepository
         , TokenGeneratorInterface $tokenGenerator): Response
     {
