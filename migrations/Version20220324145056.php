@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220324134015 extends AbstractMigration
+final class Version20220324145056 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,11 +20,6 @@ final class Version20220324134015 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
         $this->addSql('INSERT INTO address (id, address, city, state, zip, country) VALUES
 (1, NULL, NULL, NULL, NULL, NULL),
 (2, NULL, NULL, NULL, NULL, NULL),
@@ -114,71 +109,28 @@ INSERT INTO merch_order (id, to_order_id, to_merch_id, quantity) VALUES
 (6, 4, 86, 1),
 (7, 5, 91, 1);
 ');
-    
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE contact');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE magazine');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE poster');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE user1');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE article');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE commentary');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE order1');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE merch_order');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE merchandise');
-        $this->abortIf(
-            !$this->connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQL100Platform,
-            "Migration can only be executed safely on '\Doctrine\DBAL\Platforms\PostgreSQL100Platform'."
-        );
-
-        $this->addSql('DROP TABLE address');
+        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('ALTER TABLE contact ALTER is_send TYPE SMALLINT');
+        $this->addSql('ALTER TABLE contact ALTER is_send DROP DEFAULT');
+        $this->addSql('ALTER TABLE poster ALTER availability TYPE TEXT');
+        $this->addSql('ALTER TABLE poster ALTER availability DROP DEFAULT');
+        $this->addSql('COMMENT ON COLUMN poster.availability IS NULL');
+        $this->addSql('ALTER TABLE user1 ALTER roles TYPE TEXT');
+        $this->addSql('ALTER TABLE user1 ALTER roles DROP DEFAULT');
+        $this->addSql('ALTER INDEX uniq_8c518555f5b7af75 RENAME TO "UNIQ_8D93D649F5B7AF75"');
+        $this->addSql('ALTER TABLE commentary ADD parent_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE commentary ALTER user1 TYPE VARCHAR(50)');
+        $this->addSql('ALTER TABLE commentary ADD CONSTRAINT "FK_5F9E962A727ACA70" FOREIGN KEY (parent_id) REFERENCES commentary (id) ON UPDATE RESTRICT ON DELETE RESTRICT NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE commentary ADD CONSTRAINT "FK_5F9E962A8D93D649" FOREIGN KEY (user1) REFERENCES user1 (username) ON UPDATE RESTRICT ON DELETE RESTRICT NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('CREATE INDEX "IDX_5F9E962A727ACA70" ON commentary (parent_id)');
+        $this->addSql('CREATE INDEX "IDX_5F9E962A8D93D649" ON commentary (user1)');
+        $this->addSql('ALTER INDEX idx_1cac12ca7294869c RENAME TO "IDX_5F9E962A7294869C"');
+        $this->addSql('ALTER INDEX idx_7dfddd52f5b7af75 RENAME TO "IDX_F5299398F5B7AF75"');
+        $this->addSql('ALTER INDEX idx_7dfddd52f85e0677 RENAME TO "IDX_F5299398F85E0677"');
     }
 }
