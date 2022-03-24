@@ -22,14 +22,41 @@ final class Version20220324152008 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql("
 
-INSERT INTO user1 (username, address_id, password, email, phone_number, credits, firstname, lastname, reset_token, roles, bio, photo, birthday) VALUES
-('aaa', 5, '$2y$13$ulnfIXGZh85AJi8fWGvsOuWxVpDrWHOkxC/hhWr0z3KMcgxwqEvh2', 'a@b.com', NULL, 23, NULL, NULL, NULL, '[]', NULL, '../default_profile_picture.png', NULL),
-('admin', 2, '$argon2id$v=19$m=65536,t=4,p=1$Z0dudmZEeXhiN3JqS1Nkdw$G9crctt5kT06hhvUg9UHnWNF64xW7HbPHcTMJtmPYFE', 'admin@gmail.com', NULL, 100, NULL, NULL, NULL, '[ROLE_ADMIN]', NULL, '../default_profile_picture.png', NULL),
-('admin1', 3, '$argon2id$v=19$m=65536,t=4,p=1$dzhaYVV6OG9KTGFJZS5QRA$ePLhTdAnntdq1aDGfqjYGudrClgojN4ZcjbJ45ovMhU', 'x@gmail.com', NULL, 100, NULL, NULL, NULL, '[ROLE_ADMIN]', NULL, '../default_profile_picture.png', NULL),
-('boutaieb', 4, '$argon2id$v=19$m=65536,t=4,p=1$SjJLZVdnSThLU2tUa2FjYQ$G5M1J3TsZu2qZLE4/QtTq3kiRZ63DIxFsv0l4H31wDs', 'abc@gmail.com', '55366389', 17, 'Mohamed', 'Bou', NULL, '[]', 'lorem ipsum', '138628805-3657499304367754-2132136851098941987-n-60c7c033a379e.jpg', '2000-03-08'),
-('sarabriki', 1, '$argon2id$v=19$m=65536,t=4,p=1$eVRBcC5ZdW53Z3doMk1udQ$aE92JLYp4C35i2nHas1Fj4so7d6UZoeRdPSN9GnJTnw', 'sb@sb.sb', NULL, 100, NULL, NULL, NULL, '[]', NULL, '../default_profile_picture.png', NULL);
-
+INSERT INTO contact (id, name, email, message, created_at, is_send) VALUES
+(1, 'med bt', 'as@gmail.com', 'lorem', '2021-06-14 23:15:22', 0),
+(2, 'boutaiebbb', 'b@gmail.com', 'lorem', '2021-06-14 23:31:58', 0),
+(3, 'sara', 'gh@gmail.com', 'abcdefg', '2021-06-14 23:35:44', 0),
+(4, 'mohamed', 'abcd@gmail.com', 'abcdefghij', '2021-06-14 23:43:40', 0);
 ");
+        $this->addSql("
+INSERT INTO poster (id, price, url, in_stock, label, available, availability) VALUES
+(76, 30, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2016/11/20161122-Space-Tourism-Bundle.jpg', 10, 'Space Tourism Bundle', 'In Stock', ''),
+(77, 25, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2020/05/20200504-Hubble-30th-Anniversary-Poster-510x721.jpg', 10, 'Hubble 30th Anniversary Bundle', 'In Stock', ''),
+(78, 20, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2020/09/20201014-AN-Yearbook-2021-247x349.jpg', 10, 'AN Yearbook', 'In Stock', ''),
+(79, 20, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/09/20200717-Shooting-Stars-II-247x349.jpg', 7, 'Shooting Stars II', 'In Stock', ''),
+(80, 27.99, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/02/20190219-Enceladus-Poster-510x721.jpg', 9, 'Enceladus Poster', 'In Stock', ''),
+(81, 22, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/02/20190219-PSO-Poster-510x721.jpg', 10, 'PSO Poster', 'In Stock', ''),
+(82, 30, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/02/20190219-Trappist-1e-Poster-510x721.jpg', 10, 'Trappist 1e Poster', 'In Stock', ''),
+(83, 35, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2017/10/Voyager-Hits-Poster-510x721.jpg', 15, 'Voyager Hits Poster', 'In Stock', ''),
+(84, 17.99, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2017/10/Buzz-Aldrin-Poster-510x721.jpg', 15, 'Buzz Aldrin Poster', 'In Stock', '');
+");
+
+        $this->addSql("INSERT INTO merchandise (id, url, price, in_stock, label, type, available) VALUES
+(76, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2017/10/Buzz-Aldrin-Poster-510x721.jpg', 17.99, 14, 'Buzz Aldrin Poster', 'poster', 'In Stock'),
+(77, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2020/09/20201014-AN-Yearbook-2021-247x349.jpg', 20, 9, 'AN Yearbook', 'poster', 'In Stock'),
+(78, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/09/20200717-Shooting-Stars-II-247x349.jpg', 20, 6, 'Shooting Stars II', 'poster', 'In Stock'),
+(79, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/02/20190219-PSO-Poster-510x721.jpg', 22.99, 10, 'PSO Poster', 'poster', 'In Stock'),
+(80, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2020/05/20200504-Hubble-30th-Anniversary-Poster-510x721.jpg', 25, 9, 'Hubble 30th Anniversary Bundle', 'poster', 'In Stock'),
+(81, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/02/20190219-Enceladus-Poster-510x721.jpg', 27.99, 9, 'Enceladus Poster', 'poster', 'In Stock'),
+(82, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2016/11/20161122-Space-Tourism-Bundle.jpg', 30, 10, 'Space Tourism Bundle', 'poster', 'In Stock'),
+(83, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2019/02/20190219-Trappist-1e-Poster-510x721.jpg', 35, 15, 'Trappist 1e Poster', 'poster', 'In Stock'),
+(84, 'https://mk0astronomynow3e9yu.kinstacdn.com/wp-content/uploads/2017/10/Voyager-Hits-Poster-510x721.jpg', 35, 15, 'Voyager Hits Poster', 'poster', 'In Stock'),
+(85, 'https://images-na.ssl-images-amazon.com/images/I/91E3V753QSL.jpg', 30.99, 150, 'Astronomy Magazine January 2017 - 7e edition', 'magazine', 'In Stock'),
+(86, 'https://www.magazines88.com/wp-content/uploads/2020/03/Astronomy-Mar-2020.jpg', 25.99, 118, 'Astronomy Magazine March 2018 - 8e edition', 'magazine', 'In Stock'),
+(87, 'https://www.jetspeedmedia.com/image/cache/catalog/2017/wat-600x711.jpg', 25.99, 80, 'Astronomy Magazine June 2019 - 9e edition', 'magazine', 'In Stock'),
+(88, 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c3e3e829386506.560556fd0af46.jpg', 27.99, 20, 'Astronomy Magazine July 2019 - 9e edition vol II', 'magazine', 'In Stock'),
+(89, 'https://truemagazines.com/6409-large_default/astronomy.jpg', 21.99, 50, 'Astronomy Magazine September 2020 - 10e edition', 'magazine', 'In Stock'),
+(91, 'https://images-na.ssl-images-amazon.com/images/I/51e4CvweSeL._SX379_BO1,204,203,200_.jpg', 24.99, 39, 'Astronomy Magazine January 2021 - 11e edition', 'magazine', 'In Stock');");
 
     }
 
