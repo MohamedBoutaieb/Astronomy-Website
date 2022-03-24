@@ -29,10 +29,11 @@ final class Version20220324145056 extends AbstractMigration
 
 INSERT INTO user1 (username, address_id, password, email, phone_number, credits, firstname, lastname, reset_token, roles, bio, photo, birthday) VALUES
 ('aaa', 5, '$2y$13$ulnfIXGZh85AJi8fWGvsOuWxVpDrWHOkxC/hhWr0z3KMcgxwqEvh2', 'a@b.com', NULL, 23, NULL, NULL, NULL, '[]', NULL, '../default_profile_picture.png', NULL),
-('admin', 2, '$argon2id$v=19$m=65536,t=4,p=1$Z0dudmZEeXhiN3JqS1Nkdw$G9crctt5kT06hhvUg9UHnWNF64xW7HbPHcTMJtmPYFE', 'admin@gmail.com', NULL, 100, NULL, NULL, NULL, `["ROLE_ADMIN"]`, NULL, '../default_profile_picture.png', NULL),
-('admin1', 3, '$argon2id$v=19$m=65536,t=4,p=1$dzhaYVV6OG9KTGFJZS5QRA$ePLhTdAnntdq1aDGfqjYGudrClgojN4ZcjbJ45ovMhU', 'x@gmail.com', NULL, 100, NULL, NULL, NULL, `["ROLE_ADMIN"]`, NULL, '../default_profile_picture.png', NULL),
+('admin', 2, '$argon2id$v=19$m=65536,t=4,p=1$Z0dudmZEeXhiN3JqS1Nkdw$G9crctt5kT06hhvUg9UHnWNF64xW7HbPHcTMJtmPYFE', 'admin@gmail.com', NULL, 100, NULL, NULL, NULL, \" [\"ROLE_ADMIN \"]\", NULL, '../default_profile_picture.png', NULL),
+('admin1', 3, '$argon2id$v=19$m=65536,t=4,p=1$dzhaYVV6OG9KTGFJZS5QRA$ePLhTdAnntdq1aDGfqjYGudrClgojN4ZcjbJ45ovMhU', 'x@gmail.com', NULL, 100, NULL, NULL, NULL, \" [\"ROLE_ADMIN \"]\", NULL, '../default_profile_picture.png', NULL),
 ('boutaieb', 4, '$argon2id$v=19$m=65536,t=4,p=1$SjJLZVdnSThLU2tUa2FjYQ$G5M1J3TsZu2qZLE4/QtTq3kiRZ63DIxFsv0l4H31wDs', 'abc@gmail.com', '55366389', 17, 'Mohamed', 'Bou', NULL, '[]', 'lorem ipsum', '138628805-3657499304367754-2132136851098941987-n-60c7c033a379e.jpg', '2000-03-08'),
 ('sarabriki', 1, '$argon2id$v=19$m=65536,t=4,p=1$eVRBcC5ZdW53Z3doMk1udQ$aE92JLYp4C35i2nHas1Fj4so7d6UZoeRdPSN9GnJTnw', 'sb@sb.sb', NULL, 100, NULL, NULL, NULL, '[]', NULL, '../default_profile_picture.png', NULL);
+
 
 INSERT INTO article (id, username, title, content, active, created_at) VALUES
 (1, 'sarabriki', 'test article', '<p>test</p>', '1', '2021-06-13 20:41:43'),
@@ -107,9 +108,8 @@ INSERT INTO merch_order (id, to_order_id, to_merch_id, quantity) VALUES
 (5, 3, 86, 1),
 (6, 4, 86, 1),
 (7, 5, 91, 1);
-"
-
-);
+");
+      ');
     }
 
     public function down(Schema $schema): void
