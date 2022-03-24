@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentsRepository::class)
+ * @ORM\Table (name="commentary")
  */
 class Comments
 {
@@ -50,7 +51,8 @@ class Comments
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
-     * @ORM\JoinColumn(name="user", referencedColumnName="username", nullable=false)
+     * @ORM\JoinColumn(name="user1", referencedColumnName="username", nullable=false)
+     * @ORM\Column (name="user1")
      */
     private $user;
 
