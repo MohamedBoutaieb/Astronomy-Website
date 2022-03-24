@@ -116,7 +116,7 @@ header {
         position: relative;
     }
     .dropdown:hover .dropdown-content {
-        display: flow;
+        display: inline-block;
     }
 }
 
