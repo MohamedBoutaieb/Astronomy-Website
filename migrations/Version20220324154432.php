@@ -20,8 +20,15 @@ final class Version20220324154432 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('delete from user1');
-
+        $this->addSql('CREATE SEQUENCE Order1_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE address_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE article_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE comments_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE contact_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE magazine_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE merch_order_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE merchandise_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
+        $this->addSql('CREATE SEQUENCE poster_id_seq INCREMENT BY 1 MINVALUE 1 START 200');
     }
 
     public function down(Schema $schema): void
