@@ -115,6 +115,9 @@ header {
     .top-section {
         position: relative;
     }
+    .dropdown:hover .dropdown-content {
+        display: flow;
+    }
 }
 
 @media (max-width: 1366px) {
