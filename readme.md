@@ -27,7 +27,7 @@
 <img src="public/demo/blog.png"></img>
 <h3> Shop </h3>
 products:
-<img src="public/demo/shop.png"></img>
+<img src="public/demo/shop1.png"></img>
 cart:
 <img src="public/demo/shop2.png"></img>
 product purchase :
