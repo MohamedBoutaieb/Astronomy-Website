@@ -22,21 +22,21 @@
 <br>
 <h2> Demonstration </h2>
 <h3> Gallery </h3>
-![](public/demo/gallery.png)
-![](public/demo/gallery2.png)
+![](/public/demo/gallery.png)
+![](/public/demo/gallery2.png)
 <h3> blog </h3>
-![](public/demo/blog.png)
+![](/public/demo/blog.png)
 <h3> Shop </h3>
 products:
-![](public/demo/shop1.png)
+![](/public/demo/shop1.png)
 cart:
-![](public/demo/shop2.png)
+![](/public/demo/shop2.png)
 product purchase : 
-![](public/demo/shop3.png)
+![](/public/demo/shop3.png)
 when the purchace is confirmed , the price is reduced from the account , and the card is cleared :
-![](public/demo/shop4.png)
+![](/public/demo/shop4.png)
 you can check the order detail in you account information:
-![](public/demo/shop5.png)
+![](/public/demo/shop5.png)
 
 
 
