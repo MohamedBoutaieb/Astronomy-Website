@@ -11,6 +11,7 @@
                      CSS<br>
                      HTML.TWIG<br>
                      MYSQL     <br>
+                     PostgreSQL     <br>
                      JavaScript <br>
 
 
