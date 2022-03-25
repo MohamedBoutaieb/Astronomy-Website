@@ -5,7 +5,8 @@
 
 
 
-
+![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+![shop1](public/demo/shop1.png)
 <h1>Technologies used : </h1>  Symfony <br>
                      PHP<br>
                      CSS<br>
