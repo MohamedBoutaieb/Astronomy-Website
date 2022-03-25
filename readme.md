@@ -25,7 +25,7 @@
 ![](/public/demo/gallery.png)
 ![](/public/demo/gallery2.png)
 <h3> blog </h3>
-![](/public/demo/blog.png)
+![]("/public/demo/blog.png")
 <h3> Shop </h3>
 products:
 ![shop1](/demo/shop1.png)
