@@ -28,7 +28,7 @@
 ![](/public/demo/blog.png)
 <h3> Shop </h3>
 products:
-![](demo/shop1.png)
+![shop1](/demo/shop1.png)
 cart:
 ![](/public/demo/shop2.png)
 product purchase : 
