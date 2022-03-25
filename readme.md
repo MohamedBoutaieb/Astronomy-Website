@@ -28,7 +28,7 @@
 ![]("public/demo/blog.png")
 <h3> Shop </h3>
 products:
-![shop1](/demo/shop1.png)
+![shop1](public/demo/shop1.png)
 cart:
 ![](/public/demo/shop2.png)
 product purchase : 
@@ -37,7 +37,6 @@ when the purchace is confirmed , the price is reduced from the account , and the
 ![](/public/demo/shop4.png)
 you can check the order detail in you account information:
 ![](/public/demo/shop5.png)
-
 
 
 
